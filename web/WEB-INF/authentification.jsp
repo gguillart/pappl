@@ -17,13 +17,10 @@
         <h1>Page d'authentification</h1>
         
          
-      <%
-        Formulaire prop = (Formulaire) request.getAttribute("auth");
-        if (prop!=null){out.println(prop.getResultat());}
-      %> 
+    
       
         
-        <form method="post" action="Authentification">
+        <form method="post" action="PagePrincipale">
             <label for="login">Login :  </label>
             <input type="text" name="login" id="login" /><br>
             <label for="mdp">Mot de passe : </label>
@@ -32,8 +29,8 @@
             <input type="submit" />
         </form>
         
-        <p> <a href="/Pappl/PagePrincipale">Valider</a> </p>
-        <p> <a href="/Pappl/PagePrincipale">Annuler</a> </p>
+
+        <p> <a href="/Pappl/PagePrincipale">Retour à la page principale</a> </p>
         <p> <a href="/Pappl/PagePrincipale">Mot de passe oublié</a> </p>
     </body>
 </html>

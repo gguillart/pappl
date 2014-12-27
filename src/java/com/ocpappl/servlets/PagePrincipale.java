@@ -5,6 +5,7 @@
  */
 package com.ocpappl.servlets;
 
+import com.ocpappl.formulaires.Formulaire;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -55,6 +56,9 @@ public class PagePrincipale extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Formulaire auth = new Formulaire();
+        auth.verification(request);
+        request.setAttribute("auth",auth);
        this.getServletContext().getRequestDispatcher("/WEB-INF/pageprincipale.jsp").forward(request, response);
     }
 

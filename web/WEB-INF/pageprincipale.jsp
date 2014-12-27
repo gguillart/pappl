@@ -4,7 +4,7 @@
     Author     : Geoffrey
 --%>
 
-
+<%@page import="com.ocpappl.formulaires.Formulaire"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +16,10 @@
 
 <h1>Service de gestion des emplois du temps</h1>
 
-
+  <%
+        Formulaire prop = (Formulaire) request.getAttribute("auth");
+        if (prop!=null){out.println(prop.getResultat());}
+      %> 
 
 <%@ include file="menu.jsp" %> 
 

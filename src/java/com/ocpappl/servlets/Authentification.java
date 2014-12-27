@@ -32,9 +32,7 @@ public class Authentification extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Formulaire auth = new Formulaire();
-        auth.verification(request);
-        request.setAttribute("auth",auth);
+       
         
         this.getServletContext().getRequestDispatcher("/WEB-INF/authentification.jsp").forward(request, response);
     }
