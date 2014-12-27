@@ -1,10 +1,10 @@
 <%-- 
     Document   : modificationsuppression
-    Created on : 24 dÃ©c. 2014, 17:07:56
+    Created on : 24 déc. 2014, 17:07:56
     Author     : Geoffrey
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,10 +12,10 @@
         <title>Modifier ou supprimer</title>
     </head>
     <body>
-        <h1>Modifier ou supprimer une entitÃ©</h1>
+        <h1>Modifier ou supprimer une entité</h1>
         
         <p> <a href="/Pappl/PagePrincipale">Valider</a> </p>
-        <p> <a href="/Pappl/QueModifier">Choisir un autre type d'entitÃ©</a> </p>
+        <p> <a href="/Pappl/QueModifier">Choisir un autre type d'entité</a> </p>
         <p> <a href="/Pappl/PagePrincipale">Revenir au menu principal</a> </p>
         
     </body>

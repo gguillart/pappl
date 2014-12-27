@@ -1,10 +1,10 @@
 <%-- 
     Document   : exportation
-    Created on : 24 dÃ©c. 2014, 17:07:43
+    Created on : 24 déc. 2014, 17:07:43
     Author     : Geoffrey
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
