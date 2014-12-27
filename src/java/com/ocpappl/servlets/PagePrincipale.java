@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -56,9 +57,14 @@ public class PagePrincipale extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Formulaire auth = new Formulaire();
-        auth.verification(request);
-        request.setAttribute("auth",auth);
+        
+        String login = request.getParameter("login");
+        HttpSession session = request.getSession();
+        session.setAttribute("login", login);
+        
+        Formulaire logs = new Formulaire();
+        logs.verification(request);
+        request.setAttribute("auth",logs);
        this.getServletContext().getRequestDispatcher("/WEB-INF/pageprincipale.jsp").forward(request, response);
     }
 

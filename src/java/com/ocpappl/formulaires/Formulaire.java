@@ -19,11 +19,11 @@ public class Formulaire {
         String mdp = request.getParameter("mdp");
         
         if (mdp.equals(login)) {
-            resultat="Vous êtes désormais connectés";
+            resultat="vous êtes désormais connectés";
         }
         else
         {
-            resultat="Mot de passe ou login incorrect";
+            resultat="mot de passe ou login incorrect";
         }
     }
     

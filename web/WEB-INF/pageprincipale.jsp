@@ -16,9 +16,11 @@
 
 <h1>Service de gestion des emplois du temps</h1>
 
+
+
   <%
-        Formulaire prop = (Formulaire) request.getAttribute("auth");
-        if (prop!=null){out.println(prop.getResultat());}
+        Formulaire logs = (Formulaire) request.getAttribute("auth");
+        if (logs!=null ){out.println("Bonjour "+session.getAttribute("login")+", "+logs.getResultat());}
       %> 
 
 <%@ include file="menu.jsp" %> 
