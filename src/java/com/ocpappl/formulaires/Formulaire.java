@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Formulaire {
     
-    private String resultat;
+    protected String resultat;
 
     public void verification (HttpServletRequest request) {
         

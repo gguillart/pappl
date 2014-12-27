@@ -5,6 +5,7 @@
 --%>
 
 
+
 <%@page import="com.ocpappl.formulaires.Formulaire"%>
 <!DOCTYPE html>
 <html>
@@ -15,18 +16,12 @@
     <body>
         <h1>Page d'authentification</h1>
         
-       <%-- <c:if test="${!empty auth.resultat}"> <p> <c:out value="${auth.resultat}"/> </p> </c:if> --%>
-       
-       <%
-    Formulaire auth = new Formulaire();
-    auth.verification();
-    
-    if (auth.resultat.equals("Vous êtes désormais connectés")) {
-        out.println("Vous êtes désormais connectés");
-    } else {
-        out.println("Mot de passe ou login incorrect");
-    }
-           %>
+         
+      <%
+        Formulaire prop = (Formulaire) request.getAttribute("auth");
+        if (prop!=null){out.println(prop.getResultat());}
+      %> 
+      
         
         <form method="post" action="Authentification">
             <label for="login">Login :  </label>
