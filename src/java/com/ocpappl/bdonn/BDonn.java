@@ -77,6 +77,7 @@ public class BDonn {
                 break;
                 
             case "Personne" : attributs = "(Nom, Prenom, Login, Password)";
+                break;
                 
             case "Enseignant" : attributs = "(Personne_id)";
                 break;
