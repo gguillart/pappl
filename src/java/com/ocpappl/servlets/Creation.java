@@ -23,16 +23,31 @@ public class Creation extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
-        this.getServletContext().getRequestDispatcher("/WEB-INF/creation.jsp").forward(request, response);
-      
+        switch (request.getParameter("type"))
+        {
+            case "Cours" : this.getServletContext().getRequestDispatcher("/WEB-INF/creationCours.jsp").forward(request, response);
+                break;
+            
+            case "Matiere" : this.getServletContext().getRequestDispatcher("/WEB-INF/creationMatiere.jsp").forward(request, response);
+                break;
+                
+            case "Option" : this.getServletContext().getRequestDispatcher("/WEB-INF/creationOption.jsp").forward(request, response);
+                break;
+                
+            case "Personne" : this.getServletContext().getRequestDispatcher("/WEB-INF/creationPersonne.jsp").forward(request, response);
+                break;
+                
+            default : this.getServletContext().getRequestDispatcher("/WEB-INF/creation.jsp").forward(request, response);
+                break;  
+        }
+                  
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-       
+
+
         
         this.getServletContext().getRequestDispatcher("/WEB-INF/creation.jsp").forward(request, response);
         
