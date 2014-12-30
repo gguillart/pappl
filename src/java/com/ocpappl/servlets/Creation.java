@@ -7,6 +7,8 @@ package com.ocpappl.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +30,17 @@ public class Creation extends HttpServlet {
             case "Cours" : this.getServletContext().getRequestDispatcher("/WEB-INF/creationCours.jsp").forward(request, response);
                 break;
             
-            case "Matiere" : this.getServletContext().getRequestDispatcher("/WEB-INF/creationMatiere.jsp").forward(request, response);
+            case "Matiere" : ArrayList<LinkedList> option = new ArrayList();
+            LinkedList Option1 = new LinkedList();
+            LinkedList Option2 = new LinkedList();
+            Option1.add(1);
+            Option1.add("BDONN");
+            Option2.add(2);
+            Option2.add("PAPPL");
+            option.add(Option1);
+            option.add(Option2);
+                request.setAttribute("Option",option);
+                this.getServletContext().getRequestDispatcher("/WEB-INF/creationMatiere.jsp").forward(request, response);
                 break;
                 
             case "Option" : this.getServletContext().getRequestDispatcher("/WEB-INF/creationOption.jsp").forward(request, response);
