@@ -38,7 +38,7 @@
 
                     <%--TODO enseignants, matieres et options parmi ceux proposés.
                     possibilités de valeurs par défaut pour les horaires du cours--%> 
-
+                    
                 </fieldset>
                 <input type="submit" value="Valider"  />
                 <input type="reset" value="Remettre à zéro" />
