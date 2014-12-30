@@ -17,23 +17,28 @@
             <form method="post" action="Creation">
                 <fieldset>
                     <legend>Informations sur le cours</legend>
-    
+
                     <label for="Salle">Salle </label>
                     <input type="text" id="Salle" name="Salle" value="" size="20" maxlength="20" />
                     <br />
-                    
+
                     <label for="Intervenant">Intervenant </label>
                     <input type="text" id="Intervenant" name="Intervenant" value="" size="20" maxlength="20" />
                     <br />
-    
+
                     <label for="Commentaire">Commentaire </label>
                     <input type="text" id="Commentaire" name="Commentaire" value="" size="20" maxlength="20" />
                     <br />
-                    
-                    
-                    <%--TODO type de cours, enseignants, matieres et options parmi ceux proposés
+
+                    <legend>Type de cours</legend>
+                    <input type="radio" name="Type_De_Cours" value="CM">CM<br>
+                    <input type="radio" name="Type_De_Cours" value="TD">TD<br>
+                    <input type="radio" name="Type_De_Cours" value="TP">TP<br>
+                    <input type="radio" name="Type_De_Cours" value="Conf">Conf<br>
+
+                    <%--TODO enseignants, matieres et options parmi ceux proposés.
                     possibilités de valeurs par défaut pour les horaires du cours--%> 
-    
+
                 </fieldset>
                 <input type="submit" value="Valider"  />
                 <input type="reset" value="Remettre à zéro" />
