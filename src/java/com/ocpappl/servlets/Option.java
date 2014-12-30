@@ -36,13 +36,15 @@ public class Option extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
+            
+            if(request.getAttribute("Option") != null){
             ArrayList<LinkedList> option = new ArrayList();
             option = (ArrayList) request.getAttribute("Option");
             for (int i = 0; i < option.size(); i++) {
                 out.println("<input type=\"checkbox\" name=\"Option\" value=\"" + option.get(i).get(0) + "\">"
                         + option.get(i).get(1) + "<br>");
             }
-
+            }
             out.println("</fieldset>\n"
                     + "                <input type=\"submit\" value=\"Valider\"  />\n"
                     + "                <input type=\"reset\" value=\"Remettre à zéro\" />\n"

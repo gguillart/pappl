@@ -37,13 +37,14 @@ public class Matiere extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
 
+            if(request.getAttribute("Matiere") != null){
             ArrayList<LinkedList> matiere = new ArrayList();
-            matiere = (ArrayList) request.getAttribute("matiere");
+            matiere = (ArrayList) request.getAttribute("Matiere");
             for (int i = 0; i < matiere.size(); i++) {
                 out.println("<input type=\"checkbox\" name=\"Matiere\" value=\"" + matiere.get(i).get(0) + "\">"
                         + matiere.get(i).get(1) + "<br>");
             }
-
+            }
             out.println("</fieldset>\n"
                     + "                <input type=\"submit\" value=\"Valider\"  />\n"
                     + "                <input type=\"reset\" value=\"Remettre à zéro\" />\n"
