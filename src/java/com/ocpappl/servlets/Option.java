@@ -35,24 +35,22 @@ public class Option extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+
             ArrayList<LinkedList> option = new ArrayList();
             option = (ArrayList) request.getAttribute("Option");
-            for(int i=0; i< option.size();i++){
-            out.println("<input type=\"checkbox\" name=\"Option\" value=\""+ option.get(i).get(0) + "\">" 
-                    + option.get(i).get(1) + "<br>");
+            for (int i = 0; i < option.size(); i++) {
+                out.println("<input type=\"checkbox\" name=\"Option\" value=\"" + option.get(i).get(0) + "\">"
+                        + option.get(i).get(1) + "<br>");
             }
-            
-            
-            
-            out.println("</fieldset>\n" +
-"                <input type=\"submit\" value=\"Valider\"  />\n" +
-"                <input type=\"reset\" value=\"Remettre à zéro\" />\n" +
-"                <a href=\"/Pappl/PagePrincipale\">Annuler</a>\n" +
-"            </form>\n" +
-"        </div>\n" +
-"    </body>\n" +
-"</html>");
+
+            out.println("</fieldset>\n"
+                    + "                <input type=\"submit\" value=\"Valider\"  />\n"
+                    + "                <input type=\"reset\" value=\"Remettre à zéro\" />\n"
+                    + "                <a href=\"/Pappl/PagePrincipale\">Annuler</a>\n"
+                    + "            </form>\n"
+                    + "        </div>\n"
+                    + "    </body>\n"
+                    + "</html>");
         }
     }
 
