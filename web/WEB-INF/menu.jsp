@@ -2,8 +2,7 @@
 <p> Menu <br> </p>
     <ul>
         <li><a href="/Pappl/Authentification">S'authentifier</a></li>
-        <li><a href="/Pappl/Creation">Créer</a>
-
+        <li>Créer
             <ul>
                 <li><a href="/Pappl/Creation?type=Option">Option</a></li>
                 <li><a href="/Pappl/Creation?type=Matiere">Matière</a></li>
@@ -11,7 +10,7 @@
                 <li><a href="/Pappl/Creation?type=Personne">Personne</a></li>
             </ul>
         </li>
-        <li><a href="/Pappl/QueModifier">Modifier ou Supprimer</a>
+        <li>Modifier ou Supprimer
             <ul>
                 <li><a href="/Pappl/QueModifier?type=Option">Option</a></li>
                 <li><a href="/Pappl/QueModifier?type=Matiere">Matière</a></li>

@@ -9,10 +9,6 @@
         <servlet-class>com.ocpappl.servlets.Exportation</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ModificationSuppression</servlet-name>
-        <servlet-class>com.ocpappl.servlets.ModificationSuppression</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>PagePrincipale</servlet-name>
         <servlet-class>com.ocpappl.servlets.PagePrincipale</servlet-class>
     </servlet>
@@ -24,6 +20,10 @@
         <servlet-name>Creation</servlet-name>
         <servlet-class>com.ocpappl.servlets.Creation</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ModificationSuppression</servlet-name>
+        <servlet-class>com.ocpappl.servlets.ModificationSuppression</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentification</servlet-name>
         <url-pattern>/Authentification</url-pattern>
@@ -31,10 +31,6 @@
     <servlet-mapping>
         <servlet-name>Exportation</servlet-name>
         <url-pattern>/Exportation</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ModificationSuppression</servlet-name>
-        <url-pattern>/ModificationSuppression</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PagePrincipale</servlet-name>
@@ -48,12 +44,14 @@
         <servlet-name>Creation</servlet-name>
         <url-pattern>/Creation</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>ModificationSuppression</servlet-name>
+        <url-pattern>/ModificationSuppression</url-pattern>
+    </servlet-mapping>
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
             <include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
         </jsp-property-group>
     </jsp-config>
-    
 </web-app>

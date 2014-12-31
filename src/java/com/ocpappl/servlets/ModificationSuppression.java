@@ -18,19 +18,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ModificationSuppression extends HttpServlet {
 
-  @Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         this.getServletContext().getRequestDispatcher("/WEB-INF/modificationsuppression.jsp").forward(request, response);
-       
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // processRequest(request, response);
+// processRequest(request, response);
     }
-
 }
