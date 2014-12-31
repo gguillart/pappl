@@ -16,19 +16,25 @@
             <form method="post" action="Creation">
                 <fieldset>
                     <legend>Informations sur la personne</legend>
-    
+
                     <label for="Nom">Nom <span class="requis">*</span></label>
                     <input type="text" id="Nom" name="Nom" value="" size="20" maxlength="20" />
                     <br />
-                    
+
                     <label for="Prenom">Prénom <span class="requis">*</span></label>
                     <input type="text" id="Prenom" name="Prenom" value="" size="20" maxlength="20" />
                     <br />
-                    
 
-                    <%--TODO login et password ? 
-                    demander s'il s'agit d'un enseignant ou d'un responsable d'option--%> 
-    
+
+                    <legend>Est-ce un ...</legend>
+
+                    <input type="checkbox" name="Personne" value="Enseignant"> Enseignant<br>
+                    <input type="checkbox" name="Personne" value="Responsable_Option"> Responsable d'option<br>
+                    <input type="checkbox" name="Personne" value="Administrateur"> Administrateur<br>
+
+
+                    <%--TODO login et password ? --%> 
+
                 </fieldset>
                 <input type="submit" value="Valider"  />
                 <input type="reset" value="Remettre à zéro" />
