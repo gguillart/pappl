@@ -26,7 +26,10 @@
                     <input type="text" id="Option_Nom" name="Option_Nom" value="" size="20" maxlength="20" />
                     <br />
     
-                    <%--TODO responsable d'option parmi les respos enregistrés--%> 
+                    <legend>Qui est le responsable de cette option ?</legend>
+
+                    <jsp:include page="/Respo" flush="true" />
+
     
                 </fieldset>
                 <input type="submit" value="Valider"  />
