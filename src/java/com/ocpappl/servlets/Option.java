@@ -36,19 +36,19 @@ public class Option extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
-            
-            if(request.getAttribute("Option") != null){
-            ArrayList<LinkedList> option = new ArrayList();
-            option = (ArrayList) request.getAttribute("Option");
-            for (int i = 0; i < option.size(); i++) {
-                out.println("<input type=\"checkbox\" name=\"Option\" value=\"" + option.get(i).get(0) + "\">"
-                        + option.get(i).get(1) + "<br>");
-            }
+            if (request.getAttribute("Option") != null) {
+                ArrayList<LinkedList> option = new ArrayList();
+                option = (ArrayList) request.getAttribute("Option");
+                for (int i = 0; i < option.size(); i++) {
+                    out.println("<input type=\"checkbox\" name=\"Option\" value=\"" + option.get(i).get(0) + "\">"
+                            + option.get(i).get(1) + "<br>");
+                }
             }
             out.println("</fieldset>\n"
                     + "                <input type=\"submit\" value=\"Valider\"  />\n"
                     + "                <input type=\"reset\" value=\"Remettre à zéro\" />\n"
                     + "                <a href=\"/Pappl/PagePrincipale\">Annuler</a>\n"
+                    + "                <a href=\"/Pappl/Creation?type=Option\">Créer une option</a>\n"
                     + "            </form>\n"
                     + "        </div>\n"
                     + "    </body>\n"
@@ -57,19 +57,17 @@ public class Option extends HttpServlet {
         }
     }
 
-     @Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        this.getServletContext().getRequestDispatcher("/WEB-INF/exportation.jsp").forward(request, response);
-       
-    }
 
+        processRequest(request, response);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // processRequest(request, response);
+        // processRequest(request, response);
     }
 
 }
