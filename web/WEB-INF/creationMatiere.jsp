@@ -29,7 +29,7 @@
 
                     <legend>Quelles options sont concernées par la matière ?</legend>
 
-                    <jsp:include page="/Option" flush="true" />
+                    <jsp:include page="/Option" flush="false" />
 
                 </fieldset>
                 <input type="submit" value="Valider"  />

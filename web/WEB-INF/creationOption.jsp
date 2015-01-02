@@ -28,7 +28,7 @@
     
                     <legend>Qui est le responsable de cette option ?</legend>
 
-                    <jsp:include page="/Respo" flush="true" />
+                    <jsp:include page="/Respo" flush="false" />
 
     
                 </fieldset>
