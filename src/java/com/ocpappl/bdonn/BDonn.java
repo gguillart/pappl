@@ -134,6 +134,8 @@ public class BDonn {
         Connection con = connection();
         String colonne = new String();
         String colonne2 = new String();
+        String colonneId = new String();
+        colonneId = type;
         String plus = "";
         ArrayList<LinkedList> liste = new ArrayList();
 
@@ -142,7 +144,7 @@ public class BDonn {
                 break;
 
             case "Matiere":
-                colonne = "Matiere_Acronyme";
+                colonne = "Matiere_Acronyme";          
                 break;
 
             case "Option":
@@ -163,11 +165,12 @@ public class BDonn {
             case "Responsable_Option":
                 colonne = "Nom";
                 colonne2 = "Prenom";
+                colonneId = "Responsable";
                 plus = " NATURAL JOIN Personne";
                 break;
 
             case "Administrateur":
-                colonne = "nom";
+                colonne = "Nom";
                 colonne2 = "Prenom";
                 plus = " NATURAL JOIN Personne";
                 break;
@@ -186,7 +189,7 @@ public class BDonn {
         while (rs.getRow() != 0) {
 
             LinkedList sousListe = new LinkedList();
-            sousListe.add(rs.getInt(type + "_id"));
+            sousListe.add(rs.getInt(colonneId + "_id"));
             sousListe.add(rs.getString(colonne));
             if (colonne2 == "Prenom") {
                 sousListe.add(rs.getString(colonne2));
