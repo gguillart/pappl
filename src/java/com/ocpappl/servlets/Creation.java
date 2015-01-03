@@ -50,6 +50,15 @@ public class Creation extends HttpServlet {
                 break;
 
             case "Option":
+                ArrayList<LinkedList> respo = new ArrayList();
+                
+                try {
+                    respo = edt.selectionner("Responsable_Option");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                request.setAttribute("Responsable_Option", respo);
                 this.getServletContext().getRequestDispatcher("/WEB-INF/creationOption.jsp").forward(request, response);
                 break;
 
