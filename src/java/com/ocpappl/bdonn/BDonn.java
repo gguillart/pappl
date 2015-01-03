@@ -160,7 +160,7 @@ public class BDonn {
                 plus = " NATURAL JOIN Personne";
                 break;
 
-            case "ResponsableOption":
+            case "Responsable_Option":
                 colonne = "Nom";
                 colonne2 = "Prenom";
                 plus = " NATURAL JOIN Personne";
@@ -182,8 +182,9 @@ public class BDonn {
 
         ResultSet rs = stmt.executeQuery(query);
 
-        for (int i = 0; i < rs.getRow(); i++) {
-            rs.next();
+        rs.next();
+        while (rs.getRow() != 0) {
+
             LinkedList sousListe = new LinkedList();
             sousListe.add(rs.getInt(type + "_id"));
             sousListe.add(rs.getString(colonne));
@@ -191,6 +192,7 @@ public class BDonn {
                 sousListe.add(rs.getString(colonne2));
             }
             liste.add(sousListe);
+            rs.next();
         }
 
         stmt.close();
