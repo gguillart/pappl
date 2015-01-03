@@ -41,7 +41,7 @@ public class Respo extends HttpServlet {
             respo = (ArrayList) request.getAttribute("Responsable_Option");
             for (int i = 0; i < respo.size(); i++) {
                 out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"" + respo.get(i).get(0) + "\">"
-                        + respo.get(i).get(1) + "<br>");
+                        + respo.get(i).get(1) + " " + respo.get(i).get(2) + "<br>");
             }
             }
             out.println("</fieldset>\n"
