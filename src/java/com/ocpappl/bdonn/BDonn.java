@@ -44,14 +44,15 @@ public class BDonn {
 
     public void deconnection(Connection con) throws SQLException {
         con.close();
-
-        Driver theDriver;
-        try {
-            theDriver = DriverManager.getDriver(dbURL);
-            DriverManager.deregisterDriver(theDriver);
-        } catch (SQLException ex) {
-            Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //TODO
+/*
+         Driver theDriver;
+         try {
+         theDriver = DriverManager.getDriver(dbURL);
+         DriverManager.deregisterDriver(theDriver);
+         } catch (SQLException ex) {
+         Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
+         }*/
     }
 
     public void creer(String type, String valeurs) throws SQLException {
@@ -144,7 +145,7 @@ public class BDonn {
                 break;
 
             case "Matiere":
-                colonne = "Matiere_Acronyme";          
+                colonne = "Matiere_Acronyme";
                 break;
 
             case "Option":

@@ -4,6 +4,9 @@
     Author     : Yohann
 --%>
 
+<%@page import="com.ocpappl.bdonn.BDonn"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -29,12 +32,22 @@
 
                     <legend>Quelles options sont concernées par la matière ?</legend>
 
-                    <jsp:include page="/Option" flush="false" />
+                    <%
+                        BDonn edt = new BDonn();
+                        ArrayList<LinkedList> option = new ArrayList();
+                        option = edt.selectionner("Option");
+                        for (int i = 0; i < option.size(); i++) {
+                            out.println("<input type=\"checkbox\" name=\"Option\" value=\"" + option.get(i).get(0) + "\">"
+                                    + option.get(i).get(1) + "<br>");
+                        }
+                    %>
+
 
                 </fieldset>
                 <input type="submit" value="Valider"  />
                 <input type="reset" value="Remettre à zéro" />
                 <a href="/Pappl/PagePrincipale">Annuler</a>
+                <a href="/Pappl/Creation?type=Option">Creer une option</a>
             </form>
         </div>
     </body>
