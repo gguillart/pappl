@@ -17,7 +17,7 @@
     </head>
     <body>
         <div>
-            <form method="post" action="Creation">
+            <form method="post" action="Creation?type=Option">
                 <fieldset>
                     <legend>Informations sur l'option</legend>
 
@@ -37,7 +37,7 @@
                         respo = edt.selectionner("Responsable_Option");
                         for (int i = 0; i < respo.size(); i++) {
                             out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"" + respo.get(i).get(0) + "\">"
-                                    + respo.get(i).get(1) + " " + respo.get(i).get(2) + "<br>");
+                                    + respo.get(i).get(2) + " " + respo.get(i).get(1) + "<br>");
                         }
                     %>
 

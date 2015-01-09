@@ -5,8 +5,11 @@
  */
 package com.ocpappl.servlets;
 
+import com.ocpappl.bdonn.BDonn;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -20,6 +23,46 @@ import javax.servlet.http.HttpSession;
  * @author Geoffrey
  */
 public class Creation extends HttpServlet {
+
+    BDonn edt = new BDonn();
+
+    protected void erreur(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Erreur</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Erreur : " + request.getAttribute("erreur") + "</h1>");
+            out.println("<a href=\"/Pappl/PagePrincipale\">Retour à la page principale</a>");
+            out.println("</body>");
+            out.println("</html>");
+
+        }
+    }
+
+    protected void confirmation(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Confirmation</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Confirmation : " + request.getAttribute("confirmation") + "</h1>");
+            out.println("<a href=\"/Pappl/PagePrincipale\">Retour à la page principale</a>");
+            out.println("</body>");
+            out.println("</html>");
+
+        }
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -43,7 +86,8 @@ public class Creation extends HttpServlet {
                 break;
 
             default:
-                this.getServletContext().getRequestDispatcher("/WEB-INF/creation.jsp").forward(request, response);
+                request.setAttribute("erreur", "Type incorrect");
+                erreur(request, response);
                 break;
         }
 
@@ -53,7 +97,49 @@ public class Creation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/creation.jsp").forward(request, response);
+        switch (request.getParameter("type")) {
+            case "Cours":
+                break;
 
+            case "Matiere":
+                break;
+
+            case "Option":
+                String Option_Nom = request.getParameter("Option_Nom");
+                String Option_Acronyme = request.getParameter("Option_Acronyme");
+                if (request.getParameter("Responsable_Option") != null) {
+                    int respo = parseInt(request.getParameter("Responsable_Option"));
+
+                    if ((Option_Nom != "") & (Option_Acronyme != "")) {
+                        String valeurs = "'" + Option_Acronyme + "','" + Option_Nom + "'," + respo;
+                        try {
+                            edt.creer("Option", valeurs);
+                            request.setAttribute("confirmation", "L'option a bien été enregistrée");
+                            confirmation(request, response);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        request.setAttribute("erreur", "L'option n'a pas pu être enregistrée");
+                        erreur(request, response);
+
+                    } else {
+                        request.setAttribute("erreur", "Champ(s) manquant(s)");
+                        erreur(request, response);
+                    }
+
+                } else {
+                    request.setAttribute("erreur", "Responsable d'option manquant");
+                    erreur(request, response);
+                }
+                break;
+
+            case "Personne":
+                break;
+
+            default:
+                request.setAttribute("erreur", "Type incorrect");
+                erreur(request, response);
+                break;
+        }
     }
 }
