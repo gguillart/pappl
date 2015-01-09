@@ -27,8 +27,7 @@ public class BDonn {
     private String mdp = "EDT";
     private String dbURL = "jdbc:postgresql://localhost:5432/postgres";
 
-    public Connection connection() throws SQLException {
-
+    public BDonn() {
         try {
             Class.forName("org.postgresql.Driver");
 
@@ -36,7 +35,17 @@ public class BDonn {
             System.err.print("ClassNotFoundException:");
             System.err.println(e.getMessage());
         }
+    }
 
+    public Connection connection() throws SQLException {
+
+        /*try {
+         Class.forName("org.postgresql.Driver");
+
+         } catch (java.lang.ClassNotFoundException e) {
+         System.err.print("ClassNotFoundException:");
+         System.err.println(e.getMessage());
+         }*/
         Connection con = DriverManager.getConnection(dbURL, login, mdp);
         return con;
 
@@ -55,6 +64,29 @@ public class BDonn {
          }*/
     }
 
+    public void creerMatiere(String valeurs, LinkedList liste) throws SQLException {
+        Connection con = connection();
+        String query = "INSERT INTO Matiere" + "(Matiere_Acronyme, Matiere_Nom)" + " VALUES(" + valeurs + ")"
+                + "RETURNING Matiere_id";
+
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        int id = rs.getInt("Matiere_id");
+
+        String ids;
+        for (int i = 0; i < liste.size(); i++) {
+            ids = id + "," + liste.get(i);
+            String query2 = "INSERT INTO " + "Appartient" + "(Matiere_id,Option_id)" + " VALUES(" + ids + ");";
+            stmt.executeUpdate(query2);
+        }
+
+        stmt.close();
+
+        deconnection(con);
+
+    }
+
     public void creer(String type, String valeurs) throws SQLException {
         Connection con = connection();
         String attributs = new String();
@@ -64,10 +96,6 @@ public class BDonn {
                 attributs = "(Type_De_Cours_Nom, Matiere_id, "
                         + "Enseignant_id, Cours_Date_Debut, Cours_Date_Fin, Salle, "
                         + "Intervenant, Commentaire)";
-                break;
-
-            case "Matiere":
-                attributs = "(Matiere_Acronyme, Matiere_Nom)";
                 break;
 
             case "Option":

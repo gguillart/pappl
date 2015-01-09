@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -102,6 +103,47 @@ public class Creation extends HttpServlet {
                 break;
 
             case "Matiere":
+                String Matiere_Nom = request.getParameter("Matiere_Nom");
+                String Matiere_Acronyme = request.getParameter("Matiere_Acronyme");
+                LinkedList listeOption = new LinkedList();
+                int a = -1;
+                try {
+                    a = edt.selectionner("Option").size();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                for (int i = 0; i < a; i++) {
+                    if (request.getParameter("Option" + i) != null) {
+                        listeOption.add(request.getParameter("Option" + i));
+                    }
+                }
+
+                if (listeOption.size() != 0) {
+
+                    if ((Matiere_Nom != "") & (Matiere_Acronyme != "")) {
+
+                        String valeurs = "'" + Matiere_Acronyme + "','" + Matiere_Nom + "'";
+                        try {
+                            edt.creerMatiere(valeurs, listeOption);
+                            request.setAttribute("confirmation", "La matière a été enregistrée");
+                            confirmation(request, response);
+
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        request.setAttribute("erreur", "La matière n'a pas pu être enregistrée");
+                        erreur(request, response);
+
+                    } else {
+                        request.setAttribute("erreur", "Champ(s) manquant(s)");
+                        erreur(request, response);
+                    }
+
+                } else {
+                    request.setAttribute("erreur", "Option manquante");
+                    erreur(request, response);
+                }
                 break;
 
             case "Option":
@@ -113,7 +155,7 @@ public class Creation extends HttpServlet {
                     if ((Option_Nom != "") & (Option_Acronyme != "")) {
                         String valeurs = "'" + Option_Acronyme + "','" + Option_Nom + "'," + respo;
                         try {
-                            edt.creer("Option", valeurs);
+                            edt.creer(request.getParameter("type"), valeurs);
                             request.setAttribute("confirmation", "L'option a bien été enregistrée");
                             confirmation(request, response);
                         } catch (SQLException ex) {

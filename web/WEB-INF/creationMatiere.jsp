@@ -17,7 +17,7 @@
     </head>
     <body>
         <div>
-            <form method="post" action="Creation">
+            <form method="post" action="Creation?type=Matiere">
                 <fieldset>
                     <legend>Informations sur la matière</legend>
 
@@ -37,12 +37,12 @@
                         ArrayList<LinkedList> option = new ArrayList();
                         option = edt.selectionner("Option");
                         for (int i = 0; i < option.size(); i++) {
-                            out.println("<input type=\"checkbox\" name=\"Option\" value=\"" + option.get(i).get(0) + "\">"
+                            out.println("<input type=\"checkbox\" name=\"Option" + i + "\" value=\"" + option.get(i).get(0) + "\">"
                                     + option.get(i).get(1) + "<br>");
                         }
                     %>
 
-
+                    
                 </fieldset>
                 <input type="submit" value="Valider"  />
                 <input type="reset" value="Remettre à zéro" />
