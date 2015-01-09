@@ -87,6 +87,29 @@ public class BDonn {
 
     }
 
+    public void creerPersonne(String valeurs, LinkedList<String> liste) throws SQLException {
+        Connection con = connection();
+        String query = "INSERT INTO Personne" + "(Nom, Prenom)" + " VALUES(" + valeurs + ")"
+                + "RETURNING Personne_id";
+
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        int id = rs.getInt("Personne_id");
+
+        String query2;
+        for (int i = 0; i < liste.size(); i++) {
+
+            query2 = "INSERT INTO " + liste.get(i) + "(Personne_id)" + " VALUES(" + id + ");";
+            stmt.executeUpdate(query2);
+        }
+
+        stmt.close();
+
+        deconnection(con);
+
+    }
+
     public void creer(String type, String valeurs) throws SQLException {
         Connection con = connection();
         String attributs = new String();

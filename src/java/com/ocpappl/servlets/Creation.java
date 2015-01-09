@@ -175,7 +175,33 @@ public class Creation extends HttpServlet {
                 }
                 break;
 
-            case "Personne":
+            case "Personne":       
+                String Nom = request.getParameter("Nom");
+                String Prenom= request.getParameter("Prenom");
+                LinkedList<String> liste = new LinkedList();
+                for (int i = 0; i < 3; i++) {
+                    if (request.getParameter("Personne" + i) != null) {
+                        liste.add(request.getParameter("Personne" + i));
+                    }
+                }
+
+                    if ((Nom != "") & (Prenom != "")) {
+                        String valeurs = "'" + Nom + "','" + Prenom + "'";
+                        try {
+                            edt.creerPersonne(valeurs, liste);
+                            request.setAttribute("confirmation", "La personne a bien été enregistrée");
+                            confirmation(request, response);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        request.setAttribute("erreur", "La personne n'a pas pu être enregistrée");
+                        erreur(request, response);
+
+                    } else {
+                        request.setAttribute("erreur", "Champ(s) manquant(s)");
+                        erreur(request, response);
+                    }
+
                 break;
 
             default:

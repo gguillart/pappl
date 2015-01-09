@@ -13,7 +13,7 @@
     </head>
     <body>
         <div>
-            <form method="post" action="Creation">
+            <form method="post" action="Creation?type=Personne">
                 <fieldset>
                     <legend>Informations sur la personne</legend>
 
@@ -28,9 +28,9 @@
 
                     <legend>Est-ce un ...</legend>
 
-                    <input type="checkbox" name="Personne" value="Enseignant"> Enseignant<br>
-                    <input type="checkbox" name="Personne" value="Responsable_Option"> Responsable d'option<br>
-                    <input type="checkbox" name="Personne" value="Administrateur"> Administrateur<br>
+                    <input type="checkbox" name="Personne0" value="Enseignant"> Enseignant<br>
+                    <input type="checkbox" name="Personne1" value="Responsable_Option"> Responsable d'option<br>
+                    <input type="checkbox" name="Personne2" value="Administrateur"> Administrateur<br>
 
 
                     <%--TODO login et password ? --%> 
