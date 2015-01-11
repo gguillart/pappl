@@ -82,26 +82,26 @@
 
                     <label for="Debut">De :</label>
                     <select name="Debut" id="Debut">
-                        <option value="800">8h00</option>
-                        <option value="900">9h00</option>
-                        <option value="1015">10h15</option>
-                        <option value="1115">11h15</option>
-                        <option value="1345">13h45</option>
-                        <option value="1445">14h45</option>
-                        <option value="1600">16h00</option>
-                        <option value="1700">17h00</option>
+                        <option value="08:00:00">8h00</option>
+                        <option value="09:00:00">9h00</option>
+                        <option value="10:15:00">10h15</option>
+                        <option value="11:15:00">11h15</option>
+                        <option value="13:45:00">13h45</option>
+                        <option value="14:45:00">14h45</option>
+                        <option value="16:00:00">16h00</option>
+                        <option value="17:00:00">17h00</option>
                     </select>
 
                     <label for="Fin">à :</label>
                     <select name="Fin" id="Fin" >
-                        <option value="900">9h00</option>
-                        <option value="1000">10h00</option>
-                        <option value="1115">11h15</option>
-                        <option value="1215">12h15</option>
-                        <option value="1445">14h45</option>
-                        <option value="1545">15h45</option>
-                        <option value="1700">17h00</option>
-                        <option value="1800">18h00</option>
+                        <option value="09:00:00">9h00</option>
+                        <option value="10:00:00">10h00</option>
+                        <option value="11:15:00">11h15</option>
+                        <option value="12:15:00">12h15</option>
+                        <option value="14:45:00">14h45</option>
+                        <option value="15:45:00">15h45</option>
+                        <option value="17:00:00">17h00</option>
+                        <option value="18:00:00">18h00</option>
                     </select><br />
 
                     <label for="Jour">Le </label>

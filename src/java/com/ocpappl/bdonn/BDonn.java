@@ -66,7 +66,7 @@ public class BDonn {
 
     public void creerMatiere(String valeurs, LinkedList liste) throws SQLException {
         Connection con = connection();
-        String query = "INSERT INTO Matiere" + "(Matiere_Acronyme, Matiere_Nom)" + " VALUES(" + valeurs + ")"
+        String query = "INSERT INTO Matiere(Matiere_Acronyme, Matiere_Nom) VALUES(" + valeurs + ")"
                 + "RETURNING Matiere_id";
 
         Statement stmt = con.createStatement();
@@ -77,7 +77,7 @@ public class BDonn {
         String ids;
         for (int i = 0; i < liste.size(); i++) {
             ids = id + "," + liste.get(i);
-            String query2 = "INSERT INTO " + "Appartient" + "(Matiere_id,Option_id)" + " VALUES(" + ids + ");";
+            String query2 = "INSERT INTO Appartient(Matiere_id,Option_id) VALUES(" + ids + ");";
             stmt.executeUpdate(query2);
         }
 
@@ -89,7 +89,7 @@ public class BDonn {
 
     public void creerPersonne(String valeurs, LinkedList<String> liste) throws SQLException {
         Connection con = connection();
-        String query = "INSERT INTO Personne" + "(Nom, Prenom)" + " VALUES(" + valeurs + ")"
+        String query = "INSERT INTO Personne(Nom, Prenom) VALUES(" + valeurs + ")"
                 + "RETURNING Personne_id";
 
         Statement stmt = con.createStatement();
@@ -110,42 +110,36 @@ public class BDonn {
 
     }
 
-    public void creer(String type, String valeurs) throws SQLException {
+    public void creerCours(String valeurs, LinkedList liste) throws SQLException {
         Connection con = connection();
-        String attributs = new String();
 
-        switch (type) {
-            case "Cours":
-                attributs = "(Type_De_Cours_Nom, Matiere_id, "
-                        + "Enseignant_id, Cours_Date_Debut, Cours_Date_Fin, Salle, "
-                        + "Intervenant, Commentaire)";
-                break;
+        String query = "INSERT INTO Cours(Type_De_Cours_Nom, Matiere_id, "
+                + "Enseignant_id, Cours_Date_Debut, Cours_Date_Fin, Salle, "
+                + "Intervenant, Commentaire) VALUES(" + valeurs + ")"
+                + "RETURNING Cours_id";
 
-            case "Option":
-                attributs = "(Option_Acronyme, Option_Nom, Responsable_id)";
-                break;
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        int id = rs.getInt("Cours_id");
 
-            case "Personne":
-                attributs = "(Nom, Prenom, Login, Password)";
-                break;
+        String query2;
+        for (int i = 0; i < liste.size(); i++) {
 
-            case "Enseignant":
-                attributs = "(Personne_id)";
-                break;
-
-            case "ResponsableOption":
-                attributs = "(Personne_id)";
-                break;
-
-            case "Administrateur":
-                attributs = "(Personne_id)";
-                break;
-
-            default:
-                break;
+            query2 = "INSERT INTO Cours_Option(Cours_id, Option_id)" + " VALUES(" + id + "," + liste.get(i) + ");";
+            stmt.executeUpdate(query2);
         }
 
-        String query = "INSERT INTO " + type + attributs + " VALUES(" + valeurs + ");";
+        stmt.close();
+
+        deconnection(con);
+
+    }
+
+    public void creerOption(String valeurs) throws SQLException {
+        Connection con = connection();
+
+        String query = "INSERT INTO Option(Option_Acronyme, Option_Nom, Responsable_id) VALUES(" + valeurs + ");";
 
         Statement stmt = con.createStatement();
         stmt.executeUpdate(query);
@@ -192,9 +186,6 @@ public class BDonn {
         ArrayList<LinkedList> liste = new ArrayList();
 
         switch (type) {
-            case "Cours": //TODO ?
-                break;
-
             case "Matiere":
                 colonne = "Matiere_Acronyme";
                 break;
@@ -255,5 +246,54 @@ public class BDonn {
 
         return liste;
 
+    }
+
+    public ArrayList<LinkedList> selectionnerCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
+        Connection con = connection();
+
+        String option = " (Option_id = " + listeOption.get(0);
+        if (listeOption.size() > 1) {
+            for (int i = 1; i < listeOption.size(); i++) {
+                option = option + " OR Option_id = " + listeOption.get(i);
+            }
+        }
+
+        String plus = " NATURAL JOIN Cours_Option WHERE (Cours_Date_Debut BETWEEN '" + conditionJour + " 00:00:00'"
+                + " AND '" + conditionFin + "') AND (Cours_Date_Fin BETWEEN '" + conditionDebut
+                + "' AND '" + conditionJour + " 23:59:59') AND" + option + ")";
+        ArrayList<LinkedList> liste = new ArrayList();
+
+        String query = "SELECT * FROM " + "Cours" + plus + ";";
+
+        Statement stmt = con.createStatement();
+
+        ResultSet rs = stmt.executeQuery(query);
+
+        rs.next();
+        while (rs.getRow() != 0) {
+
+            LinkedList sousListe = new LinkedList();
+            sousListe.add(rs.getString("Cours_Date_Debut"));
+            sousListe.add(rs.getString("Cours_Date_Fin"));
+            liste.add(sousListe);
+            rs.next();
+        }
+
+        stmt.close();
+        deconnection(con);
+
+        return liste;
+    }
+
+    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
+        ArrayList<LinkedList> liste = new ArrayList();
+        liste = selectionnerCours(conditionJour, conditionDebut, conditionFin, listeOption);
+        boolean bool = false;
+
+        if (liste.size() == 0) {
+            bool = true;
+        }
+
+        return bool;
     }
 }
