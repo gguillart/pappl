@@ -287,6 +287,27 @@ public class BDonn {
         deconnection(con);
         return liste;
     }
+    
+    public ArrayList selectionnerPersonne(String identifiant) throws SQLException {
+        Connection con = connection();
+        int id = parseInt(identifiant);
+        ArrayList liste = new ArrayList();
+        String query = "SELECT * FROM Personne NATURAL LEFT OUTER JOIN Administrateur NATURAL LEFT OUTER JOIN Responsable_Option NATURAL LEFT OUTER JOIN Enseignant WHERE Personne_id = " + id + ";";
+        Statement stmt = con.createStatement();
+
+        ResultSet rs = stmt.executeQuery(query);
+
+        rs.next();
+        liste.add(rs.getString("Nom"));
+        liste.add(rs.getString("Prenom"));
+        liste.add(rs.getInt("Enseignant_id"));
+        liste.add(rs.getInt("Responsable_id"));
+        liste.add(rs.getInt("Administrateur_id"));
+
+        stmt.close();
+        deconnection(con);
+        return liste;
+    }
 
     public ArrayList<LinkedList> selectionnerCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
         Connection con = connection();

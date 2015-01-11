@@ -26,7 +26,7 @@
                     <br />
 
 
-                    <legend>Est-ce un ...</legend>
+                    <legend>Est-ce un...</legend>
 
                     <input type="checkbox" name="Personne0" value="Enseignant"> Enseignant<br>
                     <input type="checkbox" name="Personne1" value="Responsable_Option"> Responsable d'option<br>

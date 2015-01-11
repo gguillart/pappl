@@ -97,7 +97,7 @@ public class ModificationSuppression extends HttpServlet {
                     this.getServletContext().getRequestDispatcher("/WEB-INF/modificationMatiere.jsp").forward(request, response);
                     break;
                 case "Personne":
-                    this.getServletContext().getRequestDispatcher("/WEB-INF/mofificationPersonne.jsp").forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/WEB-INF/modificationPersonne.jsp").forward(request, response);
                     break;
                 default:
                     break;
