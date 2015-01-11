@@ -126,7 +126,7 @@
                     <label for="Annee"> </label>
                     <input type="number" name="Annee" id="Annee" min="2014" max="2100" value="2015" ><br />
 
-                    <label for="Repeter">Repeter le cours sur combien de semaine ? </label>
+                    <label for="Repeter">Repeter le cours sur combien de semaines ? </label>
                     <input type="number" name="Repeter" id="Repeter" min="1" max="20" value="1" >
                     <%--TODO
                     possibilités de valeurs par défaut pour les horaires du cours 

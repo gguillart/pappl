@@ -10,6 +10,7 @@
 package com.ocpappl.bdonn;
 
 import com.ocpappl.servlets.Creation;
+import static java.lang.Integer.parseInt;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -246,6 +247,27 @@ public class BDonn {
 
         return liste;
 
+    }
+
+    public ArrayList selectionnerOption(String identifiant) throws SQLException {
+        Connection con = connection();
+        int id = parseInt(identifiant);
+        ArrayList liste = new ArrayList();
+        String query = "SELECT * FROM Option NATURAL JOIN Responsable_Option NATURAL JOIN Personne WHERE Option_id = " + id + ";";
+        Statement stmt = con.createStatement();
+
+        ResultSet rs = stmt.executeQuery(query);
+
+        rs.next();
+        liste.add(rs.getString("Option_Acronyme"));
+        liste.add(rs.getString("Option_Nom"));
+        liste.add(rs.getInt("Responsable_id"));
+        liste.add(rs.getString("Prenom"));
+        liste.add(rs.getString("Nom"));
+
+        stmt.close();
+        deconnection(con);
+        return liste;
     }
 
     public ArrayList<LinkedList> selectionnerCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {

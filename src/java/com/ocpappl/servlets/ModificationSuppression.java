@@ -27,55 +27,83 @@ public class ModificationSuppression extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        BDonn edt = new BDonn();
-        ArrayList<LinkedList> liste = new ArrayList();
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Que Modifier ?</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Que voulez-vous modifier ?</h1>");
+        if (request.getParameter("objet") == null) {
+            response.setContentType("text/html;charset=UTF-8");
+            BDonn edt = new BDonn();
+            ArrayList<LinkedList> liste = new ArrayList();
+            try (PrintWriter out = response.getWriter()) {
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Que Modifier ?</title>");
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>Que voulez-vous modifier ?</h1>");
+
+                switch (request.getParameter("type")) {
+                    case "Option":
+
+                        liste = edt.selectionner(request.getParameter("type"));
+                        for (int i = 0; i < liste.size(); i++) {
+                            out.println(liste.get(i).get(1) + " : ");
+                            out.println("<a href=\"/Pappl/ModificationSuppression?type=Option&objet=modifier&id=" + liste.get(i).get(0) + "\"> Modifier </a>");
+                            out.println("<a href=\"/Pappl/ModificationSuppression?type=Option&objet=supprimer&id=" + liste.get(i).get(0) + "&nom=" + liste.get(i).get(1) + "\"> Supprimer </a><br/><br/>");
+                        }
+
+                        break;
+                    case "Matiere":
+                        liste = edt.selectionner(request.getParameter("type"));
+                        for (int i = 0; i < liste.size(); i++) {
+                            out.println(liste.get(i).get(1) + " : ");
+                            out.println("<a href=\"/Pappl/ModificationSuppression?type=Matiere&objet=modifier&id=" + liste.get(i).get(0) + "\"> Modifier </a>");
+                            out.println("<a href=\"/Pappl/ModificationSuppression?type=Matiere&objet=supprimer&id=" + liste.get(i).get(0) + "&nom=" + liste.get(i).get(1) + "\"> Supprimer </a><br/><br/>");
+                        }
+                        break;
+                    case "Personne":
+                        liste = edt.selectionner(request.getParameter("type"));
+                        for (int i = 0; i < liste.size(); i++) {
+                            out.println(liste.get(i).get(2) + " " + liste.get(i).get(1) + " : ");
+                            out.println("<a href=\"/Pappl/ModificationSuppression?type=Personne&objet=modifier&id=" + liste.get(i).get(0) + "\"> Modifier </a>");
+                            out.println("<a href=\"/Pappl/ModificationSuppression?type=Personne&objet=supprimer&id=" + liste.get(i).get(0) + "&nom=" + liste.get(i).get(1) + "&prenom=" + liste.get(i).get(2) + "\"> Supprimer </a><br/><br/>");
+                        }
+                        break;
+                    default:
+                        break;
+
+                }
+                out.println("</body>");
+                out.println("</html>");
+            } catch (SQLException ex) {
+                Logger.getLogger(ModificationSuppression.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            request.setAttribute("objet", request.getParameter("objet"));
+            request.setAttribute("id", request.getParameter("id"));
+
+            if (request.getParameter("nom") != null) {
+                request.setAttribute("nom", request.getParameter("nom"));
+            }
+
+            if (request.getParameter("prenom") != null) {
+                request.setAttribute("prenom", request.getParameter("prenom"));
+
+            }
 
             switch (request.getParameter("type")) {
                 case "Option":
-
-                    liste = edt.selectionner(request.getParameter("type"));
-                    for (int i = 0; i < liste.size(); i++) {
-                        out.println(liste.get(i).get(1) + " : ");
-                        out.println("<a href=\"/Pappl/modificationOption.jsp?objet=modifier&id=" + liste.get(i).get(0) + "\"> Modifier </a>");
-                        out.println("<a href=\"/Pappl/modificationOption.jsp?objet=supprimer&id=" + liste.get(i).get(0) + "\"> Supprimer </a><br/><br/>");
-                    }
-
+                    this.getServletContext().getRequestDispatcher("/WEB-INF/modificationOption.jsp").forward(request, response);
                     break;
                 case "Matiere":
-                    liste = edt.selectionner(request.getParameter("type"));
-                    for (int i = 0; i < liste.size(); i++) {
-                        out.println(liste.get(i).get(1) + " : ");
-                        out.println("<a href=\"/Pappl/modificationMatiere.jsp?objet=modifier&id=" + liste.get(i).get(0) + "\"> Modifier </a>");
-                        out.println("<a href=\"/Pappl/modificationMatiere.jsp?objet=supprimer&id=" + liste.get(i).get(0) + "\"> Supprimer </a><br/><br/>");
-                    }
+                    this.getServletContext().getRequestDispatcher("/WEB-INF/modificationMatiere.jsp").forward(request, response);
                     break;
                 case "Personne":
-                    liste = edt.selectionner(request.getParameter("type"));
-                    for (int i = 0; i < liste.size(); i++) {
-                        out.println(liste.get(i).get(2) + " " + liste.get(i).get(1) + " : ");
-                        out.println("<a href=\"/Pappl/modificationPersonne.jsp?objet=modifier&id=" + liste.get(i).get(0) + "\"> Modifier </a>");
-                        out.println("<a href=\"/Pappl/modificationPersonne.jsp?objet=supprimer&id=" + liste.get(i).get(0) + "\"> Supprimer </a><br/><br/>");
-                    }
+                    this.getServletContext().getRequestDispatcher("/WEB-INF/mofificationPersonne.jsp").forward(request, response);
                     break;
                 default:
                     break;
-
             }
-            out.println("</body>");
-            out.println("</html>");
-        } catch (SQLException ex) {
-            Logger.getLogger(ModificationSuppression.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
+        }
     }
 
     @Override
