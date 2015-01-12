@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.StringTokenizer;
 
 public class BDonn {
 
@@ -269,7 +270,7 @@ public class BDonn {
         deconnection(con);
         return liste;
     }
-    
+
     public ArrayList selectionnerMatiere(String identifiant) throws SQLException {
         Connection con = connection();
         int id = parseInt(identifiant);
@@ -287,7 +288,7 @@ public class BDonn {
         deconnection(con);
         return liste;
     }
-    
+
     public ArrayList selectionnerPersonne(String identifiant) throws SQLException {
         Connection con = connection();
         int id = parseInt(identifiant);
@@ -306,6 +307,131 @@ public class BDonn {
 
         stmt.close();
         deconnection(con);
+        return liste;
+    }
+
+    public ArrayList selectionnerCours(String identifiant) throws SQLException {
+        Connection con = connection();
+        int id = parseInt(identifiant);
+        ArrayList liste = new ArrayList();
+        String query = "SELECT * FROM Cours NATURAL JOIN Enseignant NATURAL JOIN Personne NATURAL JOIN Cours_Option"
+                + " NATURAL JOIN Option NATURAL JOIN Matiere WHERE Cours_id = " + id + ";";
+        Statement stmt = con.createStatement();
+
+        ResultSet rs = stmt.executeQuery(query);
+
+        rs.next();
+        liste.add(rs.getString("Salle"));
+        liste.add(rs.getString("Intervenant"));
+        liste.add(rs.getString("Commentaire"));
+        liste.add(rs.getString("Type_De_Cours_Nom"));
+        liste.add(rs.getInt("Enseignant_id"));
+        liste.add(rs.getString("Prenom"));
+        liste.add(rs.getString("Nom"));
+        liste.add(rs.getInt("Matiere_id"));
+        liste.add(rs.getString("Matiere_Acronyme"));
+
+        StringTokenizer debut = new StringTokenizer(rs.getString("Cours_Date_Debut"));
+        StringTokenizer fin = new StringTokenizer(rs.getString("Cours_Date_Fin"));
+        String année = debut.nextToken("-");
+        String mois = debut.nextToken("-");
+        StringTokenizer suite = new StringTokenizer(debut.nextToken("-"));
+        String jour = suite.nextToken();
+        String heureDebut = suite.nextToken();
+        fin.nextToken();
+        String heureFin = fin.nextToken();
+
+        if (parseInt(mois) < 10) {
+            mois = "" + parseInt(mois);
+        }
+
+        if (parseInt(jour) < 10) {
+            jour = "" + parseInt(jour);
+        }
+
+        String moisNom = new String();
+
+        switch (mois) {
+            case "1":
+                moisNom = "Janvier";
+                break;
+            case "2":
+                moisNom = "Février";
+                break;
+            case "3":
+                moisNom = "Mars";
+                break;
+            case "4":
+                moisNom = "Avril";
+                break;
+            case "5":
+                moisNom = "Mai";
+                break;
+            case "6":
+                moisNom = "Juin";
+                break;
+            case "7":
+                moisNom = "Juillet";
+                break;
+            case "8":
+                moisNom = "Août";
+                break;
+            case "9":
+                moisNom = "Septembre";
+                break;
+            case "10":
+                moisNom = "Octobre";
+                break;
+            case "11":
+                moisNom = "Novembre";
+                break;
+            case "12":
+                moisNom = "Décembre";
+                break;
+            default:
+                moisNom = mois;
+                break;
+        }
+
+        StringTokenizer debut2 = new StringTokenizer(rs.getString("Cours_Date_Debut"));
+        StringTokenizer fin2 = new StringTokenizer(rs.getString("Cours_Date_Fin"));
+
+        debut2.nextToken();
+        fin2.nextToken();
+
+        StringTokenizer horaireD = new StringTokenizer(debut2.nextToken());
+        StringTokenizer horaireF = new StringTokenizer(fin2.nextToken());
+
+        String heureD = horaireD.nextToken(":");
+        String minuteD = horaireD.nextToken(":");
+        String heureDebut2 = heureD + "h" + minuteD;
+
+        String heureF = horaireF.nextToken(":");
+        String minuteF = horaireF.nextToken(":");
+        String heureFin2 = heureF + "h" + minuteF;
+
+        ArrayList<LinkedList> optionSelectionnées = new ArrayList();
+        while (rs.getRow() != 0) {
+            LinkedList option = new LinkedList();
+            option.add(rs.getInt("Option_id"));
+            option.add(rs.getString("Option_Acronyme"));
+            optionSelectionnées.add(option);
+            rs.next();
+        }
+
+        liste.add(optionSelectionnées);//9
+        liste.add(année);//10
+        liste.add(mois);//11
+        liste.add(jour);//12
+        liste.add(heureDebut);//13
+        liste.add(heureFin);//14
+        liste.add(moisNom);//15
+        liste.add(heureDebut2);//16
+        liste.add(heureFin2);//17
+
+        stmt.close();
+        deconnection(con);
+
         return liste;
     }
 
