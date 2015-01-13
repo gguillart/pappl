@@ -4,6 +4,7 @@
     Author     : Yohann
 --%>
 
+<%@page import="java.util.LinkedList"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ocpappl.bdonn.BDonn"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -33,6 +34,36 @@
                         + "<input type=\"text\" id=\"Matiere_Acronyme\" name=\"Matiere_Acronyme\" value=\"" + liste.get(0) + "\" size=\"20\" maxlength=\"20\" /><br />"
                         + "<label for=\"Matiere_Nom\">Nom <span class=\"requis\">*</span></label>"
                         + "<input type=\"text\" id=\"Matiere_Nom\" name=\"Matiere_Nom\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"20\" /><br />");
+
+                out.println("<legend>Quelles options sont concernées par la matière ?</legend>");
+
+                ArrayList<LinkedList> optionSelectionnées = (ArrayList) liste.get(2);
+
+                for (int i = 0; i < optionSelectionnées.size(); i++) {
+
+                    out.println("<input type=\"checkbox\" name=\"Option" + i + "\" value=\"" + optionSelectionnées.get(i).get(0) + "\" checked=\"\">"
+                            + optionSelectionnées.get(i).get(1) + "<br>");
+                }
+
+                int l = optionSelectionnées.size();
+                int count = 0;
+                ArrayList<LinkedList> option = new ArrayList();
+                option = edt.selectionner("Option");
+                for (int i = 0; i < option.size(); i++) {
+                    for (int j = 0; j < optionSelectionnées.size(); j++) {
+                        if (option.get(i).get(0) == optionSelectionnées.get(j).get(0)) {
+                            count = 1;
+                        }
+                    }
+                    if (count == 0) {
+                        out.println("<input type=\"checkbox\" name=\"Option" + l + "\" value=\"" + option.get(i).get(0) + "\">"
+                                + option.get(i).get(1) + "<br>");
+                        l++;
+                    } else {
+                        count = 0;
+                    }
+
+                }
 
                 out.println("</fieldset>"
                         + "<input type=\"submit\" value=\"Valider\"  />"

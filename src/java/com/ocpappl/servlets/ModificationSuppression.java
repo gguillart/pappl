@@ -32,7 +32,6 @@ public class ModificationSuppression extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -51,7 +50,6 @@ public class ModificationSuppression extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -364,51 +362,70 @@ public class ModificationSuppression extends HttpServlet {
                     erreur(request, response);
                 }
 
-            case "Matiere"://TODO etc...
-                String Matiere_Nom = request.getParameter("Matiere_Nom");
-                String Matiere_Acronyme = request.getParameter("Matiere_Acronyme");
-                LinkedList listeOption = new LinkedList();
-                int a = 0;
-                try {
-                    a = edt.selectionner("Option").size();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                for (int i = 0; i < a; i++) {
-                    if (request.getParameter("Option" + i) != null) {
-                        listeOption.add(request.getParameter("Option" + i));
+            case "Matiere":
+                if ("modifier".equals(request.getParameter("objet"))) {
+                    String Matiere_Nom = request.getParameter("Matiere_Nom");
+                    String Matiere_Acronyme = request.getParameter("Matiere_Acronyme");
+                    LinkedList listeOption = new LinkedList();
+                    int a = 0;
+                    try {
+                        a = edt.selectionner("Option").size();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
 
-                if (listeOption.size() != 0) {
-
-                    if ((Matiere_Nom != "") & (Matiere_Acronyme != "")) {
-
-                        String valeurs = "'" + Matiere_Acronyme + "','" + Matiere_Nom + "'";
-                        try {
-                            edt.creerMatiere(valeurs, listeOption);
-                            request.setAttribute("confirmation", "La matière a été enregistré");
-                            confirmation(request, response);
-
-                        } catch (SQLException ex) {
-                            Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
+                    for (int i = 0; i < a; i++) {
+                        if (request.getParameter("Option" + i) != null) {
+                            listeOption.add(request.getParameter("Option" + i));
                         }
-                        request.setAttribute("erreur", "La matière n'a pas pu être enregistré");
-                        erreur(request, response);
+                    }
+
+                    if (listeOption.size() != 0) {
+
+                        if ((Matiere_Nom != "") & (Matiere_Acronyme != "")) {
+
+                            String valeurs = "Matiere_Acronyme='" + Matiere_Acronyme + "', Matiere_Nom='" + Matiere_Nom + "'";
+                            try {
+                                edt.modifierMatiere(request.getParameter("id"), valeurs, listeOption);
+                                request.setAttribute("confirmation", "La matière a été enregistré");
+                                confirmation(request, response);
+
+                            } catch (SQLException ex) {
+                                Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            request.setAttribute("erreur", "La matière n'a pas pu être enregistré");
+                            erreur(request, response);
+
+                        } else {
+                            request.setAttribute("erreur", "Champ(s) manquant(s)");
+                            erreur(request, response);
+                        }
 
                     } else {
-                        request.setAttribute("erreur", "Champ(s) manquant(s)");
+                        request.setAttribute("erreur", "Option manquante");
                         erreur(request, response);
                     }
 
+                } else if ("supprimer".equals(request.getParameter("objet"))) {
+                    String condition = request.getParameter("type") + "_id=" + request.getParameter("id");
+
+                    try {
+                        edt.supprimer(request.getParameter("type"), condition);
+                        request.setAttribute("confirmation", "La suppression de la matière a bien été enregistré");
+                        confirmation(request, response);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ModificationSuppression.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    request.setAttribute("erreur", "La suppression de la matiere n'a pas été enregistré");
+                    erreur(request, response);
+
                 } else {
-                    request.setAttribute("erreur", "Option manquante");
+                    request.setAttribute("erreur", "Objet incorrect");
                     erreur(request, response);
                 }
                 break;
 
-            case "Personne":
+            case "Personne"://TODO
                 String Nom = request.getParameter("Nom");
                 String Prenom = request.getParameter("Prenom");
                 LinkedList<String> liste = new LinkedList();

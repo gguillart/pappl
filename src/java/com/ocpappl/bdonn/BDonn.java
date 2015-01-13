@@ -165,6 +165,20 @@ public class BDonn {
 
     }
 
+    public void creerAppartient(String idMatiere, String idOption) throws SQLException {
+        Connection con = connection();
+
+        Statement stmt = con.createStatement();
+
+        String query = "INSERT INTO Appartient(Matiere_id, Option_id)" + " VALUES(" + idMatiere + "," + idOption + ");";
+        stmt.executeUpdate(query);
+
+        stmt.close();
+
+        deconnection(con);
+
+    }
+
     public void modifierCours(String id, String attributsValeurs, LinkedList liste) throws SQLException {
         Connection con = connection();
 
@@ -205,10 +219,11 @@ public class BDonn {
 
     }
 
-    public void supprimer(String type, String id) throws SQLException {
+    public void modifierOption(String id, String attributsValeurs) throws SQLException {
         Connection con = connection();
 
-        String query = "DELETE FROM " + type + " CASCADE WHERE " + id;
+        String query = "UPDATE Option SET " + attributsValeurs + " WHERE Option_id ="
+                + id + ";";
 
         Statement stmt = con.createStatement();
         stmt.executeUpdate(query);
@@ -218,14 +233,80 @@ public class BDonn {
 
     }
 
-    public void modifierOption(String id, String attributsValeurs) throws SQLException {
+    public void modifierMatiere(String id, String attributsValeurs, LinkedList liste) throws SQLException {
         Connection con = connection();
 
-        String query = "UPDATE Option SET " + attributsValeurs + " WHERE Option_id ="
+        ArrayList<LinkedList> listeAppartient = selectionnerAppartient(id);
+        for (int i = 0; i < listeAppartient.size(); i++) {
+            for (int j = 0; j < liste.size(); j++) {
+                if ((int) listeAppartient.get(i).get(0) == parseInt((String) liste.get(j))) {
+                    listeAppartient.get(i).set(0, 0);
+                    liste.set(j, "0");
+                }
+            }
+        }
+
+        for (int i = 0; i < listeAppartient.size(); i++) {
+            if ((int) listeAppartient.get(i).get(0) != 0) {
+                String condition = "Appartient_id = " + listeAppartient.get(i).get(1);
+                supprimer("Appartient", condition);
+
+            }
+        }
+        int a;
+        for (int i = 0; i < liste.size(); i++) {
+            a = parseInt((String) liste.get(i));
+            if (a != 0) {
+                creerAppartient(id, (String) liste.get(i));
+
+            }
+        }
+
+        String query = "UPDATE Matiere SET " + attributsValeurs + " WHERE Matiere_id ="
                 + id + ";";
 
         Statement stmt = con.createStatement();
         stmt.executeUpdate(query);
+        stmt.close();
+
+        deconnection(con);
+
+    }
+
+    public void supprimer(String type, String id) throws SQLException {
+        Connection con = connection();
+
+        Statement stmt = con.createStatement();
+        ArrayList listeMatiere = new ArrayList();
+
+        if ("Option".equals(type)) {
+            String query2 = "SELECT * FROM Matiere NATURAL JOIN Appartient NATURAL JOIN Option WHERE " + id + ";";
+            ResultSet rs = stmt.executeQuery(query2);
+            if (rs.isBeforeFirst()) {
+                rs.next();
+                while (rs.getRow() != 0) {
+                    listeMatiere.add(rs.getInt("Matiere_id"));
+                    rs.next();
+                }
+            }
+        }
+
+        String query = "DELETE FROM " + type + " CASCADE WHERE " + id + ";";
+
+        stmt.executeUpdate(query);
+
+        if (listeMatiere.size() != 0) {
+            String Q2;
+            for (int i = 0; i < listeMatiere.size(); i++) {
+                Q2 = "SELECT * FROM Matiere NATURAL JOIN Appartient NATURAL JOIN Option WHERE Matiere_id=" + listeMatiere.get(i) + ";";
+                ResultSet rs2 = stmt.executeQuery(Q2);
+                if (!(rs2.isBeforeFirst())) {
+                    String idMatiere = "Matiere_id=" + listeMatiere.get(i);
+                    supprimer("Matiere", idMatiere);
+                }
+            }
+        }
+
         stmt.close();
 
         deconnection(con);
@@ -329,7 +410,7 @@ public class BDonn {
         Connection con = connection();
         int id = parseInt(identifiant);
         ArrayList liste = new ArrayList();
-        String query = "SELECT * FROM Matiere WHERE Matiere_id = " + id + ";";
+        String query = "SELECT * FROM Matiere NATURAL JOIN Appartient NATURAL JOIN Option WHERE Matiere_id = " + id + ";";
         Statement stmt = con.createStatement();
 
         ResultSet rs = stmt.executeQuery(query);
@@ -337,6 +418,17 @@ public class BDonn {
         rs.next();
         liste.add(rs.getString("Matiere_Acronyme"));
         liste.add(rs.getString("Matiere_Nom"));
+
+        ArrayList<LinkedList> optionSelectionnées = new ArrayList();
+        while (rs.getRow() != 0) {
+            LinkedList option = new LinkedList();
+            option.add(rs.getInt("Option_id"));
+            option.add(rs.getString("Option_Acronyme"));
+            optionSelectionnées.add(option);
+            rs.next();
+        }
+
+        liste.add(optionSelectionnées);
 
         stmt.close();
         deconnection(con);
@@ -537,6 +629,29 @@ public class BDonn {
             LinkedList sousListe = new LinkedList();
             sousListe.add(rs.getInt("Option_id"));
             sousListe.add(rs.getInt("Cours_Option_id"));
+            liste.add(sousListe);
+            rs.next();
+        }
+
+        stmt.close();
+        deconnection(con);
+        return liste;
+    }
+
+    public ArrayList<LinkedList> selectionnerAppartient(String identifiant) throws SQLException {
+        Connection con = connection();
+        int id = parseInt(identifiant);
+        ArrayList<LinkedList> liste = new ArrayList();
+        String query = "SELECT * FROM Appartient WHERE Matiere_id = " + id + ";";
+        Statement stmt = con.createStatement();
+
+        ResultSet rs = stmt.executeQuery(query);
+
+        rs.next();
+        while (rs.getRow() != 0) {
+            LinkedList sousListe = new LinkedList();
+            sousListe.add(rs.getInt("Matiere_id"));
+            sousListe.add(rs.getInt("Appartient_id"));
             liste.add(sousListe);
             rs.next();
         }
