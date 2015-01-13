@@ -9,14 +9,16 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style> <%@ include file="style.css"%>  </style>
     <title>EDT</title>
+    
 </head>
 
 <body>
 
 <h1>Service de gestion des emplois du temps</h1>
 
-
+<p> Bonjour </p>
 
   <%
         Formulaire logs = (Formulaire) request.getAttribute("auth");
@@ -24,6 +26,36 @@
       %> 
 
 <%@ include file="menu.jsp" %> 
+
+
+
+<table>
+
+   <tr>
+       <th> </th>
+       <th>Lundi</th> <%-- ajouter du code java pour récupérer le numéro du jour du mois --%>
+       <th>Mardi</th>
+       <th>Mercredi</th>
+       <th>Jeudi</th>
+       <th>Vendredi</th>
+   </tr>
+   <tr>
+       <td>Matin</td>
+       <td>Cours</td>
+       <td>Cours</td>
+       <td>Cours</td>
+       <td>Cours</td>
+       <td>Cours</td>
+   </tr>
+   <tr>
+       <td>Après-midi</td>
+       <td>Cours</td>
+       <td>Cours</td>
+       <td>Cours</td>
+       <td>Cours</td>
+       <td>Cours</td>
+   </tr>
+</table>
 
 
 <%--
