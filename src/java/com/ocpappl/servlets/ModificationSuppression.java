@@ -240,7 +240,7 @@ public class ModificationSuppression extends HttpServlet {
                                                         try {
                                                             edt.modifierCours(request.getParameter("id"), valeurs, listeOption);
                                                             count = 2;
-                                                            
+
                                                             request.setAttribute("confirmation", "Les modifications du cours ont bien été enregistré");
                                                             confirmation(request, response);
 
@@ -316,37 +316,55 @@ public class ModificationSuppression extends HttpServlet {
                 }
 
                 break;
-/*
-            case "Option"://T0DO etc...
-                String Option_Nom = request.getParameter("Option_Nom");
-                String Option_Acronyme = request.getParameter("Option_Acronyme");
-                if (request.getParameter("Responsable_Option") != null) {
-                    int respo = parseInt(request.getParameter("Responsable_Option"));
 
-                    if ((Option_Nom != "") & (Option_Acronyme != "")) {
-                        String valeurs = "'" + Option_Acronyme + "','" + Option_Nom + "'," + respo;
-                        try {
-                            edt.creerOption(valeurs);
-                            request.setAttribute("confirmation", "L'option a bien été enregistré");
-                            confirmation(request, response);
-                        } catch (SQLException ex) {
-                            Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
+            case "Option":
+                if ("modifier".equals(request.getParameter("objet"))) {
+                    String Option_Nom = request.getParameter("Option_Nom");
+                    String Option_Acronyme = request.getParameter("Option_Acronyme");
+                    if (request.getParameter("Responsable_Option") != null) {
+                        int respo = parseInt(request.getParameter("Responsable_Option"));
+
+                        if ((Option_Nom != "") & (Option_Acronyme != "")) {
+                            String valeurs = "Option_Acronyme='" + Option_Acronyme + "', Option_Nom='" + Option_Nom + "', Responsable_id=" + respo;
+                            try {
+                                edt.modifierOption(request.getParameter("id"), valeurs);
+                                request.setAttribute("confirmation", "L'option a bien été modifié");
+                                confirmation(request, response);
+                            } catch (SQLException ex) {
+                                Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            request.setAttribute("erreur", "L'option n'a pas pu être modifié");
+                            erreur(request, response);
+
+                        } else {
+                            request.setAttribute("erreur", "Champ(s) manquant(s)");
+                            erreur(request, response);
                         }
-                        request.setAttribute("erreur", "L'option n'a pas pu être enregistré");
-                        erreur(request, response);
 
                     } else {
-                        request.setAttribute("erreur", "Champ(s) manquant(s)");
+                        request.setAttribute("erreur", "Responsable d'option manquant");
                         erreur(request, response);
                     }
+                    break;
+                } else if ("supprimer".equals(request.getParameter("objet"))) {
+                    String condition = request.getParameter("type") + "_id=" + request.getParameter("id");
+
+                    try {
+                        edt.supprimer(request.getParameter("type"), condition);
+                        request.setAttribute("confirmation", "La suppression de l'option a bien été enregistré");
+                        confirmation(request, response);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ModificationSuppression.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    request.setAttribute("erreur", "La suppression de l'option n'a pas été enregistré");
+                    erreur(request, response);
 
                 } else {
-                    request.setAttribute("erreur", "Responsable d'option manquant");
+                    request.setAttribute("erreur", "Objet incorrect");
                     erreur(request, response);
                 }
-                break;
 
-            case "Matiere":
+            case "Matiere"://TODO etc...
                 String Matiere_Nom = request.getParameter("Matiere_Nom");
                 String Matiere_Acronyme = request.getParameter("Matiere_Acronyme");
                 LinkedList listeOption = new LinkedList();
@@ -418,7 +436,7 @@ public class ModificationSuppression extends HttpServlet {
                 }
 
                 break;
-*/
+
             default:
                 request.setAttribute("erreur", "Type incorrect");
                 erreur(request, response);
