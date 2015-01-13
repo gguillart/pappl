@@ -18,14 +18,14 @@
             String objet = (String) request.getAttribute("objet");
             if ("supprimer".equals(objet)) {
                 out.println("<h1>Etes-vous sur de vouloir supprimer la matière " + request.getAttribute("nom") + " ?<h1/><br/>");
-                out.println("<form method=\"post\" action=\"ModificationSuppression?type=Matiere&objet=suppression&id=" + request.getAttribute("id") + "\">"
+                out.println("<form method=\"post\" action=\"ModificationSuppression?type=Matiere&objet=supprimer&id=" + request.getAttribute("id") + "\">"
                         + "<input type=\"submit\" value=\"oui\"  />");
 
             } else if ("modifier".equals(objet)) {
                 BDonn edt = new BDonn();
                 String id = (String) request.getAttribute("id");
                 ArrayList liste = edt.selectionnerMatiere(id);
-                out.println("<form method=\"post\" action=\"ModificationSuppression?type=Matiere&objet=modification&id=" + request.getAttribute("id") + "\">"
+                out.println("<form method=\"post\" action=\"ModificationSuppression?type=Matiere&objet=modifier&id=" + request.getAttribute("id") + "\">"
                         + "<fieldset>"
                         + "<legend>Informations sur la matière</legend>");
 

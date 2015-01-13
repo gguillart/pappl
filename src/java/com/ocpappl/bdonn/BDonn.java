@@ -150,11 +150,55 @@ public class BDonn {
         deconnection(con);
 
     }
-
-    public void modifier(String type, String attributsValeurs, String id) throws SQLException {
+    
+    public void creerCoursOption(String idCours, String idOption) throws SQLException{
         Connection con = connection();
 
-        String query = "UPDATE " + type + " SET " + attributsValeurs + " WHERE "
+
+        Statement stmt = con.createStatement();
+        
+
+            String query = "INSERT INTO Cours_Option(Cours_id, Option_id)" + " VALUES(" + idCours + "," + idOption + ");";
+            stmt.executeUpdate(query);
+        
+
+        stmt.close();
+
+        deconnection(con);
+        
+    }
+
+    public void modifierCours(String id, String attributsValeurs, LinkedList liste) throws SQLException {
+        Connection con = connection();
+
+        ArrayList<LinkedList> listeCoursOption = selectionnerCoursOption(id);
+         for(int i=0; i<listeCoursOption.size();i++){
+             for(int j=0;j<liste.size();j++){
+                 if((int) listeCoursOption.get(i).get(0) == parseInt((String) liste.get(j))){
+                     listeCoursOption.get(i).set(0, 0);
+                     liste.set(j, "0");
+                 }
+             }
+         }
+        
+         for(int i=0;i<listeCoursOption.size();i++){
+             if((int) listeCoursOption.get(i).get(0) !=0){
+                 String condition = "Cours_Option_id = " + listeCoursOption.get(i).get(1);
+                 supprimer("Cours_Option",condition);
+                 
+             }
+         }
+         int a;
+         for(int i=0;i<liste.size();i++){
+             a=parseInt( (String) liste.get(i));
+             if(a!=0){
+                 creerCoursOption(id, (String) liste.get(i));
+                 
+             }
+         }
+         
+        
+        String query = "UPDATE Cours SET " + attributsValeurs + " WHERE Cours_id ="
                 + id + ";";
 
         Statement stmt = con.createStatement();
@@ -168,7 +212,7 @@ public class BDonn {
     public void supprimer(String type, String id) throws SQLException {
         Connection con = connection();
 
-        String query = "DELETE FROM " + type + " WHERE " + id + ";";
+        String query = "DELETE FROM " + type + " CASCADE WHERE " + id;
 
         Statement stmt = con.createStatement();
         stmt.executeUpdate(query);
@@ -435,7 +479,7 @@ public class BDonn {
         return liste;
     }
 
-    public ArrayList<LinkedList> selectionnerCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
+    public ArrayList selectionnerCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
         Connection con = connection();
 
         String option = " (Option_id = " + listeOption.get(0);
@@ -448,7 +492,7 @@ public class BDonn {
         String plus = " NATURAL JOIN Cours_Option WHERE (Cours_Date_Debut BETWEEN '" + conditionJour + " 00:00:00'"
                 + " AND '" + conditionFin + "') AND (Cours_Date_Fin BETWEEN '" + conditionDebut
                 + "' AND '" + conditionJour + " 23:59:59') AND" + option + ")";
-        ArrayList<LinkedList> liste = new ArrayList();
+        ArrayList liste = new ArrayList();
 
         String query = "SELECT * FROM " + "Cours" + plus + ";";
 
@@ -459,10 +503,7 @@ public class BDonn {
         rs.next();
         while (rs.getRow() != 0) {
 
-            LinkedList sousListe = new LinkedList();
-            sousListe.add(rs.getString("Cours_Date_Debut"));
-            sousListe.add(rs.getString("Cours_Date_Fin"));
-            liste.add(sousListe);
+            liste.add(rs.getInt("Cours_id"));
             rs.next();
         }
 
@@ -472,6 +513,29 @@ public class BDonn {
         return liste;
     }
 
+    public ArrayList<LinkedList> selectionnerCoursOption(String identifiant) throws SQLException{
+        Connection con = connection();
+        int id = parseInt(identifiant);
+        ArrayList<LinkedList> liste = new ArrayList();
+        String query = "SELECT * FROM Cours_Option WHERE Cours_id = " + id + ";";
+        Statement stmt = con.createStatement();
+
+        ResultSet rs = stmt.executeQuery(query);
+
+        rs.next();
+        while(rs.getRow()!=0){
+            LinkedList sousListe = new LinkedList();
+            sousListe.add(rs.getInt("Option_id"));
+            sousListe.add(rs.getInt("Cours_Option_id"));
+            liste.add(sousListe);            
+            rs.next();
+        }
+
+        stmt.close();
+        deconnection(con);
+        return liste;
+    }
+    
     public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
         ArrayList<LinkedList> liste = new ArrayList();
         liste = selectionnerCours(conditionJour, conditionDebut, conditionFin, listeOption);
@@ -479,6 +543,24 @@ public class BDonn {
 
         if (liste.size() == 0) {
             bool = true;
+        }
+
+        return bool;
+    }
+
+    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption, String identifiant) throws SQLException {
+        ArrayList liste = new ArrayList();
+        int id = parseInt(identifiant);
+        liste = selectionnerCours(conditionJour, conditionDebut, conditionFin, listeOption);
+        boolean bool = true;
+        int count = 0;
+
+        if (liste.size() != 0) { 
+            for (int i = 0; i < liste.size(); i++) {
+                if ((int) liste.get(i) != id) {
+                    bool = false;
+                }
+            }
         }
 
         return bool;

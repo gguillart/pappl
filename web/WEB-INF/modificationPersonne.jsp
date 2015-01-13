@@ -18,16 +18,16 @@
             String objet = (String) request.getAttribute("objet");
             if ("supprimer".equals(objet)) {
                 out.println("<h1>Etes-vous sur de vouloir supprimer la personne " + request.getAttribute("prenom") + " " + request.getAttribute("nom") + " ?<h1/><br/>");
-                out.println("<form method=\"post\" action=\"ModificationSuppression?type=Personne&objet=suppression&id=" + request.getAttribute("id") + "\">"
+                out.println("<form method=\"post\" action=\"ModificationSuppression?type=Personne&objet=supprimer&id=" + request.getAttribute("id") + "\">"
                         + "<input type=\"submit\" value=\"oui\"  />");
 
             } else if ("modifier".equals(objet)) {
                 BDonn edt = new BDonn();
                 String id = (String) request.getAttribute("id");
                 ArrayList liste = edt.selectionnerPersonne(id);
-                out.println("<form method=\"post\" action=\"ModificationSuppression?type=Personne&objet=modification&id=" + request.getAttribute("id") + "\">"
+                out.println("<form method=\"post\" action=\"ModificationSuppression?type=Personne&objet=modifier&id=" + request.getAttribute("id") + "\">"
                         + "<fieldset>"
-                        + "<legend>Informations sur l'option</legend>");
+                        + "<legend>Informations sur la personne</legend>");
 
                 out.println("<label for=\"Nom\">Nom <span class=\"requis\">*</span></label>"
                         + "<input type=\"text\" id=\"Nom\" name=\"Nom\" value=\"" + liste.get(0) + "\" size=\"20\" maxlength=\"20\" /><br />"

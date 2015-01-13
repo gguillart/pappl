@@ -19,14 +19,14 @@
             String objet = (String) request.getAttribute("objet");
             if ("supprimer".equals(objet)) {
                 out.println("<h1>Etes-vous sur de vouloir supprimer ce cours de " + request.getAttribute("prenom") + " du " + request.getAttribute("nom") + " ?<h1/><br/>");
-                out.println("<form method=\"post\" action=\"ModificationSuppression?type=Cours&objet=suppression&id=" + request.getAttribute("id") + "\">"
+                out.println("<form method=\"post\" action=\"ModificationSuppression?type=Cours&objet=supprimer&id=" + request.getAttribute("id") + "\">"
                         + "<input type=\"submit\" value=\"oui\"  />");
 
             } else if ("modifier".equals(objet)) {
                 BDonn edt = new BDonn();
                 String id = (String) request.getAttribute("id");
                 ArrayList liste = edt.selectionnerCours(id);
-                out.println("<form method=\"post\" action=\"ModificationSuppression?type=Cours&objet=modification&id=" + request.getAttribute("id") + "\">"
+                out.println("<form method=\"post\" action=\"ModificationSuppression?type=Cours&objet=modifier&id=" + request.getAttribute("id") + "\">"
                         + "<fieldset>"
                         + "<legend>Informations sur le cours</legend>");
 
@@ -43,31 +43,31 @@
 
                     case "CM":
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"CM\" checked=\"\">CM<br>");
-                        out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"TD\">TD<br>");
-                        out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"TP\">TP<br>");
-                        out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"Conf\">Conf<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TD\">TD<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TP\">TP<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"Conf\">Conf<br>");
                         break;
 
                     case "TD":
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"CM\">CM<br>");
-                        out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"TD\" checked=\"\">TD<br>");
-                        out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"TP\">TP<br>");
-                        out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"Conf\">Conf<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TD\" checked=\"\">TD<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TP\">TP<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"Conf\">Conf<br>");
                         break;
 
                     case "TP":
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"CM\">CM<br>");
-                        out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"TD\">TD<br>");
-                        out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"TP\" checked=\"\">TP<br>");
-                        out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"Conf\">Conf<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TD\">TD<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TP\" checked=\"\">TP<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"Conf\">Conf<br>");
 
                         break;
 
                     case "Conf":
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"CM\">CM<br>");
-                        out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"TD\">TD<br>");
-                        out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"TP\">TP<br>");
-                        out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"Conf\" checked=\"\">Conf<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TD\">TD<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TP\">TP<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"Conf\" checked=\"\">Conf<br>");
                         break;
                 }
 
@@ -104,10 +104,11 @@
 
                 for (int i = 0; i < optionSelectionnées.size(); i++) {
 
-                    out.println("<input type=\"checkbox\" name=\"Option\" value=\"" + optionSelectionnées.get(i).get(0) + "\" checked=\"\">"
+                    out.println("<input type=\"checkbox\" name=\"Option" + i + "\" value=\"" + optionSelectionnées.get(i).get(0) + "\" checked=\"\">"
                             + optionSelectionnées.get(i).get(1) + "<br>");
                 }
 
+                int l = optionSelectionnées.size();
                 int count = 0;
                 ArrayList<LinkedList> option = new ArrayList();
                 option = edt.selectionner("Option");
@@ -118,8 +119,9 @@
                         }
                     }
                     if (count == 0) {
-                        out.println("<input type=\"checkbox\" name=\"Option\" value=\"" + option.get(i).get(0) + "\">"
+                        out.println("<input type=\"checkbox\" name=\"Option" + l + "\" value=\"" + option.get(i).get(0) + "\">"
                                 + option.get(i).get(1) + "<br>");
+                        l++;
                     } else {
                         count = 0;
                     }
