@@ -81,15 +81,14 @@ public class ModificationSuppression extends HttpServlet {
 
                 switch (request.getParameter("type")) {
                     case "Option":
-
                         liste = edt.selectionner(request.getParameter("type"));
                         for (int i = 0; i < liste.size(); i++) {
                             out.println(liste.get(i).get(1) + " : ");
                             out.println("<a href=\"/Pappl/ModificationSuppression?type=Option&objet=modifier&id=" + liste.get(i).get(0) + "\"> Modifier </a>");
                             out.println("<a href=\"/Pappl/ModificationSuppression?type=Option&objet=supprimer&id=" + liste.get(i).get(0) + "&nom=" + liste.get(i).get(1) + "\"> Supprimer </a><br/><br/>");
                         }
-
                         break;
+
                     case "Matiere":
                         liste = edt.selectionner(request.getParameter("type"));
                         for (int i = 0; i < liste.size(); i++) {
@@ -98,6 +97,7 @@ public class ModificationSuppression extends HttpServlet {
                             out.println("<a href=\"/Pappl/ModificationSuppression?type=Matiere&objet=supprimer&id=" + liste.get(i).get(0) + "&nom=" + liste.get(i).get(1) + "\"> Supprimer </a><br/><br/>");
                         }
                         break;
+
                     case "Personne":
                         liste = edt.selectionner(request.getParameter("type"));
                         for (int i = 0; i < liste.size(); i++) {
@@ -106,16 +106,16 @@ public class ModificationSuppression extends HttpServlet {
                             out.println("<a href=\"/Pappl/ModificationSuppression?type=Personne&objet=supprimer&id=" + liste.get(i).get(0) + "&nom=" + liste.get(i).get(1) + "&prenom=" + liste.get(i).get(2) + "\"> Supprimer </a><br/><br/>");
                         }
                         break;
+
                     case "Cours":
                         out.println("<a href=\"/Pappl/ModificationSuppression?type=Cours&objet=modifier&id=5\"> Modifier </a>");
                         out.println("<a href=\"/Pappl/ModificationSuppression?type=Cours&objet=supprimer&id=9\"> Supprimer </a><br/><br/>");
-
                         break;
 
                     default:
                         break;
-
                 }
+                out.println("<a href=\"/Pappl/PagePrincipale\">Annuler</a>");
                 out.println("</body>");
                 out.println("</html>");
             } catch (SQLException ex) {
@@ -425,30 +425,48 @@ public class ModificationSuppression extends HttpServlet {
                 }
                 break;
 
-            case "Personne"://TODO
-                String Nom = request.getParameter("Nom");
-                String Prenom = request.getParameter("Prenom");
-                LinkedList<String> liste = new LinkedList();
-                for (int i = 0; i < 3; i++) {
-                    if (request.getParameter("Personne" + i) != null) {
-                        liste.add(request.getParameter("Personne" + i));
+            case "Personne":
+                if ("modifier".equals(request.getParameter("objet"))) {
+                    String Nom = request.getParameter("Nom");
+                    String Prenom = request.getParameter("Prenom");
+                    LinkedList<String> liste = new LinkedList();
+                    for (int i = 0; i < 3; i++) {
+                        if (request.getParameter("Personne" + i) != null) {
+                            liste.add(request.getParameter("Personne" + i));
+                        }
                     }
-                }
 
-                if ((Nom != "") & (Prenom != "")) {
-                    String valeurs = "'" + Nom + "','" + Prenom + "'";
+                    if ((Nom != "") & (Prenom != "")) {
+                        String valeurs = "Nom='" + Nom + "', Prenom='" + Prenom + "'";
+                        try {
+                            edt.modifierPersonne(request.getParameter("id"), valeurs, liste);
+                            request.setAttribute("confirmation", "La modification de la personne a bien été enregistré");
+                            confirmation(request, response);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        request.setAttribute("erreur", "La modification de la personne n'a pas pu être enregistré");
+                        erreur(request, response);
+
+                    } else {
+                        request.setAttribute("erreur", "Champ(s) manquant(s)");
+                        erreur(request, response);
+                    }
+                } else if ("supprimer".equals(request.getParameter("objet"))) {
+                    String condition = request.getParameter("type") + "_id=" + request.getParameter("id");
+
                     try {
-                        edt.creerPersonne(valeurs, liste);
-                        request.setAttribute("confirmation", "La personne a bien été enregistré");
+                        edt.supprimer(request.getParameter("type"), condition);
+                        request.setAttribute("confirmation", "La suppression de la personne a bien été enregistré");
                         confirmation(request, response);
                     } catch (SQLException ex) {
-                        Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ModificationSuppression.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    request.setAttribute("erreur", "La personne n'a pas pu être enregistré");
+                    request.setAttribute("erreur", "La suppression de la personne n'a pas été enregistré");
                     erreur(request, response);
 
                 } else {
-                    request.setAttribute("erreur", "Champ(s) manquant(s)");
+                    request.setAttribute("erreur", "Objet incorrect");
                     erreur(request, response);
                 }
 

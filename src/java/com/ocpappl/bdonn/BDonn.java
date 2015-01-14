@@ -179,6 +179,17 @@ public class BDonn {
 
     }
 
+    public void creer(String type, String idPersonne) throws SQLException {
+        Connection con = connection();
+
+        Statement stmt = con.createStatement();
+        String query = "INSERT INTO " + type + "(Personne_id)" + " VALUES(" + idPersonne + ");";
+        stmt.executeUpdate(query);
+
+        stmt.close();
+        deconnection(con);
+    }
+
     public void modifierCours(String id, String attributsValeurs, LinkedList liste) throws SQLException {
         Connection con = connection();
 
@@ -273,22 +284,92 @@ public class BDonn {
 
     }
 
+    public void modifierPersonne(String id, String attributsValeurs, LinkedList liste) throws SQLException {
+        Connection con = connection();
+
+        ArrayList ancienneListe = selectionnerPersonne(id);
+
+        String query = "UPDATE Personne SET " + attributsValeurs + " WHERE Personne_id ="
+                + id + ";";
+
+        Statement stmt = con.createStatement();
+        stmt.executeUpdate(query);
+        int enseignant = 0;
+        int responsable = 0;
+        int administrateur = 0;
+        for (int i = 0; i < liste.size(); i++) {
+            if ("Enseignant".equals(liste.get(i))) {
+                enseignant = 1;
+
+                if ((int) ancienneListe.get(2) == 0) {
+                    creer("Enseignant", id);
+                }
+            }
+            if ("Responsable_Option".equals(liste.get(i))) {
+                responsable = 1;
+                if ((int) ancienneListe.get(3) == 0) {
+                    creer("Responsable_Option", id);
+                }
+            }
+            if ("Administrateur".equals(liste.get(i))) {
+                administrateur = 1;
+                if ((int) ancienneListe.get(4) == 0) {
+                    creer("Adminitrateur", id);
+                }
+            }
+        }
+
+        if (enseignant == 0) {
+            if ((int) ancienneListe.get(2) != 0) {
+                String conditionE = "Enseignant_id=" + ancienneListe.get(2);
+                supprimer("Enseignant", conditionE);
+            }
+        }
+        if (responsable == 0) {
+            if ((int) ancienneListe.get(3) != 0) {
+                String conditionR = "Responsable_id=" + ancienneListe.get(3);
+                supprimer("Responsable_Option", conditionR);
+            }
+        }
+        if (administrateur == 0) {
+            if ((int) ancienneListe.get(4) != 0) {
+                String conditionA = "Administrateur_id=" + ancienneListe.get(4);
+                supprimer("Administrateur", conditionA);
+            }
+        }
+
+        stmt.close();
+        deconnection(con);
+    }
+
     public void supprimer(String type, String id) throws SQLException {
         Connection con = connection();
 
         Statement stmt = con.createStatement();
         ArrayList listeMatiere = new ArrayList();
+        ArrayList listeCours = new ArrayList();
 
         if ("Option".equals(type)) {
-            String query2 = "SELECT * FROM Matiere NATURAL JOIN Appartient NATURAL JOIN Option WHERE " + id + ";";
-            ResultSet rs = stmt.executeQuery(query2);
-            if (rs.isBeforeFirst()) {
-                rs.next();
-                while (rs.getRow() != 0) {
-                    listeMatiere.add(rs.getInt("Matiere_id"));
-                    rs.next();
+            String query1 = "SELECT * FROM Matiere NATURAL JOIN Appartient NATURAL JOIN Option WHERE " + id + ";";
+            ResultSet rs1 = stmt.executeQuery(query1);
+            if (rs1.isBeforeFirst()) {
+                rs1.next();
+                while (rs1.getRow() != 0) {
+                    listeMatiere.add(rs1.getInt("Matiere_id"));
+                    rs1.next();
                 }
             }
+
+            String query2 = "SELECT * FROM Cours NATURAL JOIN Cours_Option NATURAL JOIN Option WHERE " + id + ";";
+            ResultSet rs2 = stmt.executeQuery(query2);
+            if (rs2.isBeforeFirst()) {
+                rs2.next();
+                while (rs2.getRow() != 0) {
+                    listeCours.add(rs2.getInt("Cours_id"));
+                    rs2.next();
+                }
+            }
+
         }
 
         String query = "DELETE FROM " + type + " CASCADE WHERE " + id + ";";
@@ -296,13 +377,25 @@ public class BDonn {
         stmt.executeUpdate(query);
 
         if (listeMatiere.size() != 0) {
-            String Q2;
+            String Q1;
             for (int i = 0; i < listeMatiere.size(); i++) {
-                Q2 = "SELECT * FROM Matiere NATURAL JOIN Appartient NATURAL JOIN Option WHERE Matiere_id=" + listeMatiere.get(i) + ";";
-                ResultSet rs2 = stmt.executeQuery(Q2);
-                if (!(rs2.isBeforeFirst())) {
+                Q1 = "SELECT * FROM Matiere NATURAL JOIN Appartient NATURAL JOIN Option WHERE Matiere_id=" + listeMatiere.get(i) + ";";
+                ResultSet rs11 = stmt.executeQuery(Q1);
+                if (!(rs11.isBeforeFirst())) {
                     String idMatiere = "Matiere_id=" + listeMatiere.get(i);
                     supprimer("Matiere", idMatiere);
+                }
+            }
+        }
+
+        if (listeCours.size() != 0) {
+            String Q2;
+            for (int i = 0; i < listeCours.size(); i++) {
+                Q2 = "SELECT * FROM Cours NATURAL JOIN Cours_Option NATURAL JOIN Option WHERE Cours_id=" + listeCours.get(i) + ";";
+                ResultSet rs22 = stmt.executeQuery(Q2);
+                if (!(rs22.isBeforeFirst())) {
+                    String idCours = "Cours_id=" + listeCours.get(i);
+                    supprimer("Cours", idCours);
                 }
             }
         }
