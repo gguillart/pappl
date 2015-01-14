@@ -44,11 +44,12 @@ public class PagePrincipale extends HttpServlet {
 
   */
     @Override
+    @SuppressWarnings("empty-statement")
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //String name = request.getParameter("name");
-        //request.setAttribute("name", name);
         
+        String week = request.getParameter("week");
+                request.setAttribute("week", week);
         this.getServletContext().getRequestDispatcher("/WEB-INF/pageprincipale.jsp").forward(request, response);
        
     }
@@ -61,7 +62,6 @@ public class PagePrincipale extends HttpServlet {
         String login = request.getParameter("login");
         HttpSession session = request.getSession();
         session.setAttribute("login", login);
-        
         Formulaire logs = new Formulaire();
         logs.verification(request);
         request.setAttribute("auth",logs);

@@ -32,30 +32,54 @@
             }
         %> 
 
-<%@ include file="menu.jsp" %> 
+        <%@ include file="menu.jsp" %> 
 
 
         <p>   <%
             java.util.Date dateAccueil = new java.util.Date();
             Locale locale = Locale.getDefault();
             DateFormat dateFormatLong = DateFormat.getDateInstance(DateFormat.FULL, locale);
+            DateFormat dateFormatSemaine = new SimpleDateFormat("w");
+            DateFormat dateFormatJourSemaine = new SimpleDateFormat("E");
+            DateFormat dateFormatJourMois = new SimpleDateFormat("dd'/'MM'/'yy");
             out.println("Nous sommes le " + dateFormatLong.format(dateAccueil));
 
             %>   
         </p>
-        
-        
+
+
         <p>
-            <%  
-                Date dateCourante = new java.util.Date();
-                GregorianCalendar calendar = new java.util.GregorianCalendar();
-                calendar.setTime(dateCourante);
-                //dateCourante = calendar.getTime();
-                DateFormat dateFormatJourSemaine = new SimpleDateFormat("E");
-                DateFormat dateFormatJourMois = new SimpleDateFormat("dd");
+            <%  Date dateCourante = new java.util.Date();
+                Date dateCurseur = new java.util.Date();
+                    GregorianCalendar calendar = new java.util.GregorianCalendar();
+                    calendar.setTime(dateCourante);
+                    String numSemActuS = dateFormatSemaine.format(dateCourante);
+                    String numSemS = request.getParameter("week");
+                    int numSemActu = Integer.parseInt(numSemActuS);
+                    int numSem = numSemActu;
+                    if (request.getParameter("week") != null) {
+
+                        numSem = Integer.parseInt(numSemS);
+
+                        if (numSem > numSemActu) {
+                            int k = 7 * (numSem - numSemActu);
+                            calendar.add(calendar.DATE, k);
+                        } else {
+                            int k = 7 * (numSemActu - numSem);
+                            calendar.add(calendar.DATE, -k);
+                        }
+
+                        dateCurseur = calendar.getTime();
+                    } 
+                    else {
+                        dateCurseur = dateCourante;
+                    }
+                
+                
+                
+
                 String jourSemaine = dateFormatJourSemaine.format(dateCourante);
                 String jourMois = dateFormatJourMois.format(dateCourante);
-                //out.println(jourMois);
 
                 Date dateLundi = new java.util.Date();
                 Date dateMardi = new java.util.Date();
@@ -63,7 +87,12 @@
                 Date dateJeudi = new java.util.Date();
                 Date dateVendredi = new java.util.Date();
 
-                switch (jourSemaine) {
+                switch (jourSemaine
+
+                
+                
+
+                ) {
                     case "lun.":
                         dateLundi = calendar.getTime();
                         calendar.add(calendar.DATE, +1);
@@ -76,7 +105,7 @@
                         dateVendredi = calendar.getTime();
                         break;
                     case "mar.":
-                        
+
                         calendar.add(calendar.DATE, -1);
                         dateLundi = calendar.getTime();
                         calendar.add(calendar.DATE, +1);
@@ -128,30 +157,64 @@
             %>   
         </p> 
 
-        <p>      <%
-            DateFormat dateFormatSemaine = new SimpleDateFormat("'Numéro de la semaine : 'w ");
-            out.println(dateFormatSemaine.format(dateCourante));
-            %>
-        </p>
-        
-        
 
         <p>
-            <a href="/Pappl/PagePrincipale?week=">Semaine Suivante</a>
+            <% out.println (
+
+                "numéro de semaine actuelle : "+numSemActu+"\n");%>
+            <br>
+            <% out.println (
+
+                "numéro de semaine de la visualisation : "+numSem); %>
+
+        </p>
+
+        <p>
+            <a href="/Pappl/PagePrincipale?week=<%if (numSem+1==53) {calendar.add(calendar.DATE, +7);
+                    dateCurseur=calendar.getTime();
+                    numSemS = dateFormatSemaine.format(dateCurseur);
+                    numSem = Integer.parseInt(numSemS);
+                    out.println(numSem);
+                }
+
+                
+                    else {
+                out.println (numSem + 1);
+                        }        %>">Semaine Suivante</a>
         </p>
         <p>
-            <a href="/Pappl/PagePrincipale">Semaine Précédente</a>
+            <a href="/Pappl/PagePrincipale?week=<%if (numSem-1==0) {calendar.add(calendar.DATE, -7);
+                    dateCurseur=calendar.getTime();
+                    numSemS = dateFormatSemaine.format(dateCurseur);
+                    numSem = Integer.parseInt(numSemS);
+                    out.println(numSem);
+                }
+
+                
+                    else {
+                out.println(numSem - 1);
+                }
+               %>">Semaine Précédente</a>
         </p>
 
         <table>
 
             <tr>
                 <th> </th>
-                <th>Lundi <% out.println(dateFormatJourMois.format(dateLundi)); %>  </th> 
-                <th>Mardi <% out.println(dateFormatJourMois.format(dateMardi)); %></th>
-                <th>Mercredi <% out.println(dateFormatJourMois.format(dateMercredi)); %></th>
-                <th>Jeudi <% out.println(dateFormatJourMois.format(dateJeudi)); %></th>
-                <th>Vendredi <% out.println(dateFormatJourMois.format(dateVendredi)); %></th>
+                <th>Lundi <% out.println (dateFormatJourMois.format
+
+                    (dateLundi)); %>  </th> 
+                <th>Mardi <% out.println (dateFormatJourMois.format
+
+                    (dateMardi)); %></th>
+                <th>Mercredi <% out.println (dateFormatJourMois.format
+
+                    (dateMercredi)); %></th>
+                <th>Jeudi <% out.println (dateFormatJourMois.format
+
+                    (dateJeudi)); %></th>
+                <th>Vendredi <% out.println (dateFormatJourMois.format
+                (dateVendredi));%></th>
             </tr>
             <tr>
                 <td>Matin</td>
@@ -170,31 +233,6 @@
                 <td>Cours</td>
             </tr>
         </table>
-
-
-        <%--
-
- <%
-    String name = (String) request.getAttribute("name");
-    out.println(name);
-    %>
-<%
-    String heure = (String) request.getAttribute("heure");
-    if (heure.equals("jour")) {
-        out.println("Bonjour");
-    } else {
-        out.println("Bonsoir");
-    }
-%>
-
-<p>
-    <%
-        for (int i = 0; i < 3; i++) {
-            out.println("Une nouvelle ligne !<br />");
-        }
-    %>
-</p>
-        --%>
 
     </body>
 </html>
