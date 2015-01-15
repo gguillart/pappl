@@ -29,21 +29,24 @@
                     <input type="text" id="Option_Nom" name="Option_Nom" value="" size="20" maxlength="20" />
                     <br />
 
-                    <legend>Qui est le responsable de cette option ?</legend>
 
+                    <label for="Responsable_Option">Qui est le responsable de cette option ?*</label><br>
+                    <select name="Responsable_Option" id="Responsable_Option">
+                        
                     <%
                         BDonn edt = new BDonn();
                         ArrayList<LinkedList> respo = new ArrayList();
                         respo = edt.selectionner("Responsable_Option");
                         for (int i = 0; i < respo.size(); i++) {
-                            out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"" + respo.get(i).get(0) + "\">"
-                                    + respo.get(i).get(2) + " " + respo.get(i).get(1) + "<br>");
+                            out.println("<option value=\"" + respo.get(i).get(0) + "\">"
+                                    + respo.get(i).get(2) + " " + respo.get(i).get(1) + "</option>");
                         }
                     %>
-
+                    
+                    </select>
 
                 </fieldset>
-                <input type="submit" value="Valider"  />
+                <input type="submit" value="Valider" />
                 <input type="reset" value="Remettre à zéro" />
                 <a href="/Pappl/PagePrincipale">Annuler</a>
                 <a href="/Pappl/Creation?type=Personne">Creer un responsable d'option</a>

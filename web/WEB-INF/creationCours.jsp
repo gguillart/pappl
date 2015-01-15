@@ -33,40 +33,46 @@
                     <input type="text" id="Commentaire" name="Commentaire" value="" size="20" maxlength="20" />
                     <br />
 
-                    <legend>Type de cours :</legend>
+                    <legend>Type de cours :*</legend>
                     <input type="radio" name="Type_De_Cours" value="CM">CM<br>
                     <input type="radio" name="Type_De_Cours" value="TD">TD<br>
                     <input type="radio" name="Type_De_Cours" value="TP">TP<br>
                     <input type="radio" name="Type_De_Cours" value="Conf">Conf<br>
+                    <br />
+
+                    <label for="Enseignant">Qui est l'enseignant responsable de ce cours ?*</label><br>
+                    <select name="Enseignant" id="Enseignant">
+
+                        <%
+                            BDonn edt = new BDonn();
+                            ArrayList<LinkedList> prof = new ArrayList();
+                            prof = edt.selectionner("Enseignant");
+                            for (int i = 0; i < prof.size(); i++) {
+                                out.println("<option value=\"" + prof.get(i).get(0) + "\">"
+                                        + prof.get(i).get(2) + " " + prof.get(i).get(1) + "</option>");
+                            }
+
+                        %>
+
+                    </select><br>
 
                     <br />
-                    <legend>Qui est l'enseignant responsable de ce cours ?</legend>
+                    <label for="Matiere">Quelle est la matière de ce cours ?*</label><br>
+                    <select name="Matiere" id="Matiere">
 
-                    <%
-                        BDonn edt = new BDonn();
-                        ArrayList<LinkedList> prof = new ArrayList();
-                        prof = edt.selectionner("Enseignant");
-                        for (int i = 0; i < prof.size(); i++) {
-                            out.println("<input type=\"radio\" name=\"Enseignant\" value=\"" + prof.get(i).get(0) + "\">"
-                                    + prof.get(i).get(2) + " " + prof.get(i).get(1) + "<br>");
-                        }
+                        <%                        ArrayList<LinkedList> matiere = new ArrayList();
+                            matiere = edt.selectionner("Matiere");
+                            for (int i = 0; i < matiere.size(); i++) {
+                                out.println("<option value=\"" + matiere.get(i).get(0) + "\">"
+                                        + matiere.get(i).get(1) + "</option>");
+                            }
 
-                    %>
+                        %>
 
-                    <br />
-                    <legend>Quelle est la matière de ce cours ?</legend>
-
-                    <%                        ArrayList<LinkedList> matiere = new ArrayList();
-                        matiere = edt.selectionner("Matiere");
-                        for (int i = 0; i < matiere.size(); i++) {
-                            out.println("<input type=\"radio\" name=\"Matiere\" value=\"" + matiere.get(i).get(0) + "\">"
-                                    + matiere.get(i).get(1) + "<br>");
-                        }
-
-                    %>
+                    </select><br>
 
                     <br />
-                    <legend>Quelles options sont concernées ?</legend>
+                    <legend>Quelles options sont concernées ?*</legend>
 
                     <%                        ArrayList<LinkedList> option = new ArrayList();
                         option = edt.selectionner("Option");
@@ -75,10 +81,9 @@
                                     + option.get(i).get(1) + "<br>");
                         }
                     %>
-
+                    
                     <br />
-                    <legend>Horaire et date : </legend>
-
+                    <legend>Horaire et date :*</legend>
 
                     <label for="Debut">De :</label>
                     <select name="Debut" id="Debut">
@@ -126,7 +131,7 @@
                     <label for="Annee"> </label>
                     <input type="number" name="Annee" id="Annee" min="2014" max="2100" value="2015" ><br />
 
-                    <label for="Repeter">Repeter le cours sur combien de semaines ? </label>
+                    <label for="Repeter">Répéter le cours sur combien de semaines ?*</label>
                     <input type="number" name="Repeter" id="Repeter" min="1" max="20" value="1" >
                     <%--TODO
                     possibilités de valeurs par défaut pour les horaires du cours 
