@@ -204,12 +204,15 @@
                     out.println(numSemSuiv);
                     calendar.add(calendar.DATE, -7);                
 
-                   %>&year=<% Annee = PagePrincipale.getYearForWeek(calendar);
-                   if (numSemSuiv==1){ 
-                   out.println(Annee+1);
-                   }
-                   else
-                   {out.println(Annee);}
+                   %>&year=<% 
+                    calendar.add(calendar.DATE, +7);
+                    Annee = PagePrincipale.getYearForWeek(calendar);
+                    calendar.add(calendar.DATE, -7);
+                  // if (numSemSuiv==1){ 
+                   out.println(Annee);
+                //   }
+                 //  else
+                 //  {out.println(Annee);}
                            
                    %>">Semaine Suivante</a>
         </p>
@@ -224,12 +227,15 @@
                     calendar.add(calendar.DATE, +7);
                                     
 
-                   %>&year=<% Annee = PagePrincipale.getYearForWeek(calendar);
-                   if (numSemPrec==52){ 
-                   out.println(Annee-1);
-                   }
-                   else
-                   {out.println(Annee);}
+                   %>&year=<% 
+                     calendar.add(calendar.DATE, -7);
+                     Annee = PagePrincipale.getYearForWeek(calendar);
+                     calendar.add(calendar.DATE, +7);
+                 //  if (numSemPrec==52){ 
+                   out.println(Annee);
+               //    }
+                 //  else
+                  // {out.println(Annee);}
                    
                            
                    %>">Semaine Précédente</a>
