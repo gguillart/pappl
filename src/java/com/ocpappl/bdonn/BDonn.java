@@ -314,7 +314,7 @@ public class BDonn {
             if ("Administrateur".equals(liste.get(i))) {
                 administrateur = 1;
                 if ((int) ancienneListe.get(4) == 0) {
-                    creer("Adminitrateur", id);
+                    creer("Administrateur", id);
                 }
             }
         }

@@ -35,7 +35,7 @@
                         + "<label for=\"Matiere_Nom\">Nom <span class=\"requis\">*</span></label>"
                         + "<input type=\"text\" id=\"Matiere_Nom\" name=\"Matiere_Nom\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"20\" /><br />");
 
-                out.println("<legend>Quelles options sont concernées par la matière ?</legend>");
+                out.println("<legend>Quelles options sont concernées par la matière ?*</legend>");
 
                 ArrayList<LinkedList> optionSelectionnées = (ArrayList) liste.get(2);
 

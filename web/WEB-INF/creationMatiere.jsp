@@ -30,7 +30,7 @@
                     <br />
 
 
-                    <legend>Quelles options sont concernées par la matière ?</legend>
+                    <legend>Quelles options sont concernées par la matière ?*</legend>
 
                     <%
                         BDonn edt = new BDonn();
