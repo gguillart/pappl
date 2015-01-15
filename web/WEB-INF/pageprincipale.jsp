@@ -67,7 +67,9 @@
                 Annee = Integer.parseInt((String) request.getAttribute("year"));
                 }
                 
-               /* if (numSem==numSemActu && Annee <AnneeActu) {
+               /* tentative de blocage du problème */
+                
+                /*  if (numSem==numSemActu && Annee <AnneeActu) {
                     calendar.add(Calendar.WEEK_OF_YEAR,-51); 
                      while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem && calendar.get(Calendar.YEAR)==Annee) {
                          calendar.add(Calendar.WEEK_OF_YEAR,-1);
