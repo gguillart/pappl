@@ -71,33 +71,39 @@
                         break;
                 }
 
-                out.println("<br /><legend>Qui est l'enseignant responsable de ce cours ?</legend>");
+                out.println("<br /><label for=\"Enseignant\">Qui est l'enseignant responsable de ce cours ?*</label><br>"
+                        + "<select name=\"Enseignant\" id=\"Enseignant\">");
 
                 ArrayList<LinkedList> respo = new ArrayList();
-                out.println("<input type=\"radio\" name=\"Enseignant\" value=\"" + liste.get(4) + "\" checked=\"\">"
-                        + liste.get(5) + " " + liste.get(6) + "<br>");
-
+                out.println("<option value=\"" + liste.get(4) + "\">"
+                        + liste.get(5) + " " + liste.get(6) + "</option>");
+                
                 respo = edt.selectionner("Enseignant");
                 for (int i = 0; i < respo.size(); i++) {
                     if (respo.get(i).get(0) != liste.get(4)) {
-                        out.println("<input type=\"radio\" name=\"Enseignant\" value=\"" + respo.get(i).get(0) + "\">"
-                                + respo.get(i).get(2) + " " + respo.get(i).get(1) + "<br>");
+                        out.println("<option value=\"" + respo.get(i).get(0) + "\">"
+                                + respo.get(i).get(2) + " " + respo.get(i).get(1) + "</option>");
                     }
                 }
+                
+                out.println("</select><br>");
 
-                out.println("<br /><legend>Quelle est la matiere de ce cours ?</legend>");
+                out.println("<br /><label for=\"Matiere\">Quelle est la matiere de ce cours ?*</label><br>"
+                + "<select name=\"Matiere\" id=\"Matiere\">");
 
                 ArrayList<LinkedList> matiere = new ArrayList();
-                out.println("<input type=\"radio\" name=\"Matiere\" value=\"" + liste.get(7) + "\" checked=\"\">"
-                        + liste.get(8) + "<br>");
+                out.println("<option value=\"" + liste.get(7) + "\">"
+                        + liste.get(8) + "</option>");
 
                 matiere = edt.selectionner("Matiere");
                 for (int i = 0; i < matiere.size(); i++) {
                     if (matiere.get(i).get(0) != liste.get(7)) {
-                        out.println("<input type=\"radio\" name=\"Matiere\" value=\"" + matiere.get(i).get(0) + "\">"
-                                + matiere.get(i).get(1) + "<br>");
+                        out.println("<option value=\"" + matiere.get(i).get(0) + "\">"
+                                + matiere.get(i).get(1) + "</option>");
                     }
                 }
+                
+                out.println("</select><br>");
 
                 out.println("<br /><legend>Quelles options sont concernées ?</legend>");
                 ArrayList<LinkedList> optionSelectionnées = (ArrayList) liste.get(9);

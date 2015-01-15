@@ -36,18 +36,21 @@
                         + "<label for=\"Option_Nom\">Nom <span class=\"requis\">*</span></label>"
                         + "<input type=\"text\" id=\"Option_Nom\" name=\"Option_Nom\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"20\" /><br />");
 
-                out.println("<legend>Qui est le responsable de cette option ?</legend>");
+                out.println("<label for=\"Responsable_Option\">Qui est le responsable de cette option ?*</label><br>"
+                + "<select name=\"Responsable_Option\" id=\"Responsable_Option\">");
                 ArrayList<LinkedList> respo = new ArrayList();
-                out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"" + liste.get(2) + "\" checked=\"\">"
-                        + liste.get(3) + " " + liste.get(4) + "<br>");
+                out.println("<option value=\"" + liste.get(2) + "\">"
+                        + liste.get(3) + " " + liste.get(4) + "</option>");
 
                 respo = edt.selectionner("Responsable_Option");
                 for (int i = 0; i < respo.size(); i++) {
                     if (respo.get(i).get(0) != liste.get(2)) {
-                        out.println("<input type=\"radio\" name=\"Responsable_Option\" value=\"" + respo.get(i).get(0) + "\">"
-                                + respo.get(i).get(2) + " " + respo.get(i).get(1) + "<br>");
+                        out.println("<option value=\"" + respo.get(i).get(0) + "\">"
+                                + respo.get(i).get(2) + " " + respo.get(i).get(1) + "</option>");
                     }
                 }
+                
+                out.println("</select><br>");
 
                 out.println("</fieldset>"
                         + "<input type=\"submit\" value=\"Valider\"  />"
