@@ -68,6 +68,7 @@
                 if (request.getAttribute("week") != null && request.getAttribute("year") != null) {
                 numSem = Integer.parseInt((String) request.getAttribute("week")); 
                 Annee = Integer.parseInt((String) request.getAttribute("year"));
+                //out.println("Non null " + numSem + " " + Annee);
                 }
                 
                /* tentative de blocage du problème */
@@ -88,17 +89,20 @@
                 } */
                
            
-             
-                    if(Annee > AnneeActu /* && numSem != numSemActu*/) {out.println("blabla1");
-                            
+                    //Attention si il y a un changement d'année et de semaine en même temps c'est le chaos !!
+                    if(Annee > AnneeActu /* && numSem != numSemActu*/) {out.println("blabla1");//Attention il ne faut pas ajouter plus d'un an !!
+                                                                                               //Attention si le changement d'année se fait dans la semaine courante il ne se passe rien !!!!TODO 
+                                                                                               //Attention si le changement d'année se fait avec numSem > à la semaine courante le changement d'année ne se fait pas
                         while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem) {
                             calendar.add(Calendar.WEEK_OF_YEAR, +1); 
-                            
+                            //out.println(calendar.get(Calendar.WEEK_OF_YEAR)+" "+ numSem + "<br>");
                         }
                         
                         
-                    } else if (Annee < AnneeActu /* && numSem != */) {out.println("blabla2");
-                            
+                    } else if (Annee < AnneeActu /* && numSem != */) {out.println("blabla2");//Attention ne pas retirer plus d'un an !!
+                                                                                             //Attention si le changement d'année se fait dans la semaine courante il ne se passe rien !!!!TODO 
+                                                                                             //Attention si le changement d'année se fait avec numSem < à la semaine courante le changement d'année ne se fait pas
+  
                            
                         while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem) {
                              
