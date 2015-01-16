@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -151,7 +152,7 @@ public class Creation extends HttpServlet {
                                             String heureDebut = request.getParameter("Debut");
                                             String heureFin = request.getParameter("Fin");
                                             String valeurs = new String();
-                                            Date date = new Date();
+                                            Calendar calendrier = Calendar.getInstance();
                                             String bDonnJour = new String();
                                             String bDonnDebut = new String();
                                             String bDonnFin = new String();
@@ -159,11 +160,9 @@ public class Creation extends HttpServlet {
                                             int p = 0;
 
                                             for (int i = 0; i < repeter; i++) {
-                                                date.setYear(annee);
-                                                date.setMonth(mois);
-                                                date.setDate(jour + i * 7 + p * 7);
+                                                calendrier.set(annee - 1900, mois, jour + i * 7 + p * 7);
                                                 //pb date + repetition
-                                                bDonnJour = date.getYear() + "-" + date.getMonth() + "-" + date.getDate();
+                                                bDonnJour = calendrier.get(calendrier.YEAR) + "-" + calendrier.get(calendrier.MONTH) + "-" + calendrier.get(calendrier.DAY_OF_MONTH);
                                                 bDonnDebut = bDonnJour + " " + heureDebut;
                                                 bDonnFin = bDonnJour + " " + heureFin;
                                                 valeurs = "'" + TypeDeCours + "'," + Matiere + "," + prof
@@ -186,7 +185,7 @@ public class Creation extends HttpServlet {
                                                         p++;
                                                         if (count > repeter) {
                                                             i = repeter;
-                                                            request.setAttribute("erreur", "erreur critique, arret forcé, " + count
+                                                            request.setAttribute("erreur", "arret forcé, " + count
                                                                     + " cours ont été enregistré alors qu'il n'en fallait que " + repeter);
                                                             erreur(request, response);
                                                         }

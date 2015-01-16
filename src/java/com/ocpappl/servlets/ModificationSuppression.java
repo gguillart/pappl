@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -208,7 +209,7 @@ public class ModificationSuppression extends HttpServlet {
                                             String heureDebut = request.getParameter("Debut");
                                             String heureFin = request.getParameter("Fin");
                                             String valeurs = new String();
-                                            Date date = new Date();
+                                            Calendar calendrier = Calendar.getInstance();
                                             String bDonnJour = new String();
                                             String bDonnDebut = new String();
                                             String bDonnFin = new String();
@@ -218,12 +219,10 @@ public class ModificationSuppression extends HttpServlet {
 
                                             while (i == 0) {
                                                 count = 0;
-                                                date.setYear(annee);
-                                                date.setMonth(mois);
-                                                date.setDate(jour + p * 7);
+                                                calendrier.set(annee - 1900, mois, jour + p * 7);
                                                 i++;
                                                 p++;
-                                                bDonnJour = date.getYear() + "-" + date.getMonth() + "-" + date.getDate();
+                                                bDonnJour = calendrier.get(calendrier.YEAR) + "-" + calendrier.get(calendrier.MONTH) + "-" + calendrier.get(calendrier.DAY_OF_MONTH);
                                                 bDonnDebut = bDonnJour + " " + heureDebut;
                                                 bDonnFin = bDonnJour + " " + heureFin;
                                                 valeurs = "Type_De_Cours_Nom='" + TypeDeCours + "', Matiere_id=" + Matiere + ", Enseignant_id=" + prof
