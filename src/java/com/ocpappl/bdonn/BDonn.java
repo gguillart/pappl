@@ -9,6 +9,7 @@
  */
 package com.ocpappl.bdonn;
 
+import com.ocpappl.beans.DateJava;
 import com.ocpappl.servlets.Creation;
 import static java.lang.Integer.parseInt;
 import java.sql.Connection;
@@ -18,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -783,4 +785,43 @@ public class BDonn {
 
         return bool;
     }
+    
+    
+    public ArrayList selectionnerCoursHoraire(Date debut, Date fin, LinkedList listeOption) throws SQLException {
+        Connection con = connection();
+
+        String option = " (Option_id = " + listeOption.get(0);
+        if (listeOption.size() > 1) {
+            for (int i = 1; i < listeOption.size(); i++) {
+                option = option + " OR Option_id = " + listeOption.get(i);
+            }
+        }
+        
+        DateJava dateDebut = new DateJava(debut);
+        String debutSQL = dateDebut.conversionSql();
+         DateJava dateFin = new DateJava(fin);
+        String finSQL = dateDebut.conversionSql();
+
+        String query = "SELECT * FROM " + "Cours" + "NATURAL JOIN Cours_Option WHERE (Cours_Date_Debut BETWEEN '" + debutSQL + "' AND '" + finSQL 
+                + "') AND (Cours_Date_Fin BETWEEN '" + debutSQL + "' AND '" + finSQL + "') AND" + option + ");"; 
+        ArrayList liste = new ArrayList();
+
+   
+        Statement stmt = con.createStatement();
+
+        ResultSet rs = stmt.executeQuery(query);
+
+        rs.next();
+        while (rs.getRow() != 0) {
+
+            liste.add(rs.getInt("Cours_id"));
+            rs.next();
+        }
+
+        stmt.close();
+        deconnection(con);
+
+        return liste;
+    }
+    
 }

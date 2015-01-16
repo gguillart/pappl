@@ -6,6 +6,9 @@
 
 
 
+<%@page import="java.util.LinkedList"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.ocpappl.bdonn.BDonn"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="com.ocpappl.servlets.PagePrincipale"%>
 <%@page import="java.util.Locale"%>
@@ -256,7 +259,21 @@
             </tr>
             <tr>
                 <td>Matin</td>
-                <td>Cours</td>
+                <td> <%-- 
+                <% 
+                BDonn edt = new BDonn();
+                ArrayList<LinkedList> option = new ArrayList();
+                option = edt.selectionnerOption(edt.selectionner("Option").get(0).get(0));
+                SimpleDateFormat sdf1 = new SimpleDateFormat("dd'/'MM'/'yy");
+                String jour=sdf1.format(dateLundi);
+                SimpleDateFormat sdf2 = new SimpleDateFormat("dd'/'MM'/'yy'/'hh'/'mm");
+                Date debut =  sdf2.parse(jour+"'/'07'/'59"); 
+                Date fin =  sdf2.parse(jour+"'/'13'/'46"); 
+                edt.selectionnerCoursHoraire(debut,fin,option);
+                
+                
+                %> --%>
+                </td>
                 <td>Cours</td>
                 <td>Cours</td>
                 <td>Cours</td>
