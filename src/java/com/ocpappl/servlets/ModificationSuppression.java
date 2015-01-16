@@ -240,7 +240,7 @@ public class ModificationSuppression extends HttpServlet {
                                                             edt.modifierCours(request.getParameter("id"), valeurs, listeOption);
                                                             count = 2;
 
-                                                            request.setAttribute("confirmation", "Les modifications du cours ont bien été enregistré, le cours est programmé pour le :" + bDonnJour);
+                                                            request.setAttribute("confirmation", "Les modifications du cours ont bien été enregistré, le cours est programmé pour le : " + bDonnJour);
                                                             confirmation(request, response);
 
                                                         } catch (SQLException ex) {
