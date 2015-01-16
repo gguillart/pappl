@@ -216,13 +216,15 @@ public class ModificationSuppression extends HttpServlet {
                                             int count;
                                             int p = 0;
                                             int i = 0;
+                                            int moisCorrect = 0;
 
                                             while (i == 0) {
                                                 count = 0;
-                                                calendrier.set(annee - 1900, mois, jour + p * 7);
+                                                calendrier.set(annee, mois-1, jour + p * 7);
+                                                moisCorrect = calendrier.get(calendrier.MONTH)+1;
                                                 i++;
                                                 p++;
-                                                bDonnJour = calendrier.get(calendrier.YEAR) + "-" + calendrier.get(calendrier.MONTH) + "-" + calendrier.get(calendrier.DAY_OF_MONTH);
+                                                bDonnJour = calendrier.get(calendrier.YEAR) + "-" + moisCorrect + "-" + calendrier.get(calendrier.DAY_OF_MONTH);
                                                 bDonnDebut = bDonnJour + " " + heureDebut;
                                                 bDonnFin = bDonnJour + " " + heureFin;
                                                 valeurs = "Type_De_Cours_Nom='" + TypeDeCours + "', Matiere_id=" + Matiere + ", Enseignant_id=" + prof
@@ -238,7 +240,7 @@ public class ModificationSuppression extends HttpServlet {
                                                             edt.modifierCours(request.getParameter("id"), valeurs, listeOption);
                                                             count = 2;
 
-                                                            request.setAttribute("confirmation", "Les modifications du cours ont bien été enregistré");
+                                                            request.setAttribute("confirmation", "Les modifications du cours ont bien été enregistré, le cours est programmé pour le :" + bDonnJour);
                                                             confirmation(request, response);
 
                                                         } catch (SQLException ex) {

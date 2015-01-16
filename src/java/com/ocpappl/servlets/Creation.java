@@ -147,6 +147,7 @@ public class Creation extends HttpServlet {
 
                                         if (request.getParameter("Repeter") != null) {
                                             int repeter = parseInt(request.getParameter("Repeter"));
+                                            LinkedList listeDateCours = new LinkedList();
 
                                             int mois = parseInt(request.getParameter("Mois"));
                                             String heureDebut = request.getParameter("Debut");
@@ -158,11 +159,13 @@ public class Creation extends HttpServlet {
                                             String bDonnFin = new String();
                                             int count = 0;
                                             int p = 0;
+                                            int moisCorrect=0;
 
                                             for (int i = 0; i < repeter; i++) {
-                                                calendrier.set(annee - 1900, mois, jour + i * 7 + p * 7);
+                                                calendrier.set(annee, mois-1, jour + i * 7 + p * 7);
+                                                moisCorrect = calendrier.get(calendrier.MONTH)+1;
                                                 //pb date + repetition
-                                                bDonnJour = calendrier.get(calendrier.YEAR) + "-" + calendrier.get(calendrier.MONTH) + "-" + calendrier.get(calendrier.DAY_OF_MONTH);
+                                                bDonnJour = calendrier.get(calendrier.YEAR) + "-" + moisCorrect + "-" + calendrier.get(calendrier.DAY_OF_MONTH);
                                                 bDonnDebut = bDonnJour + " " + heureDebut;
                                                 bDonnFin = bDonnJour + " " + heureFin;
                                                 valeurs = "'" + TypeDeCours + "'," + Matiere + "," + prof
@@ -174,6 +177,7 @@ public class Creation extends HttpServlet {
 
                                                         try {
                                                             edt.creerCours(valeurs, listeOption);
+                                                            listeDateCours.add(bDonnJour);
                                                             count++;
 
                                                         } catch (SQLException ex) {
@@ -197,7 +201,11 @@ public class Creation extends HttpServlet {
                                             }
 
                                             if (count == repeter) {
-                                                request.setAttribute("confirmation", "Les cours ont bien été enregistré");
+                                                String dateCours = new String();
+                                                for(int i=0;i<listeDateCours.size();i++){
+                                                dateCours = dateCours + "<br>" + listeDateCours.get(i);
+                                                        }
+                                                request.setAttribute("confirmation", "Les cours ont bien été enregistré aux dates suivantes : " + dateCours);
                                                 confirmation(request, response);
 
                                             } else {
