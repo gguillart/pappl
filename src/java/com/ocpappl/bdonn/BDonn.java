@@ -686,7 +686,7 @@ public class BDonn {
             }
         }
 
-        String plus = " NATURAL JOIN Cours_Option WHERE (Cours_Date_Debut BETWEEN '" + conditionJour + " 00:00:00'"
+        String plus = " NATURAL JOIN Cours_Option NATURAL JOIN Matiere WHERE (Cours_Date_Debut BETWEEN '" + conditionJour + " 00:00:00'"
                 + " AND '" + conditionFin + "') AND (Cours_Date_Fin BETWEEN '" + conditionDebut
                 + "' AND '" + conditionJour + " 23:59:59') AND" + option + ")";
         ArrayList liste = new ArrayList();
@@ -701,6 +701,11 @@ public class BDonn {
         while (rs.getRow() != 0) {
 
             liste.add(rs.getInt("Cours_id"));
+            String debut = rs.getString("Cours_Date_Debut");
+            String fin = rs.getString("Cours_Date_Fin");
+            String matiere = rs.getString("Matiere_Acronyme");
+            String info = debut + "-" + fin + " : " + matiere;
+            liste.add(info);
             rs.next();
         }
 

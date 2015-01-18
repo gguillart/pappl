@@ -87,8 +87,8 @@
                  calendar.add(Calendar.WEEK_OF_YEAR,+1);
                  }
                  } */
-                calendar.add(Calendar.YEAR, Annee - AnneeActu);
-                calendar.add(Calendar.WEEK_OF_YEAR, numSem - numSemActu);
+                calendar.set(Calendar.YEAR, Annee);
+                calendar.set(Calendar.WEEK_OF_YEAR, numSem);
                 /*
                  //Attention si il y a un changement d'année et de semaine en même temps c'est le chaos !!
                  if(Annee > AnneeActu  && numSem != numSemActu) {out.println("blabla1");//Attention il ne faut pas ajouter plus d'un an !!
@@ -156,9 +156,8 @@
             <a href="/Pappl/PagePrincipale?week=<%
                 calendar.add(Calendar.WEEK_OF_YEAR, +1);
                 out.println(calendar.get(Calendar.WEEK_OF_YEAR));
-                calendar.add(Calendar.WEEK_OF_YEAR, -1);
 
-               %>&year=<%                   calendar.add(Calendar.WEEK_OF_YEAR, +1);
+               %>&year=<%                   
                    out.println(calendar.get(Calendar.YEAR));
                    calendar.add(Calendar.WEEK_OF_YEAR, -1);
 
@@ -169,10 +168,10 @@
         <p>
             <a href="/Pappl/PagePrincipale?week=<%                calendar.add(Calendar.WEEK_OF_YEAR, -1);
                 out.println(calendar.get(Calendar.WEEK_OF_YEAR));
-                calendar.add(Calendar.WEEK_OF_YEAR, +1);
+                
 
 
-               %>&year=<%                   calendar.add(Calendar.WEEK_OF_YEAR, -1);
+               %>&year=<%
                    out.println(calendar.get(Calendar.YEAR));
                    calendar.add(Calendar.WEEK_OF_YEAR, +1);
                %>">Semaine Précédente</a>
@@ -187,7 +186,7 @@
             Date dateJeudi = new java.util.Date();
             Date dateVendredi = new java.util.Date();
 
-               //Lundi commence à 2
+            //Lundi commence à 2
             calendar.add(calendar.DATE, 2 - jourSemaine);
             dateLundi = calendar.getTime();
             calendar.add(calendar.DATE, +1);
@@ -209,10 +208,7 @@
                 <th>Jeudi <% out.println(dateFormatJourMois.format(dateJeudi)); %></th>
                 <th>Vendredi <% out.println(dateFormatJourMois.format(dateVendredi));%></th>
             </tr>
-            <tr>
-                <td>Matin</td>
-                <td> <%--
-                <%
+            <%--<%
                 BDonn edt = new BDonn();
                 ArrayList<LinkedList> option = new ArrayList();
                 option = edt.selectionnerOption(edt.selectionner("Option").get(0).get(0));
@@ -225,19 +221,49 @@
 
 
                 %> --%>
-                </td>
-                <td>Cours</td>
-                <td>Cours</td>
-                <td>Cours</td>
-                <td>Cours</td>
-            </tr>
-            <tr>
-                <td>Après-midi</td>
-                <td>Cours</td>
-                <td>Cours</td>
-                <td>Cours</td>
-                <td>Cours</td>
-                <td>Cours</td>
+            <tr><%
+                out.println("<td>Matin</td>");
+                BDonn edt = new BDonn();
+                LinkedList option = new LinkedList();
+                option.add("1");
+                ArrayList<ArrayList> listeCours = new ArrayList();
+                int moisCorrect = calendar.get(calendar.MONTH) + 1;
+                calendar.add(calendar.DATE, -4);
+                String conditionJour = calendar.get(calendar.YEAR) + "-" + moisCorrect + "-" + calendar.get(calendar.DATE);
+                
+                String heureDebut = "13:45:00";
+                String heureFin = "00:00:00";
+                String conditionDebut = conditionJour + " " + heureDebut;
+                String conditionFin = conditionJour + " " + heureFin;
+                for (int i = 0; i < 10; i++) {
+                    moisCorrect = calendar.get(calendar.MONTH) + 1;
+                    conditionJour = calendar.get(calendar.YEAR) + "-" + moisCorrect + "-" + calendar.get(calendar.DATE);
+                    conditionDebut = conditionJour + " " + heureDebut;
+                    conditionFin = conditionJour + " " + heureFin;
+                    ArrayList cours = edt.selectionnerCours(conditionJour, conditionFin, conditionDebut, option);
+                    if (cours.size() == 0) {
+                        cours.add("vide");
+                        cours.add("vide");
+                    }
+                    listeCours.add(cours);
+                    if ((i % 2 == 1)) {
+                        calendar.add(calendar.DATE, +1);
+                        heureDebut = "13:45:00";
+                        heureFin = "00:00:00";
+                    } else {
+                        heureDebut = "23:59:59";
+                        heureFin = "12:15:01";
+                    }
+                }
+                for (int i = 0; i < 5; i++) {
+                    out.println("<td>" + listeCours.get(2 * i).get(1) + "</td>");
+                }
+                out.println("</tr><tr>");
+                out.println("<td>Après-midi</td>");
+                for (int i = 0; i < 5; i++) {
+                    out.println("<td>" + listeCours.get(2 * i + 1).get(1) + "</td>");
+                }
+                %>
             </tr>
         </table>
 
