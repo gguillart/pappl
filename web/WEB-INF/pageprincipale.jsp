@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : pageprincipale
     Created on : 22 déc. 2014, 19:32:16
     Author     : Geoffrey
@@ -37,9 +37,9 @@
             if (logs != null) {
                 out.println("Bonjour " + session.getAttribute("login") + ", " + logs.getResultat());
             }
-        %> 
+        %>
 
-        <%@ include file="menu.jsp" %> 
+        <%@ include file="menu.jsp" %>
 
 
         <p>   <%
@@ -52,7 +52,7 @@
             DateFormat dateFormatAnnee = new SimpleDateFormat("yy");
             out.println("Nous sommes le " + dateFormatLong.format(dateAccueil));
 
-            %>   
+            %>
         </p>
 
 
@@ -64,85 +64,85 @@
                 int AnneeActu = calendar.get(Calendar.YEAR);
                 int numSem = calendar.get(Calendar.WEEK_OF_YEAR);
                 int Annee = calendar.get(Calendar.YEAR);
-               
+
                 if (request.getAttribute("week") != null && request.getAttribute("year") != null) {
-                numSem = Integer.parseInt((String) request.getAttribute("week")); 
-                Annee = Integer.parseInt((String) request.getAttribute("year"));
-                //out.println("Non null " + numSem + " " + Annee);
+                    numSem = Integer.parseInt((String) request.getAttribute("week"));
+                    Annee = Integer.parseInt((String) request.getAttribute("year"));
+                    //out.println("Non null " + numSem + " " + Annee);
                 }
-                
-               /* tentative de blocage du problème */
-                
+
+                /* tentative de blocage du problème */
+
                 /*  if (numSem==numSemActu && Annee <AnneeActu) {
-                    calendar.add(Calendar.WEEK_OF_YEAR,-51); 
-                     while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem && calendar.get(Calendar.YEAR)==Annee) {
-                         calendar.add(Calendar.WEEK_OF_YEAR,-1);
-                     }
-                }
-                
-                 
-                if (numSem==numSemActu && Annee >AnneeActu) {
-                    calendar.add(Calendar.WEEK_OF_YEAR,+51); 
-                     while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem && calendar.get(Calendar.YEAR)==Annee) {
-                         calendar.add(Calendar.WEEK_OF_YEAR,+1);
-                     }
-                } */
-               
-           
-                    //Attention si il y a un changement d'année et de semaine en même temps c'est le chaos !!
-                    if(Annee > AnneeActu /* && numSem != numSemActu*/) {out.println("blabla1");//Attention il ne faut pas ajouter plus d'un an !!
-                                                                                               //Attention si le changement d'année se fait dans la semaine courante il ne se passe rien !!!!TODO 
-                                                                                               //Attention si le changement d'année se fait avec numSem > à la semaine courante le changement d'année ne se fait pas
-                        while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem) {
-                            calendar.add(Calendar.WEEK_OF_YEAR, +1); 
-                            //out.println(calendar.get(Calendar.WEEK_OF_YEAR)+" "+ numSem + "<br>");
-                        }
-                        
-                        
-                    } else if (Annee < AnneeActu /* && numSem != */) {out.println("blabla2");//Attention ne pas retirer plus d'un an !!
-                                                                                             //Attention si le changement d'année se fait dans la semaine courante il ne se passe rien !!!!TODO 
-                                                                                             //Attention si le changement d'année se fait avec numSem < à la semaine courante le changement d'année ne se fait pas
-  
-                           
-                        while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem) {
-                             
-                            calendar.add(Calendar.WEEK_OF_YEAR, -1);
-                             
-                        }
-                      
-                        
-                        
-                    } else if (numSem > numSemActu) {out.println("blabla3");
-                            
-                        while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem ) {
-                            calendar.add(Calendar.WEEK_OF_YEAR, +1);
-                        }
-                       
-                    } else if (numSem < numSemActu) {out.println("blabla4");
+                 calendar.add(Calendar.WEEK_OF_YEAR,-51);
+                 while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem && calendar.get(Calendar.YEAR)==Annee) {
+                 calendar.add(Calendar.WEEK_OF_YEAR,-1);
+                 }
+                 }
 
-                        while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem ) {
-                            calendar.add(Calendar.WEEK_OF_YEAR, -1);
-                                     
-                        }
-                        
-                    }
-                    
-         
-                                       
-                    numSem = calendar.get(Calendar.WEEK_OF_YEAR); 
-                    Annee = calendar.get(Calendar.YEAR); 
-           
-                       
 
-            %>   
-        </p> 
+                 if (numSem==numSemActu && Annee >AnneeActu) {
+                 calendar.add(Calendar.WEEK_OF_YEAR,+51);
+                 while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem && calendar.get(Calendar.YEAR)==Annee) {
+                 calendar.add(Calendar.WEEK_OF_YEAR,+1);
+                 }
+                 } */
+                calendar.add(Calendar.YEAR, Annee - AnneeActu);
+                calendar.add(Calendar.WEEK_OF_YEAR, numSem - numSemActu);
+                /*
+                 //Attention si il y a un changement d'année et de semaine en même temps c'est le chaos !!
+                 if(Annee > AnneeActu  && numSem != numSemActu) {out.println("blabla1");//Attention il ne faut pas ajouter plus d'un an !!
+                 //Attention si le changement d'année se fait dans la semaine courante il ne se passe rien !!!!TODO
+                 //Attention si le changement d'année se fait avec numSem > à la semaine courante le changement d'année ne se fait pas
+                 while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem) {
+                 calendar.add(Calendar.WEEK_OF_YEAR, +1);
+                 //out.println(calendar.get(Calendar.WEEK_OF_YEAR)+" "+ numSem + "<br>");
+                 }
+
+
+                 } else if (Annee < AnneeActu && numSem != ) {out.println("blabla2");//Attention ne pas retirer plus d'un an !!
+                 //Attention si le changement d'année se fait dans la semaine courante il ne se passe rien !!!!TODO
+                 //Attention si le changement d'année se fait avec numSem < à la semaine courante le changement d'année ne se fait pas
+
+
+                 while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem) {
+
+                 calendar.add(Calendar.WEEK_OF_YEAR, -1);
+
+                 }
+
+
+
+                 } else if (numSem > numSemActu) {out.println("blabla3");
+
+                 while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem ) {
+                 calendar.add(Calendar.WEEK_OF_YEAR, +1);
+                 }
+
+                 } else if (numSem < numSemActu) {out.println("blabla4");
+
+                 while (calendar.get(Calendar.WEEK_OF_YEAR) != numSem ) {
+                 calendar.add(Calendar.WEEK_OF_YEAR, -1);
+
+                 }
+
+                 }
+
+                 */
+
+                numSem = calendar.get(Calendar.WEEK_OF_YEAR);
+                Annee = calendar.get(Calendar.YEAR);
+
+
+            %>
+        </p>
 
         <p>
             <% out.println(
                         "numéro de semaine actuelle : " + numSemActu);%>
             <br>
             <% out.println(
-                        "numéro de semaine de la visualisation : " + numSem); %> 
+                        "numéro de semaine de la visualisation : " + numSem); %>
             <br>
             <% out.println(
                         "Année de la semaine actuelle : " + AnneeActu);%>
@@ -159,7 +159,7 @@
                 calendar.add(Calendar.WEEK_OF_YEAR, -1);
 
                %>&year=<%                   calendar.add(Calendar.WEEK_OF_YEAR, +1);
-                   out.println(calendar.get(Calendar.YEAR)); 
+                   out.println(calendar.get(Calendar.YEAR));
                    calendar.add(Calendar.WEEK_OF_YEAR, -1);
 
 
@@ -173,89 +173,37 @@
 
 
                %>&year=<%                   calendar.add(Calendar.WEEK_OF_YEAR, -1);
-                   out.println(calendar.get(Calendar.YEAR)); 
+                   out.println(calendar.get(Calendar.YEAR));
                    calendar.add(Calendar.WEEK_OF_YEAR, +1);
                %>">Semaine Précédente</a>
         </p>
 
-        
-            <%    int jourSemaine = calendar.get(Calendar.DAY_OF_WEEK); 
-               
 
-                Date dateLundi = new java.util.Date();
-                Date dateMardi = new java.util.Date();
-                Date dateMercredi = new java.util.Date();
-                Date dateJeudi = new java.util.Date();
-                Date dateVendredi = new java.util.Date();
+        <%    int jourSemaine = calendar.get(Calendar.DAY_OF_WEEK);
 
-                switch (jourSemaine) { 
-                    case 2:                     //Lundi commence à 2 
-                        dateLundi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateMardi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateMercredi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateJeudi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateVendredi = calendar.getTime();
-                        break;
-                    case 3:
+            Date dateLundi = new java.util.Date();
+            Date dateMardi = new java.util.Date();
+            Date dateMercredi = new java.util.Date();
+            Date dateJeudi = new java.util.Date();
+            Date dateVendredi = new java.util.Date();
 
-                        calendar.add(calendar.DATE, -1);
-                        dateLundi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateMardi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateMercredi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateJeudi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateVendredi = calendar.getTime();
-                        break;
-                    case 4:
-                        calendar.add(calendar.DATE, -2);
-                        dateLundi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateMardi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateMercredi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateJeudi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateVendredi = calendar.getTime();
-                        break;
-                    case 5:
-                        calendar.add(calendar.DATE, -3);
-                        dateLundi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateMardi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateMercredi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateJeudi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateVendredi = calendar.getTime();
-                        break;
-                    case 6:
-                        calendar.add(calendar.DATE, -4);
-                        dateLundi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateMardi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateMercredi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateJeudi = calendar.getTime();
-                        calendar.add(calendar.DATE, +1);
-                        dateVendredi = calendar.getTime();
-                        break;
-                }
-                %>
+               //Lundi commence à 2
+            calendar.add(calendar.DATE, 2 - jourSemaine);
+            dateLundi = calendar.getTime();
+            calendar.add(calendar.DATE, +1);
+            dateMardi = calendar.getTime();
+            calendar.add(calendar.DATE, +1);
+            dateMercredi = calendar.getTime();
+            calendar.add(calendar.DATE, +1);
+            dateJeudi = calendar.getTime();
+            calendar.add(calendar.DATE, +1);
+            dateVendredi = calendar.getTime();
+        %>
         <table>
 
             <tr>
                 <th> </th>
-                <th>Lundi <% out.println(dateFormatJourMois.format(dateLundi)); %>  </th> 
+                <th>Lundi <% out.println(dateFormatJourMois.format(dateLundi)); %>  </th>
                 <th>Mardi <% out.println(dateFormatJourMois.format(dateMardi)); %></th>
                 <th>Mercredi <% out.println(dateFormatJourMois.format(dateMercredi)); %></th>
                 <th>Jeudi <% out.println(dateFormatJourMois.format(dateJeudi)); %></th>
@@ -263,19 +211,19 @@
             </tr>
             <tr>
                 <td>Matin</td>
-                <td> <%-- 
-                <% 
+                <td> <%--
+                <%
                 BDonn edt = new BDonn();
                 ArrayList<LinkedList> option = new ArrayList();
                 option = edt.selectionnerOption(edt.selectionner("Option").get(0).get(0));
                 SimpleDateFormat sdf1 = new SimpleDateFormat("dd'/'MM'/'yy");
                 String jour=sdf1.format(dateLundi);
                 SimpleDateFormat sdf2 = new SimpleDateFormat("dd'/'MM'/'yy'/'hh'/'mm");
-                Date debut =  sdf2.parse(jour+"'/'07'/'59"); 
-                Date fin =  sdf2.parse(jour+"'/'13'/'46"); 
+                Date debut =  sdf2.parse(jour+"'/'07'/'59");
+                Date fin =  sdf2.parse(jour+"'/'13'/'46");
                 edt.selectionnerCoursHoraire(debut,fin,option);
-                
-                
+
+
                 %> --%>
                 </td>
                 <td>Cours</td>
