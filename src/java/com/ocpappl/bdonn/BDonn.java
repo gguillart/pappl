@@ -680,7 +680,7 @@ public class BDonn {
         return liste;
     }
 
-    public ArrayList selectionnerCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException, ParseException {
+    public ArrayList selectionnerCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
         Connection con = connection();
 
         String option = " (Option_id = " + listeOption.get(0);
@@ -704,16 +704,19 @@ public class BDonn {
         rs.next();
         while (rs.getRow() != 0) {
 
-            DateFormat dateFormatHeure = new SimpleDateFormat("hh'h'mm");
+            
             liste.add(rs.getInt("Cours_id"));
-            DateSql debutSQL= new DateSql();
+
+            DateSql debutSQL = new DateSql();
             debutSQL.setSequence(rs.getString("Cours_Date_Debut"));
-            Date debutJava = debutSQL.conversionJava();
-            String debut = dateFormatHeure.format(debutJava);
-            DateSql finSQL= new DateSql();
+            String debut = debutSQL.conversionJava();
+            
+            DateSql finSQL = new DateSql();
             finSQL.setSequence(rs.getString("Cours_Date_Fin"));
-            Date finJava = finSQL.conversionJava();
-            String fin = dateFormatHeure.format(finJava);
+            String fin = finSQL.conversionJava();
+            
+
+            
             String matiere = rs.getString("Matiere_Acronyme");
             String info = debut + "-" + fin + " : " + matiere;
             liste.add(info);
@@ -772,7 +775,7 @@ public class BDonn {
         return liste;
     }
 
-    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException, ParseException {
+    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
         ArrayList<LinkedList> liste = new ArrayList();
         liste = selectionnerCours(conditionJour, conditionDebut, conditionFin, listeOption);
         boolean bool = false;
@@ -784,7 +787,7 @@ public class BDonn {
         return bool;
     }
 
-    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption, String identifiant) throws SQLException, ParseException {
+    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption, String identifiant) throws SQLException {
         ArrayList liste = new ArrayList();
         int id = parseInt(identifiant);
         liste = selectionnerCours(conditionJour, conditionDebut, conditionFin, listeOption);
@@ -801,8 +804,7 @@ public class BDonn {
 
         return bool;
     }
-    
-    
+
     public ArrayList selectionnerCoursHoraire(Date debut, Date fin, LinkedList listeOption) throws SQLException {
         Connection con = connection();
 
@@ -812,17 +814,16 @@ public class BDonn {
                 option = option + " OR Option_id = " + listeOption.get(i);
             }
         }
-        
+
         DateJava dateDebut = new DateJava(debut);
         String debutSQL = dateDebut.conversionSql();
-         DateJava dateFin = new DateJava(fin);
+        DateJava dateFin = new DateJava(fin);
         String finSQL = dateDebut.conversionSql();
 
-        String query = "SELECT * FROM " + "Cours" + "NATURAL JOIN Cours_Option WHERE (Cours_Date_Debut BETWEEN '" + debutSQL + "' AND '" + finSQL 
-                + "') AND (Cours_Date_Fin BETWEEN '" + debutSQL + "' AND '" + finSQL + "') AND" + option + ");"; 
+        String query = "SELECT * FROM " + "Cours" + "NATURAL JOIN Cours_Option WHERE (Cours_Date_Debut BETWEEN '" + debutSQL + "' AND '" + finSQL
+                + "') AND (Cours_Date_Fin BETWEEN '" + debutSQL + "' AND '" + finSQL + "') AND" + option + ");";
         ArrayList liste = new ArrayList();
 
-   
         Statement stmt = con.createStatement();
 
         ResultSet rs = stmt.executeQuery(query);
@@ -839,5 +840,29 @@ public class BDonn {
 
         return liste;
     }
-    
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
