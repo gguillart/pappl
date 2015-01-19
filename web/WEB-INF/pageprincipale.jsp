@@ -60,6 +60,8 @@
             <%  Date dateCourante = new java.util.Date();
                 GregorianCalendar calendar = new java.util.GregorianCalendar();
                 calendar.setTime(dateCourante);
+                GregorianCalendar calendar2 = new java.util.GregorianCalendar();
+                calendar2.setTime(dateCourante);
                 int numSemActu = calendar.get(Calendar.WEEK_OF_YEAR);
                 int AnneeActu = calendar.get(Calendar.YEAR);
                 int numSem = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -168,7 +170,8 @@
                 BDonn edt = new BDonn();
                 out.println("<form method=\"get\" action=\"PagePrincipale\">"
                         + "<label>Semaine : </label>"
-                        + "<select name=\"week\" id=\"week\">");
+                        + "<select name=\"week\" id=\"week\">"
+                        + "<option value=\"" + calendar2.get(Calendar.WEEK_OF_YEAR) + "\">" + calendar2.get(Calendar.WEEK_OF_YEAR) + "</option>");
 
                 for (int i = 1; i < 54; i++) {
                     out.println("<option value=\"" + i + "\">" + i + "</option>");
@@ -176,7 +179,8 @@
 
                 out.println("</select>");
                 out.println("<label>Année :</label>"
-                        + "<select name=\"year\" id=\"year\">");
+                        + "<select name=\"year\" id=\"year\">"
+                        + "<option value=\"" + calendar2.get(Calendar.YEAR) + "\">" + calendar2.get(Calendar.YEAR) + "</option>");
 
                 for (int i = 2014; i < 2020; i++) {
                     out.println("<option value=\"" + i + "\">" + i + "</option>");
@@ -224,7 +228,10 @@
         <table>
 
             <tr>
-                <th> </th>
+                <th>Semaine : <% out.println(calendar.get(Calendar.WEEK_OF_YEAR));
+                if(request.getParameter("option")!=null){
+                    out.println("Option : " + request.getParameter("option"));
+                } %>  </th>
                 <th>Lundi <% out.println(dateFormatJourMois.format(dateLundi)); %>  </th>
                 <th>Mardi <% out.println(dateFormatJourMois.format(dateMardi)); %></th>
                 <th>Mercredi <% out.println(dateFormatJourMois.format(dateMercredi)); %></th>
