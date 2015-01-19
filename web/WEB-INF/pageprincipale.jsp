@@ -129,7 +129,7 @@
                  }
 
                  */
-
+                calendar.set(calendar.DAY_OF_WEEK, 1);
                 numSem = calendar.get(Calendar.WEEK_OF_YEAR);
                 Annee = calendar.get(Calendar.YEAR);
 
@@ -157,23 +157,46 @@
                 calendar.add(Calendar.WEEK_OF_YEAR, +1);
                 out.println(calendar.get(Calendar.WEEK_OF_YEAR));
 
-               %>&year=<%                   
-                   out.println(calendar.get(Calendar.YEAR));
+               %>&year=<%                   out.println(calendar.get(Calendar.YEAR));
                    calendar.add(Calendar.WEEK_OF_YEAR, -1);
-
-
+                   if (request.getParameter("option") != null) {
+                       out.println("&option=" + request.getParameter("option"));
+                   }
                %>">Semaine Suivante</a>
-        </p>
 
-        <p>
+            <%
+                BDonn edt = new BDonn();
+                out.println("<form method=\"get\" action=\"PagePrincipale\">"
+                        + "<label>Semaine : </label>"
+                        + "<select name=\"week\" id=\"week\">");
+
+                for (int i = 1; i < 54; i++) {
+                    out.println("<option value=\"" + i + "\">" + i + "</option>");
+                }
+
+                out.println("</select>");
+                out.println("<label>Année :</label>"
+                        + "<select name=\"year\" id=\"year\">");
+
+                for (int i = 2014; i < 2020; i++) {
+                    out.println("<option value=\"" + i + "\">" + i + "</option>");
+                }
+
+                out.println("</select>"
+                        + "<input type=\"submit\" value=\"Valider\"/>"
+                        + "</form>");
+            %>
+
             <a href="/Pappl/PagePrincipale?week=<%                calendar.add(Calendar.WEEK_OF_YEAR, -1);
                 out.println(calendar.get(Calendar.WEEK_OF_YEAR));
-                
 
 
-               %>&year=<%
-                   out.println(calendar.get(Calendar.YEAR));
+               %>&year=<%                   out.println(calendar.get(Calendar.YEAR));
                    calendar.add(Calendar.WEEK_OF_YEAR, +1);
+
+                   if (request.getParameter("option") != null) {
+                       out.println("&option=" + request.getParameter("option"));
+                   }
                %>">Semaine Précédente</a>
         </p>
 
@@ -221,16 +244,32 @@
 
 
                 %> --%>
+
+
+
             <tr><%
+                ArrayList<LinkedList> listeOption = edt.selectionner("Option");
+                out.println("<form method=\"get\" action=\"PagePrincipale\">"
+                        + "<label>Option :</label>"
+                        + "<select name=\"option\" id=\"option\">");
+                if (request.getParameter("option") != null) {
+                    out.println("<option value=\"" + request.getParameter("option") + "\">" + edt.selectionnerOption(request.getParameter("option")).get(0) + "</option>");
+                }
+                for (int i = 0; i < listeOption.size(); i++) {
+                    out.println("<option value=\"" + listeOption.get(i).get(0) + "\">" + listeOption.get(i).get(1) + "</option>");
+                }
+                out.println("</select>"
+                        + "<input type=\"submit\" value=\"Valider\"  />"
+                        + "</form>");
+
                 out.println("<td>Matin</td>");
-                BDonn edt = new BDonn();
                 LinkedList option = new LinkedList();
-                option.add("1");
+                option.add(request.getParameter("option"));
                 ArrayList<ArrayList> listeCours = new ArrayList();
                 int moisCorrect = calendar.get(calendar.MONTH) + 1;
                 calendar.add(calendar.DATE, -4);
                 String conditionJour = calendar.get(calendar.YEAR) + "-" + moisCorrect + "-" + calendar.get(calendar.DATE);
-                
+
                 String heureDebut = "13:45:00";
                 String heureFin = "00:00:00";
                 String conditionDebut = conditionJour + " " + heureDebut;
