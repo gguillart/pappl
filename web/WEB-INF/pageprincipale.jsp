@@ -31,6 +31,12 @@
 
         <h1>Service de gestion des emplois du temps</h1>
 
+        <table>
+            <tr>
+                <td> <div class="statut"> <span statut="dispo"> Test de coloration conditionnelle </span> </div> </td>   
+                <td> hello </td>
+            </tr>
+        </table>
 
         <%
             Formulaire logs = (Formulaire) request.getAttribute("auth");
@@ -41,6 +47,7 @@
 
         <%@ include file="menu.jsp" %>
 
+     
 
         <p>   <%
             java.util.Date dateAccueil = new java.util.Date();
@@ -231,19 +238,7 @@
                 <th>Jeudi <% out.println(dateFormatJourMois.format(dateJeudi)); %></th>
                 <th>Vendredi <% out.println(dateFormatJourMois.format(dateVendredi));%></th>
             </tr>
-            <%--<%
-                BDonn edt = new BDonn();
-                ArrayList<LinkedList> option = new ArrayList();
-                option = edt.selectionnerOption(edt.selectionner("Option").get(0).get(0));
-                SimpleDateFormat sdf1 = new SimpleDateFormat("dd'/'MM'/'yy");
-                String jour=sdf1.format(dateLundi);
-                SimpleDateFormat sdf2 = new SimpleDateFormat("dd'/'MM'/'yy'/'hh'/'mm");
-                Date debut =  sdf2.parse(jour+"'/'07'/'59");
-                Date fin =  sdf2.parse(jour+"'/'13'/'46");
-                edt.selectionnerCoursHoraire(debut,fin,option);
-
-
-                %> --%>
+         
 
 
 
@@ -295,7 +290,11 @@
                     }
                 }
                 for (int i = 0; i < 5; i++) {
-                    out.println("<td>" + listeCours.get(2 * i).get(1) + "</td>");
+
+                    if (listeCours.get(2 * i).get(1) == "vide") {
+                        out.println("<td>" + listeCours.get(2 * i).get(1) + "</td>");
+                    }
+
                 }
                 out.println("</tr><tr>");
                 out.println("<td>Après-midi</td>");
@@ -303,8 +302,12 @@
                     out.println("<td>" + listeCours.get(2 * i + 1).get(1) + "</td>");
                 }
                 %>
+
             </tr>
+
+            <br> <br>
         </table>
+
 
     </body>
 </html>
