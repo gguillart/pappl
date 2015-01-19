@@ -71,6 +71,7 @@ public class Creation extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+             
         switch (request.getParameter("type")) {
             case "Cours":
                 this.getServletContext().getRequestDispatcher("/WEB-INF/creationCours.jsp").forward(request, response);
