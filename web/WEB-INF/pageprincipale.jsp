@@ -306,10 +306,8 @@
                 }
                 for (int i = 0; i < 5; i++) {
 
-                    if (listeCours.get(2 * i).get(1) == "vide") {
-                        out.println("<td>" + listeCours.get(2 * i).get(1) + "</td>");
-                    }
-
+                out.println("<td>" + listeCours.get(2 * i).get(1) + "</td>");
+                 
                 }
                 out.println("</tr><tr>");
                 out.println("<td>Après-midi</td>");
