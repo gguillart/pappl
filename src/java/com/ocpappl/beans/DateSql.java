@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.StringTokenizer;
 
+
 /**
  *
  * @author Geoffrey
@@ -19,7 +20,7 @@ public class DateSql {
     
     private String sequence;
     
-    public Date conversionJava() throws ParseException { // timestamp '2001-09-28 01:00:00'
+    public String conversionJava() { // timestamp '2001-09-28 01:00:00'
        
         StringTokenizer chaine = new StringTokenizer(sequence);
         
@@ -44,12 +45,12 @@ public class DateSql {
         String seconde = suite.nextToken(": ");
         
 
-        String sequenceJava = heure+"h"+minute+" "+jour+"-"+mois+"-"+annee; 
-        SimpleDateFormat sdf = new SimpleDateFormat("hh'h'mm dd-MM-yy");
-        Date date = sdf.parse(sequenceJava);
+        String sequenceJava = heure+"h"+minute+"";
+              
+       
       
 
-        return date;
+        return sequenceJava;
     }
 
     public String getSequence() {
