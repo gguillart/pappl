@@ -20,6 +20,9 @@ p
     color: blue;
 }
 
+.statut span[statut="dispo"] 
+{ background:greenyellow; color:black; } 
+
 table {
     border: medium solid #6495ed;
     border-collapse: collapse;
