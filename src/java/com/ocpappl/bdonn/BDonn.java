@@ -691,7 +691,7 @@ public class BDonn {
                 + "' AND '" + conditionJour + " 23:59:59') AND" + option + ")";
         ArrayList liste = new ArrayList();
 
-        String query = "SELECT * FROM " + "Cours" + plus + ";";
+        String query = "SELECT * FROM " + "Cours" + plus + " ORDER BY cours_date_debut;";
 
         Statement stmt = con.createStatement();
 

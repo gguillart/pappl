@@ -150,8 +150,8 @@ public class Creation extends HttpServlet {
                                             LinkedList listeDateCours = new LinkedList();
 
                                             int mois = parseInt(request.getParameter("Mois"));
-                                            String heureDebut = request.getParameter("Debut");
-                                            String heureFin = request.getParameter("Fin");
+                                            String heureDebut = request.getParameter("Heure_Debut")+":"+request.getParameter("Minute_Debut")+":00";
+                                            String heureFin = request.getParameter("Heure_Fin")+":"+request.getParameter("Minute_Fin")+":00";
                                             String valeurs = new String();
                                             Calendar calendrier = Calendar.getInstance();
                                             String bDonnJour = new String();
