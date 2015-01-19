@@ -702,21 +702,36 @@ public class BDonn {
         ResultSet rs = stmt.executeQuery(query);
 
         rs.next();
+        /*while (rs.getRow() != 0) {
+
+            
+         liste.add(rs.getInt("Cours_id"));
+
+         DateSql debutSQL = new DateSql();
+         debutSQL.setSequence(rs.getString("Cours_Date_Debut"));
+         String debut = debutSQL.conversionJava();
+            
+         DateSql finSQL = new DateSql();
+         finSQL.setSequence(rs.getString("Cours_Date_Fin"));
+         String fin = finSQL.conversionJava();
+            
+
+            
+         String matiere = rs.getString("Matiere_Acronyme");
+         String info = debut + "-" + fin + " : " + matiere;
+         liste.add(info);
+         rs.next();
+         }*/
+        //TODO
         while (rs.getRow() != 0) {
-
-            
             liste.add(rs.getInt("Cours_id"));
+            StringTokenizer debutT = new StringTokenizer(rs.getString("Cours_Date_Debut"));
+            StringTokenizer finT = new StringTokenizer(rs.getString("Cours_Date_Fin"));
 
-            DateSql debutSQL = new DateSql();
-            debutSQL.setSequence(rs.getString("Cours_Date_Debut"));
-            String debut = debutSQL.conversionJava();
-            
-            DateSql finSQL = new DateSql();
-            finSQL.setSequence(rs.getString("Cours_Date_Fin"));
-            String fin = finSQL.conversionJava();
-            
-
-            
+            debutT.nextToken();
+            finT.nextToken();
+            String debut = debutT.nextToken();
+            String fin = finT.nextToken();
             String matiere = rs.getString("Matiere_Acronyme");
             String info = debut + "-" + fin + " : " + matiere;
             liste.add(info);
@@ -775,7 +790,7 @@ public class BDonn {
         return liste;
     }
 
-    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
+    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException, ParseException {
         ArrayList<LinkedList> liste = new ArrayList();
         liste = selectionnerCours(conditionJour, conditionDebut, conditionFin, listeOption);
         boolean bool = false;
@@ -842,27 +857,3 @@ public class BDonn {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

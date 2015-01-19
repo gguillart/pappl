@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -71,7 +72,6 @@ public class Creation extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-             
         switch (request.getParameter("type")) {
             case "Cours":
                 this.getServletContext().getRequestDispatcher("/WEB-INF/creationCours.jsp").forward(request, response);
@@ -151,8 +151,9 @@ public class Creation extends HttpServlet {
                                             LinkedList listeDateCours = new LinkedList();
 
                                             int mois = parseInt(request.getParameter("Mois"));
-                                            String heureDebut = request.getParameter("Heure_Debut")+":"+request.getParameter("Minute_Debut")+":00";
-                                            String heureFin = request.getParameter("Heure_Fin")+":"+request.getParameter("Minute_Fin")+":00";
+                                            //TODO
+                                            String heureDebut = request.getParameter("Debut");
+                                            String heureFin = request.getParameter("Fin");
                                             String valeurs = new String();
                                             Calendar calendrier = Calendar.getInstance();
                                             String bDonnJour = new String();
@@ -160,11 +161,11 @@ public class Creation extends HttpServlet {
                                             String bDonnFin = new String();
                                             int count = 0;
                                             int p = 0;
-                                            int moisCorrect=0;
+                                            int moisCorrect = 0;
 
                                             for (int i = 0; i < repeter; i++) {
-                                                calendrier.set(annee, mois-1, jour + i * 7 + p * 7);
-                                                moisCorrect = calendrier.get(calendrier.MONTH)+1;
+                                                calendrier.set(annee, mois - 1, jour + i * 7 + p * 7);
+                                                moisCorrect = calendrier.get(calendrier.MONTH) + 1;
                                                 //pb date + repetition
                                                 bDonnJour = calendrier.get(calendrier.YEAR) + "-" + moisCorrect + "-" + calendrier.get(calendrier.DAY_OF_MONTH);
                                                 bDonnDebut = bDonnJour + " " + heureDebut;
@@ -198,14 +199,16 @@ public class Creation extends HttpServlet {
                                                     }
                                                 } catch (SQLException ex) {
                                                     Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
+                                                } catch (ParseException ex) {
+                                                    Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
                                                 }
                                             }
 
                                             if (count == repeter) {
                                                 String dateCours = new String();
-                                                for(int i=0;i<listeDateCours.size();i++){
-                                                dateCours = dateCours + "<br>" + listeDateCours.get(i);
-                                                        }
+                                                for (int i = 0; i < listeDateCours.size(); i++) {
+                                                    dateCours = dateCours + "<br>" + listeDateCours.get(i);
+                                                }
                                                 request.setAttribute("confirmation", "Les cours ont bien été enregistré aux dates suivantes : " + dateCours);
                                                 confirmation(request, response);
 

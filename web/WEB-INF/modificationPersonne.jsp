@@ -35,23 +35,23 @@
                         + "<input type=\"text\" id=\"Prenom\" name=\"Prenom\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"20\" /><br />");
 
                 out.println("<legend>Est-ce un...</legend>");
-                
-                if((int) liste.get(2)==0){
+
+                if ((int) liste.get(2) == 0) {
                     out.println("<input type=\"checkbox\" name=\"Personne0\" value=\"Enseignant\">Enseignant <br>");
                 } else {
                     out.println("<input type=\"checkbox\" name=\"Personne0\" value=\"Enseignant\" checked=\"\">Enseignant <br>");
                 }
-                if((int) liste.get(3)==0){
+                if ((int) liste.get(3) == 0) {
                     out.println("<input type=\"checkbox\" name=\"Personne1\" value=\"Responsable_Option\">Responsable d'option <br>");
                 } else {
                     out.println("<input type=\"checkbox\" name=\"Personne1\" value=\"Responsable_Option\" checked=\"\">Responsable d'option <br>");
                 }
-                if((int) liste.get(4)==0){
+                if ((int) liste.get(4) == 0) {
                     out.println("<input type=\"checkbox\" name=\"Personne2\" value=\"Administrateur\">Administrateur <br>");
                 } else {
                     out.println("<input type=\"checkbox\" name=\"Personne2\" value=\"Administrateur\" checked=\"\">Administrateur <br>");
                 }
-                
+
                 out.println("</fieldset>"
                         + "<input type=\"submit\" value=\"Valider\"  />"
                         + "<input type=\"reset\" value=\"Remettre à zéro\" />"

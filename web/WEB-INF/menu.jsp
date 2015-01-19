@@ -14,7 +14,7 @@
         <ul>
             <li><a href="/Pappl/ModificationSuppression?type=Option">Option</a></li>
             <li><a href="/Pappl/ModificationSuppression?type=Matiere">Matière</a></li>
-            <li><a href="/Pappl/ModificationSuppression?type=Cours">Cours</a></li>
+                <%--<li><a href="/Pappl/ModificationSuppression?type=Cours">Cours</a></li>--%>
             <li><a href="/Pappl/ModificationSuppression?type=Personne">Personne</a></li>
         </ul>
     </li>

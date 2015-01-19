@@ -31,24 +31,24 @@
 
         <h1>Service de gestion des emplois du temps</h1>
 
-        <table>
+        <%--<table>
             <tr>
                 <td> <div class="statut"> <span statut="dispo"> Test de coloration conditionnelle </span> </div> </td>   
                 <td> hello </td>
             </tr>
-        </table>
+        </table>--%>
 
         <%
             Formulaire logs = (Formulaire) request.getAttribute("auth");
-            if (logs != null) {  
+            if (logs != null) {
                 out.println("Bonjour " + request.getAttribute("login") + ", " + logs.getResultat());
             }
         %>
-        
+
 
         <%@ include file="menu.jsp" %>
 
-     
+
 
         <p>   <%
             java.util.Date dateAccueil = new java.util.Date();
@@ -147,7 +147,7 @@
             %>
         </p>
 
-        <p>
+        <%--<p>
             <% out.println(
                         "numéro de semaine actuelle : " + numSemActu);%>
             <br>
@@ -160,11 +160,10 @@
             <% out.println(
                         "Année de la semaine de la visualisation : " + Annee); %>
 
-        </p>
+        </p>--%>
 
         <p>
-            <a href="/Pappl/PagePrincipale?week=<%
-                calendar.add(Calendar.WEEK_OF_YEAR, +1);
+            <a href="/Pappl/PagePrincipale?week=<%                calendar.add(Calendar.WEEK_OF_YEAR, +1);
                 out.println(calendar.get(Calendar.WEEK_OF_YEAR));
 
                %>&year=<%                   out.println(calendar.get(Calendar.YEAR));
@@ -173,9 +172,9 @@
                        out.println("&option=" + request.getParameter("option"));
                    }
                %>">Semaine Suivante</a>
-</p>
+        </p>
 
-<p>
+        <p>
 
             <a href="/Pappl/PagePrincipale?week=<%                calendar.add(Calendar.WEEK_OF_YEAR, -1);
                 out.println(calendar.get(Calendar.WEEK_OF_YEAR));
@@ -215,24 +214,24 @@
         <table>
 
             <tr>
-                <th>Semaine : <% 
-            int semaineVisualisation = calendar.get(Calendar.WEEK_OF_YEAR) - 1;
-            out.println(semaineVisualisation);
-                if(request.getParameter("option")!=null){
-                    out.println("Option : " + request.getParameter("option"));
-                } %>  </th>
+                <th>Semaine : <%
+                    int semaineVisualisation = calendar.get(Calendar.WEEK_OF_YEAR) - 1;
+                    out.println(semaineVisualisation);
+                    if (request.getParameter("option") != null) {
+                        out.println("Option : " + request.getParameter("option"));
+                    } %>  </th>
                 <th>Lundi <% out.println(dateFormatJourMois.format(dateLundi)); %>  </th>
                 <th>Mardi <% out.println(dateFormatJourMois.format(dateMardi)); %></th>
                 <th>Mercredi <% out.println(dateFormatJourMois.format(dateMercredi)); %></th>
                 <th>Jeudi <% out.println(dateFormatJourMois.format(dateJeudi)); %></th>
                 <th>Vendredi <% out.println(dateFormatJourMois.format(dateVendredi));%></th>
             </tr>
-         
+
 
 
 
             <tr><%
-                
+
                 BDonn edt = new BDonn();
                 out.println("<form method=\"get\" action=\"PagePrincipale\">"
                         + "<label>Semaine : </label>"
@@ -253,8 +252,7 @@
                 }
 
                 out.println("</select>");
-            
-                
+
                 ArrayList<LinkedList> listeOption = edt.selectionner("Option");
                 out.println("<label>Option :</label>"
                         + "<select name=\"option\" id=\"option\">");
@@ -270,14 +268,14 @@
 
                 out.println("<td>Matin</td>");
                 LinkedList option = new LinkedList();
-                if(request.getParameter("option")!=null){
-                option.add(request.getParameter("option"));
+                if (request.getParameter("option") != null) {
+                    option.add(request.getParameter("option"));
                 } else {
                     option.add(listeOption.get(0).get(0));
                 }
                 ArrayList<ArrayList> listeCours = new ArrayList();
                 int moisCorrect = calendar.get(calendar.MONTH) + 1;
-                
+
                 String conditionJour = calendar.get(calendar.YEAR) + "-" + moisCorrect + "-" + calendar.get(calendar.DATE);
 
                 String heureDebut = "13:45:00";
@@ -291,8 +289,8 @@
                     conditionFin = conditionJour + " " + heureFin;
                     ArrayList cours = edt.selectionnerCours(conditionJour, conditionFin, conditionDebut, option);
                     if (cours.size() == 0) {
-                        cours.add(conditionJour + " " + conditionFin + " " + conditionDebut + " " +option.get(0));
-                        cours.add(conditionJour + " " + conditionFin + " " + conditionDebut + " " +option.get(0));
+                        cours.add(conditionJour + " " + conditionFin + " " + conditionDebut + " " + option.get(0));
+                        cours.add("<a href=\"/Pappl/Creation\">Créer Cours</a>");
                     }
                     listeCours.add(cours);
                     if ((i % 2 == 1)) {
@@ -306,8 +304,8 @@
                 }
                 for (int i = 0; i < 5; i++) {
 
-                out.println("<td>" + listeCours.get(2 * i).get(1) + "</td>");
-                 
+                    out.println("<td>" + listeCours.get(2 * i).get(1) + "</td>");
+
                 }
                 out.println("</tr><tr>");
                 out.println("<td>Après-midi</td>");

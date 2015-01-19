@@ -37,7 +37,7 @@
                         + "<input type=\"text\" id=\"Option_Nom\" name=\"Option_Nom\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"20\" /><br />");
 
                 out.println("<label for=\"Responsable_Option\">Qui est le responsable de cette option ?*</label><br>"
-                + "<select name=\"Responsable_Option\" id=\"Responsable_Option\">");
+                        + "<select name=\"Responsable_Option\" id=\"Responsable_Option\">");
                 ArrayList<LinkedList> respo = new ArrayList();
                 out.println("<option value=\"" + liste.get(2) + "\">"
                         + liste.get(3) + " " + liste.get(4) + "</option>");
@@ -49,7 +49,7 @@
                                 + respo.get(i).get(2) + " " + respo.get(i).get(1) + "</option>");
                     }
                 }
-                
+
                 out.println("</select><br>");
 
                 out.println("</fieldset>"
