@@ -10,6 +10,7 @@
 package com.ocpappl.bdonn;
 
 import com.ocpappl.beans.DateJava;
+import com.ocpappl.beans.DateSql;
 import com.ocpappl.servlets.Creation;
 import static java.lang.Integer.parseInt;
 import java.sql.Connection;
@@ -18,6 +19,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -676,7 +680,7 @@ public class BDonn {
         return liste;
     }
 
-    public ArrayList selectionnerCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
+    public ArrayList selectionnerCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException, ParseException {
         Connection con = connection();
 
         String option = " (Option_id = " + listeOption.get(0);
@@ -700,9 +704,16 @@ public class BDonn {
         rs.next();
         while (rs.getRow() != 0) {
 
+            DateFormat dateFormatHeure = new SimpleDateFormat("hh'h'mm");
             liste.add(rs.getInt("Cours_id"));
-            String debut = rs.getString("Cours_Date_Debut");
-            String fin = rs.getString("Cours_Date_Fin");
+            DateSql debutSQL= new DateSql();
+            debutSQL.setSequence(rs.getString("Cours_Date_Debut"));
+            Date debutJava = debutSQL.conversionJava();
+            String debut = dateFormatHeure.format(debutJava);
+            DateSql finSQL= new DateSql();
+            finSQL.setSequence(rs.getString("Cours_Date_Fin"));
+            Date finJava = finSQL.conversionJava();
+            String fin = dateFormatHeure.format(finJava);
             String matiere = rs.getString("Matiere_Acronyme");
             String info = debut + "-" + fin + " : " + matiere;
             liste.add(info);
@@ -761,7 +772,7 @@ public class BDonn {
         return liste;
     }
 
-    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
+    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException, ParseException {
         ArrayList<LinkedList> liste = new ArrayList();
         liste = selectionnerCours(conditionJour, conditionDebut, conditionFin, listeOption);
         boolean bool = false;
@@ -773,7 +784,7 @@ public class BDonn {
         return bool;
     }
 
-    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption, String identifiant) throws SQLException {
+    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption, String identifiant) throws SQLException, ParseException {
         ArrayList liste = new ArrayList();
         int id = parseInt(identifiant);
         liste = selectionnerCours(conditionJour, conditionDebut, conditionFin, listeOption);

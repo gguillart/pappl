@@ -25,9 +25,10 @@ public class DateSql {
         
         String annee = chaine.nextToken("-");
         String mois = chaine.nextToken("-");
-        StringTokenizer chaine2 = new StringTokenizer(chaine.nextToken("-"));
-        String jour = chaine2.nextToken();
-        StringTokenizer horaire = new StringTokenizer(chaine.nextToken());
+        StringTokenizer suite = new StringTokenizer(chaine.nextToken("-"));
+        String jour = suite.nextToken();
+        
+        
         
 
         if (parseInt(mois) < 10) {
@@ -37,18 +38,26 @@ public class DateSql {
         if (parseInt(jour) < 10) {
             jour = "" + parseInt(jour);
         }
+ 
+        String heure = suite.nextToken(": ");
+        String minute = suite.nextToken(": ");
+        String seconde = suite.nextToken(": ");
+        
 
-
-        String heure = horaire.nextToken(":");
-        String minute = horaire.nextToken(":");
-        String seconde = horaire.nextToken(":");
-
-        String sequenceJava = heure+"h"+minute+" "+jour+"-"+mois+"-"+annee;
+        String sequenceJava = heure+"h"+minute+" "+jour+"-"+mois+"-"+annee; 
         SimpleDateFormat sdf = new SimpleDateFormat("hh'h'mm dd-MM-yy");
         Date date = sdf.parse(sequenceJava);
       
 
         return date;
+    }
+
+    public String getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(String sequence) {
+        this.sequence = sequence;
     }
     
 }
