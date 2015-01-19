@@ -40,10 +40,11 @@
 
         <%
             Formulaire logs = (Formulaire) request.getAttribute("auth");
-            if (logs != null) {
-                out.println("Bonjour " + session.getAttribute("login") + ", " + logs.getResultat());
+            if (logs != null) {  
+                out.println("Bonjour " + request.getAttribute("login") + ", " + logs.getResultat());
             }
         %>
+        
 
         <%@ include file="menu.jsp" %>
 
