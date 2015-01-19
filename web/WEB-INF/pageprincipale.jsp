@@ -165,31 +165,9 @@
                        out.println("&option=" + request.getParameter("option"));
                    }
                %>">Semaine Suivante</a>
+</p>
 
-            <%
-                BDonn edt = new BDonn();
-                out.println("<form method=\"get\" action=\"PagePrincipale\">"
-                        + "<label>Semaine : </label>"
-                        + "<select name=\"week\" id=\"week\">"
-                        + "<option value=\"" + calendar2.get(Calendar.WEEK_OF_YEAR) + "\">" + calendar2.get(Calendar.WEEK_OF_YEAR) + "</option>");
-
-                for (int i = 1; i < 54; i++) {
-                    out.println("<option value=\"" + i + "\">" + i + "</option>");
-                }
-
-                out.println("</select>");
-                out.println("<label>Année :</label>"
-                        + "<select name=\"year\" id=\"year\">"
-                        + "<option value=\"" + calendar2.get(Calendar.YEAR) + "\">" + calendar2.get(Calendar.YEAR) + "</option>");
-
-                for (int i = 2014; i < 2020; i++) {
-                    out.println("<option value=\"" + i + "\">" + i + "</option>");
-                }
-
-                out.println("</select>"
-                        + "<input type=\"submit\" value=\"Valider\"/>"
-                        + "</form>");
-            %>
+<p>
 
             <a href="/Pappl/PagePrincipale?week=<%                calendar.add(Calendar.WEEK_OF_YEAR, -1);
                 out.println(calendar.get(Calendar.WEEK_OF_YEAR));
@@ -224,11 +202,14 @@
             dateJeudi = calendar.getTime();
             calendar.add(calendar.DATE, +1);
             dateVendredi = calendar.getTime();
+            calendar.add(calendar.DATE, -4);
         %>
         <table>
 
             <tr>
-                <th>Semaine : <% out.println(calendar.get(Calendar.WEEK_OF_YEAR));
+                <th>Semaine : <% 
+            int semaineVisualisation = calendar.get(Calendar.WEEK_OF_YEAR) - 1;
+            out.println(semaineVisualisation);
                 if(request.getParameter("option")!=null){
                     out.println("Option : " + request.getParameter("option"));
                 } %>  </th>
@@ -255,9 +236,31 @@
 
 
             <tr><%
-                ArrayList<LinkedList> listeOption = edt.selectionner("Option");
+                
+                BDonn edt = new BDonn();
                 out.println("<form method=\"get\" action=\"PagePrincipale\">"
-                        + "<label>Option :</label>"
+                        + "<label>Semaine : </label>"
+                        + "<select name=\"week\" id=\"week\">"
+                        + "<option value=\"" + calendar2.get(Calendar.WEEK_OF_YEAR) + "\">" + calendar2.get(Calendar.WEEK_OF_YEAR) + "</option>");
+
+                for (int i = 1; i < 54; i++) {
+                    out.println("<option value=\"" + i + "\">" + i + "</option>");
+                }
+
+                out.println("</select>");
+                out.println("<label>Année :</label>"
+                        + "<select name=\"year\" id=\"year\">"
+                        + "<option value=\"" + calendar2.get(Calendar.YEAR) + "\">" + calendar2.get(Calendar.YEAR) + "</option>");
+
+                for (int i = 2014; i < 2020; i++) {
+                    out.println("<option value=\"" + i + "\">" + i + "</option>");
+                }
+
+                out.println("</select>");
+            
+                
+                ArrayList<LinkedList> listeOption = edt.selectionner("Option");
+                out.println("<label>Option :</label>"
                         + "<select name=\"option\" id=\"option\">");
                 if (request.getParameter("option") != null) {
                     out.println("<option value=\"" + request.getParameter("option") + "\">" + edt.selectionnerOption(request.getParameter("option")).get(0) + "</option>");
@@ -271,10 +274,14 @@
 
                 out.println("<td>Matin</td>");
                 LinkedList option = new LinkedList();
+                if(request.getParameter("option")!=null){
                 option.add(request.getParameter("option"));
+                } else {
+                    option.add(listeOption.get(0).get(0));
+                }
                 ArrayList<ArrayList> listeCours = new ArrayList();
                 int moisCorrect = calendar.get(calendar.MONTH) + 1;
-                calendar.add(calendar.DATE, -4);
+                
                 String conditionJour = calendar.get(calendar.YEAR) + "-" + moisCorrect + "-" + calendar.get(calendar.DATE);
 
                 String heureDebut = "13:45:00";
@@ -288,8 +295,8 @@
                     conditionFin = conditionJour + " " + heureFin;
                     ArrayList cours = edt.selectionnerCours(conditionJour, conditionFin, conditionDebut, option);
                     if (cours.size() == 0) {
-                        cours.add("vide");
-                        cours.add("vide");
+                        cours.add(conditionJour + " " + conditionFin + " " + conditionDebut + " " +option.get(0));
+                        cours.add(conditionJour + " " + conditionFin + " " + conditionDebut + " " +option.get(0));
                     }
                     listeCours.add(cours);
                     if ((i % 2 == 1)) {
