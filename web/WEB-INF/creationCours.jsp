@@ -143,9 +143,9 @@
 
                     <label for="Jour">Le </label>
                     <input type="number" name="Jour" id="Jour" min="1" max="31" <%
-                            Date dateCourante = new java.util.Date();
-                            GregorianCalendar calendar = new java.util.GregorianCalendar();
-                calendar.setTime(dateCourante);
+                        Date dateCourante = new java.util.Date();
+                        GregorianCalendar calendar = new java.util.GregorianCalendar();
+                        calendar.setTime(dateCourante);
                         if (request.getParameter("Jour") != null) {
                             out.println("value=\"" + request.getParameter("Jour") + "\">");
                         } else {
@@ -153,55 +153,55 @@
                         }
                            %>
 
-                    <label for="Mois"> </label>
+                           <label for="Mois"> </label>
                     <select name="Mois" id="Mois"><%
-                        int numeroMois =0;
+                        int numeroMois = 0;
                         String mois = "";
                         if (request.getParameter("Mois") != null) {
-                            numeroMois=Integer.parseInt((String) request.getParameter("Mois"));
+                            numeroMois = Integer.parseInt((String) request.getParameter("Mois"));
                         } else {
-                            numeroMois =calendar.get(Calendar.MONTH) + 1;
+                            numeroMois = calendar.get(Calendar.MONTH) + 1;
                         }
                         switch (numeroMois) {
-                                case 1:
-                                    mois = "Janvier";
-                                    break;
-                                case 2:
-                                    mois = "Février";
-                                    break;
-                                case 3:
-                                    mois = "Mars";
-                                    break;
-                                case 4:
-                                    mois = "Avril";
-                                    break;
-                                case 5:
-                                    mois = "Mai";
-                                    break;
-                                case 6:
-                                    mois = "Juin";
-                                    break;
-                                case 7:
-                                    mois = "Juillet";
-                                    break;
-                                case 8:
-                                    mois = "Août";
-                                    break;
-                                case 9:
-                                    mois = "Septembre";
-                                    break;
-                                case 10:
-                                    mois = "Octobre";
-                                    break;
-                                case 11:
-                                    mois = "Novembre";
-                                    break;
-                                case 12:
-                                    mois = "Décembre";
-                                    break;
-                            }
-                        
-                            out.println("<option value=\"" + numeroMois + "\">" + mois + "</option>");
+                            case 1:
+                                mois = "Janvier";
+                                break;
+                            case 2:
+                                mois = "Février";
+                                break;
+                            case 3:
+                                mois = "Mars";
+                                break;
+                            case 4:
+                                mois = "Avril";
+                                break;
+                            case 5:
+                                mois = "Mai";
+                                break;
+                            case 6:
+                                mois = "Juin";
+                                break;
+                            case 7:
+                                mois = "Juillet";
+                                break;
+                            case 8:
+                                mois = "Août";
+                                break;
+                            case 9:
+                                mois = "Septembre";
+                                break;
+                            case 10:
+                                mois = "Octobre";
+                                break;
+                            case 11:
+                                mois = "Novembre";
+                                break;
+                            case 12:
+                                mois = "Décembre";
+                                break;
+                        }
+
+                        out.println("<option value=\"" + numeroMois + "\">" + mois + "</option>");
                         %>
                         <option value="1">Janvier</option>
                         <option value="2">Février</option>

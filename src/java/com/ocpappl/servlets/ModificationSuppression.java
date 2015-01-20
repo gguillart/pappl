@@ -109,8 +109,14 @@ public class ModificationSuppression extends HttpServlet {
                         break;
 
                     case "Cours":
-                        out.println("<a href=\"/Pappl/ModificationSuppression?type=Cours&objet=modifier&id=5\"> Modifier </a>");
-                        out.println("<a href=\"/Pappl/ModificationSuppression?type=Cours&objet=supprimer&id=9\"> Supprimer </a><br/><br/>");
+                        if (request.getParameter("id") != null) {
+                            out.println("<a href=\"/Pappl/ModificationSuppression?type=Cours&objet=modifier&id=" + request.getParameter("id") + "\"> Modifier </a>");
+                            out.println("<a href=\"/Pappl/ModificationSuppression?type=Cours&objet=supprimer&id=" + request.getParameter("id") + "\"> Supprimer </a><br/><br/>");
+                        } else {
+                            request.setAttribute("erreur", "id erroné");
+                            erreur(request, response);
+                        }
+
                         break;
 
                     default:
@@ -220,8 +226,8 @@ public class ModificationSuppression extends HttpServlet {
 
                                             while (i == 0) {
                                                 count = 0;
-                                                calendrier.set(annee, mois-1, jour + p * 7);
-                                                moisCorrect = calendrier.get(calendrier.MONTH)+1;
+                                                calendrier.set(annee, mois - 1, jour + p * 7);
+                                                moisCorrect = calendrier.get(calendrier.MONTH) + 1;
                                                 i++;
                                                 p++;
                                                 bDonnJour = calendrier.get(calendrier.YEAR) + "-" + moisCorrect + "-" + calendrier.get(calendrier.DAY_OF_MONTH);

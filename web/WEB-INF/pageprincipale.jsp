@@ -289,9 +289,9 @@
                     conditionJour = calendar.get(calendar.YEAR) + "-" + moisCorrect + "-" + calendar.get(calendar.DATE);
                     conditionDebut = conditionJour + " " + heureDebut;
                     conditionFin = conditionJour + " " + heureFin;
-                    ArrayList cours = edt.selectionnerCours(conditionJour, conditionFin, conditionDebut, option);
-                    if (cours.size() == 0) {
-                        cours.add(conditionJour + " " + conditionFin + " " + conditionDebut + " " + option.get(0));
+                    ArrayList coursInfo = edt.selectionnerCours(conditionJour, conditionFin, conditionDebut, option);
+                    ArrayList cours = new ArrayList();
+                    if (coursInfo.size() == 0) {
                         if (i % 2 == 0) {
                             d = "08:00:00";
                             f = "12:15:00";
@@ -299,8 +299,11 @@
                             d = "13:45:00";
                             f = "18:00:00";
                         }
-                        cours.add("<a href=\"/Pappl/Creation?type=Cours&Option=" + request.getParameter("option") + "&Debut=" + d + "&Fin=" + f 
+                        cours.add("<a href=\"/Pappl/Creation?type=Cours&Option=" + request.getParameter("option") + "&Debut=" + d + "&Fin=" + f
                                 + "&Jour=" + calendar.get(Calendar.DATE) + "&Mois=" + moisCorrect + "&Annee=" + calendar.get(Calendar.YEAR) + "\">Créer Cours</a>");
+                    } else {
+                        String coursLien = "<a href=\"/Pappl/ModificationSuppression?type=Cours&id=" + coursInfo.get(0) + "\">" + coursInfo.get(1) + "</a>";
+                        cours.add(coursLien);
                     }
                     listeCours.add(cours);
                     if ((i % 2 == 1)) {
@@ -314,13 +317,13 @@
                 }
                 for (int i = 0; i < 5; i++) {
 
-                    out.println("<td>" + listeCours.get(2 * i).get(1) + "</td>");
+                    out.println("<td>" + listeCours.get(2 * i).get(0) + "</td>");
 
                 }
                 out.println("</tr><tr>");
                 out.println("<td>Après-midi</td>");
                 for (int i = 0; i < 5; i++) {
-                    out.println("<td>" + listeCours.get(2 * i + 1).get(1) + "</td>");
+                    out.println("<td>" + listeCours.get(2 * i + 1).get(0) + "</td>");
                 }
                 %>
 
