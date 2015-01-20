@@ -282,6 +282,8 @@
                 String heureFin = "00:00:00";
                 String conditionDebut = conditionJour + " " + heureDebut;
                 String conditionFin = conditionJour + " " + heureFin;
+                String d = "";
+                String f = "";
                 for (int i = 0; i < 10; i++) {
                     moisCorrect = calendar.get(calendar.MONTH) + 1;
                     conditionJour = calendar.get(calendar.YEAR) + "-" + moisCorrect + "-" + calendar.get(calendar.DATE);
@@ -290,7 +292,15 @@
                     ArrayList cours = edt.selectionnerCours(conditionJour, conditionFin, conditionDebut, option);
                     if (cours.size() == 0) {
                         cours.add(conditionJour + " " + conditionFin + " " + conditionDebut + " " + option.get(0));
-                        cours.add("<a href=\"/Pappl/Creation\">Créer Cours</a>");
+                        if (i % 2 == 0) {
+                            d = "08:00:00";
+                            f = "12:15:00";
+                        } else {
+                            d = "13:45:00";
+                            f = "18:00:00";
+                        }
+                        cours.add("<a href=\"/Pappl/Creation?type=Cours&Option=" + request.getParameter("option") + "&Debut=" + d + "&Fin=" + f 
+                                + "&Jour=" + calendar.get(Calendar.DATE) + "&Mois=" + moisCorrect + "&Annee=" + calendar.get(Calendar.YEAR) + "\">Créer Cours</a>");
                     }
                     listeCours.add(cours);
                     if ((i % 2 == 1)) {
