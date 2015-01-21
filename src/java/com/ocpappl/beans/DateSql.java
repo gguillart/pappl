@@ -9,28 +9,25 @@ import static java.lang.Integer.parseInt;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
-
 
 /**
  *
  * @author Geoffrey
  */
 public class DateSql {
-    
+
     private String sequence;
-    
+
     public String conversionJava() { // timestamp '2001-09-28 01:00:00'
-       
+
         StringTokenizer chaine = new StringTokenizer(sequence);
-        
+
         String annee = chaine.nextToken("-");
         String mois = chaine.nextToken("-");
         StringTokenizer suite = new StringTokenizer(chaine.nextToken("-"));
         String jour = suite.nextToken();
-        
-        
-        
 
         if (parseInt(mois) < 10) {
             mois = "" + parseInt(mois);
@@ -39,18 +36,32 @@ public class DateSql {
         if (parseInt(jour) < 10) {
             jour = "" + parseInt(jour);
         }
- 
+
         String heure = suite.nextToken(": ");
         String minute = suite.nextToken(": ");
         String seconde = suite.nextToken(": ");
-        
 
-        String sequenceJava = heure+"h"+minute+"";
-              
-       
-      
+        String sequenceJava = heure + "h" + minute + "";
 
         return sequenceJava;
+    }
+
+    public LinkedList<String> conversionAnneeMoisJourHoraire() { // timestamp '2001-09-28 01:00:00' -> 2001 | 9 | 28 |  01:00:00
+        LinkedList date = new LinkedList();
+        StringTokenizer chaine = new StringTokenizer(sequence);
+
+        String annee = chaine.nextToken("-");
+        String mois = chaine.nextToken("-");
+        StringTokenizer suite = new StringTokenizer(chaine.nextToken("-"));
+        String jour = suite.nextToken();
+        String horaire = suite.nextToken();
+
+        date.add(annee);
+        date.add(mois);
+        date.add(jour);
+        date.add(horaire);
+
+        return date;
     }
 
     public String getSequence() {
@@ -60,5 +71,5 @@ public class DateSql {
     public void setSequence(String sequence) {
         this.sequence = sequence;
     }
-    
+
 }

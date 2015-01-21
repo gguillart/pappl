@@ -790,6 +790,51 @@ public class BDonn {
         return liste;
     }
 
+    public ArrayList<LinkedList> selectionnerCoursAnnee(String jour, String mois, String annee) throws SQLException {
+        Connection con = connection();
+        ArrayList<LinkedList> liste = new ArrayList();
+        int anneeSuivante = parseInt(annee) + 1;
+        String query = "SELECT * FROM Cours NATURAL JOIN Cours_Option WHERE Cours_Date_Debut BETWEEN '" + annee + "-" + mois + "-" + jour
+                + " 00:00:01 ' AND '" + anneeSuivante + "-" + mois + "-" + jour + " 00:00:01' ORDER BY Cours_Date_Debut;";
+        Statement stmt = con.createStatement();
+
+        ResultSet rs = stmt.executeQuery(query);
+
+        rs.next();
+        while (rs.getRow() != 0) {
+
+            LinkedList sousListe = new LinkedList();
+            sousListe.add(rs.getString("Type_De_Cours_Nom"));
+            sousListe.add(rs.getInt("Matiere_id"));
+            sousListe.add(rs.getInt("Enseignant_id"));
+            sousListe.add(rs.getString("Cours_Date_Debut"));
+            sousListe.add(rs.getString("Cours_Date_Fin"));
+            sousListe.add(rs.getString("Salle"));
+            sousListe.add(rs.getString("Intervenant"));
+            sousListe.add(rs.getString("Commentaire"));
+            int coursId = rs.getInt("Cours_Id");
+            int coursId2 = rs.getInt("Cours_Id");
+            LinkedList listeOption = new LinkedList();
+            while (coursId == coursId2) {
+                listeOption.add(rs.getInt("Option_Id"));
+                rs.next();
+                if (rs.getRow() != 0) {
+                    coursId2 = rs.getInt("Cours_Id");
+                } else {
+                    coursId2 = 0;
+                }
+            }
+            sousListe.add(listeOption);
+            sousListe.add(coursId);
+            liste.add(sousListe);
+        }
+
+        stmt.close();
+        deconnection(con);
+        return liste;
+
+    }
+
     public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException, ParseException {
         ArrayList<LinkedList> liste = new ArrayList();
         liste = selectionnerCours(conditionJour, conditionDebut, conditionFin, listeOption);
