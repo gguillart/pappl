@@ -9,9 +9,8 @@
  */
 package com.ocpappl.bdonn;
 
-import com.ocpappl.beans.DateJava;
+
 import com.ocpappl.beans.DateSql;
-import com.ocpappl.servlets.Creation;
 import static java.lang.Integer.parseInt;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -19,22 +18,23 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.StringTokenizer;
 
+/**
+ *
+ * @author Yohann
+ */
 public class BDonn {
 
     private String login = "postgres";
     private String mdp = "EDT";
     private String dbURL = "jdbc:postgresql://localhost:5432/postgres";
 
+    /**
+     * Constructeur
+     */
     public BDonn() {
         try {
             Class.forName("org.postgresql.Driver");
@@ -45,6 +45,11 @@ public class BDonn {
         }
     }
 
+    /**
+     * Connection à la base de données
+     * @return connection
+     * @throws SQLException
+     */
     public Connection connection() throws SQLException {
 
         /*try {
@@ -59,6 +64,11 @@ public class BDonn {
 
     }
 
+    /**
+     * Déconnection de la base de données
+     * @param con
+     * @throws SQLException
+     */
     public void deconnection(Connection con) throws SQLException {
         con.close();
         //TODO
@@ -72,6 +82,12 @@ public class BDonn {
          }*/
     }
 
+    /**
+     * Crée une matiere liée à des options
+     * @param valeurs
+     * @param liste
+     * @throws SQLException
+     */
     public void creerMatiere(String valeurs, LinkedList liste) throws SQLException {
         Connection con = connection();
         String query = "INSERT INTO Matiere(Matiere_Acronyme, Matiere_Nom) VALUES(" + valeurs + ")"
@@ -95,6 +111,12 @@ public class BDonn {
 
     }
 
+    /**
+     * Crée une personne et l'associe aux tables enseignant, admin et respo d'option
+     * @param valeurs
+     * @param liste
+     * @throws SQLException
+     */
     public void creerPersonne(String valeurs, LinkedList<String> liste) throws SQLException {
         Connection con = connection();
         String query = "INSERT INTO Personne(Nom, Prenom) VALUES(" + valeurs + ")"
@@ -118,6 +140,12 @@ public class BDonn {
 
     }
 
+    /**
+     * Crée un cours lié à des options
+     * @param valeurs
+     * @param liste
+     * @throws SQLException
+     */
     public void creerCours(String valeurs, LinkedList liste) throws SQLException {
         Connection con = connection();
 
@@ -144,6 +172,11 @@ public class BDonn {
 
     }
 
+    /**
+     * Crée une option
+     * @param valeurs
+     * @throws SQLException
+     */
     public void creerOption(String valeurs) throws SQLException {
         Connection con = connection();
 
@@ -157,6 +190,12 @@ public class BDonn {
 
     }
 
+    /**
+     * crée le lien entre un cours et une option qui lui est associée
+     * @param idCours
+     * @param idOption
+     * @throws SQLException
+     */
     public void creerCoursOption(String idCours, String idOption) throws SQLException {
         Connection con = connection();
 
@@ -171,6 +210,12 @@ public class BDonn {
 
     }
 
+    /**
+     * Crée un lien entre une matière et une option qui lui est associée
+     * @param idMatiere
+     * @param idOption
+     * @throws SQLException
+     */
     public void creerAppartient(String idMatiere, String idOption) throws SQLException {
         Connection con = connection();
 
@@ -185,6 +230,12 @@ public class BDonn {
 
     }
 
+    /**
+     * Crée un enseignant/admin/respo d'option à partir d'une personne
+     * @param type
+     * @param idPersonne
+     * @throws SQLException
+     */
     public void creer(String type, String idPersonne) throws SQLException {
         Connection con = connection();
 
@@ -196,6 +247,13 @@ public class BDonn {
         deconnection(con);
     }
 
+    /**
+     * Modifie les liens avec les options et les parametres d'un cours reconnu par son identifiant 
+     * @param id
+     * @param attributsValeurs
+     * @param liste
+     * @throws SQLException
+     */
     public void modifierCours(String id, String attributsValeurs, LinkedList liste) throws SQLException {
         Connection con = connection();
 
@@ -236,6 +294,12 @@ public class BDonn {
 
     }
 
+    /**
+     * Modifie les parametres d'une option reconnue par son identifiant
+     * @param id
+     * @param attributsValeurs
+     * @throws SQLException
+     */
     public void modifierOption(String id, String attributsValeurs) throws SQLException {
         Connection con = connection();
 
@@ -250,6 +314,13 @@ public class BDonn {
 
     }
 
+    /**
+     * Modifie les liens avec les options et les parametres d'une matiere reconnue par son identifiant
+     * @param id
+     * @param attributsValeurs
+     * @param liste
+     * @throws SQLException
+     */
     public void modifierMatiere(String id, String attributsValeurs, LinkedList liste) throws SQLException {
         Connection con = connection();
 
@@ -290,6 +361,13 @@ public class BDonn {
 
     }
 
+    /**
+     * Modifie les liens avec les tables enseignant/admin/respo d'option et les parametres d'une personne reconnue par son identifiant
+     * @param id
+     * @param attributsValeurs
+     * @param liste
+     * @throws SQLException
+     */
     public void modifierPersonne(String id, String attributsValeurs, LinkedList liste) throws SQLException {
         Connection con = connection();
 
@@ -348,6 +426,12 @@ public class BDonn {
         deconnection(con);
     }
 
+    /**
+     * Supprime les liens d'un d'objet et l'objet qui est reconnu par son type et son identifiant
+     * @param type
+     * @param id
+     * @throws SQLException
+     */
     public void supprimer(String type, String id) throws SQLException {
         Connection con = connection();
 
@@ -412,6 +496,12 @@ public class BDonn {
 
     }
 
+    /**
+     * Selectionne l'ensemble des objets d'un type et renvoie les informations les concernant
+     * @param type
+     * @return listeDesObjets(listeDesInformationsDUnObjet)
+     * @throws SQLException
+     */
     public ArrayList<LinkedList> selectionner(String type) throws SQLException {
         Connection con = connection();
         String colonne = new String();
@@ -484,6 +574,12 @@ public class BDonn {
 
     }
 
+    /**
+     * Selectionne une option reconnue par son identifiant et renvoie les informations la concernant
+     * @param identifiant
+     * @return listeDesInformations
+     * @throws SQLException
+     */
     public ArrayList selectionnerOption(String identifiant) throws SQLException {
         Connection con = connection();
         int id = parseInt(identifiant);
@@ -505,6 +601,12 @@ public class BDonn {
         return liste;
     }
 
+    /**
+     * Selectionne une matiere reconnue par son identifiant et renvoie les informations la concernant
+     * @param identifiant
+     * @return listeDesInformations
+     * @throws SQLException
+     */
     public ArrayList selectionnerMatiere(String identifiant) throws SQLException {
         Connection con = connection();
         int id = parseInt(identifiant);
@@ -534,6 +636,12 @@ public class BDonn {
         return liste;
     }
 
+    /**
+     * Selectionne une personne reconnue par son identifiant et renvoie les informations la concernant
+     * @param identifiant
+     * @return listeDesInformations
+     * @throws SQLException
+     */
     public ArrayList selectionnerPersonne(String identifiant) throws SQLException {
         Connection con = connection();
         int id = parseInt(identifiant);
@@ -555,6 +663,12 @@ public class BDonn {
         return liste;
     }
 
+    /**
+     * Selectionne un cours reconnu par son identifiant et renvoie les informations le concernant
+     * @param identifiant
+     * @return listeDesInformations
+     * @throws SQLException
+     */
     public ArrayList selectionnerCours(String identifiant) throws SQLException {
         Connection con = connection();
         int id = parseInt(identifiant);
@@ -680,6 +794,16 @@ public class BDonn {
         return liste;
     }
 
+    /**
+     * Selectionne les cours liés à l'une des options de la listeOption qui ont lieu le jour de conditionJour
+     * commençant avant conditionFin et finissant apres conditionDebut et renvoie les informations les concernant
+     * @param conditionJour
+     * @param conditionDebut
+     * @param conditionFin
+     * @param listeOption
+     * @return listeDesCours(listeDesInformationsDUnCours)
+     * @throws SQLException
+     */
     public ArrayList selectionnerCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
         Connection con = connection();
 
@@ -722,21 +846,6 @@ public class BDonn {
          liste.add(info);
          rs.next();
          }
-        /*
-        while (rs.getRow() != 0) {
-            liste.add(rs.getInt("Cours_id"));
-            StringTokenizer debutT = new StringTokenizer(rs.getString("Cours_Date_Debut"));
-            StringTokenizer finT = new StringTokenizer(rs.getString("Cours_Date_Fin"));
-
-            debutT.nextToken();
-            finT.nextToken();
-            String debut = debutT.nextToken();
-            String fin = finT.nextToken();
-            String matiere = rs.getString("Matiere_Acronyme");
-            String info = debut + "-" + fin + " : " + matiere;
-            liste.add(info);
-            rs.next();
-        }*/
 
         stmt.close();
         deconnection(con);
@@ -744,6 +853,12 @@ public class BDonn {
         return liste;
     }
 
+    /**
+     * Selectionne un lien entre un cours et une option, le lien est reconnu par son identifiant et renvoie les informations le concernant
+     * @param identifiant
+     * @return listeDesInformations
+     * @throws SQLException
+     */
     public ArrayList<LinkedList> selectionnerCoursOption(String identifiant) throws SQLException {
         Connection con = connection();
         int id = parseInt(identifiant);
@@ -767,6 +882,12 @@ public class BDonn {
         return liste;
     }
 
+    /**
+     * Selectionne un lien entre une option et une matiere, le lien est reconnu par son identifiant et renvoie les informations le concernant
+     * @param identifiant
+     * @return listeDesInformations
+     * @throws SQLException
+     */
     public ArrayList<LinkedList> selectionnerAppartient(String identifiant) throws SQLException {
         Connection con = connection();
         int id = parseInt(identifiant);
@@ -790,6 +911,15 @@ public class BDonn {
         return liste;
     }
 
+    /**
+     * Selectionne dans l'ordre chronologique les cours qui commencent entre le jour/mois/annee et le jour/mois/annee+1 
+     * et renvoie les informations les concernant
+     * @param jour
+     * @param mois
+     * @param annee
+     * @return listeDesCours(listeDesInformationDUnCours)
+     * @throws SQLException
+     */
     public ArrayList<LinkedList> selectionnerCoursAnnee(String jour, String mois, String annee) throws SQLException {
         Connection con = connection();
         ArrayList<LinkedList> liste = new ArrayList();
@@ -838,6 +968,15 @@ public class BDonn {
 
     }
     
+    /**
+     * Selectionne dans l'ordre chronologique les cours qui commencent entre le debut et la fin qui sont liés à l'option optionId
+     * et renvoie les informations les concernant
+     * @param debut
+     * @param fin
+     * @param optionId
+     * @return listeDesCours(ListeDesInformationsDUnCours)
+     * @throws SQLException
+     */
     public ArrayList<LinkedList> selectionnerCoursEntre(String debut, String fin, String optionId) throws SQLException {
         Connection con = connection();
         ArrayList<LinkedList> liste = new ArrayList();
@@ -871,7 +1010,17 @@ public class BDonn {
 
     }
 
-    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException, ParseException {
+    /**
+     * teste si un cours d'une des options de la listeOption commence le jour conditionJour avant conditionFin 
+     * et fini le jour conditionJour après conditionDebut, renvoie vrai si cours aucun cours ne vérifie ces hypotheses
+     * @param conditionJour
+     * @param conditionDebut
+     * @param conditionFin
+     * @param listeOption
+     * @return 
+     * @throws SQLException
+     */
+    public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
         ArrayList<LinkedList> liste = new ArrayList();
         liste = selectionnerCours(conditionJour, conditionDebut, conditionFin, listeOption);
         boolean bool = false;
@@ -883,6 +1032,18 @@ public class BDonn {
         return bool;
     }
 
+    /**
+     * teste si un cours d'une des options de la listeOption commence le jour conditionJour avant conditionFin 
+     * et fini le jour conditionJour après conditionDebut et n'est pas le cours reconnu par l'identifiant, 
+     * renvoie vrai si aucun cours ne vérifie ces hypotheses
+     * @param conditionJour
+     * @param conditionDebut
+     * @param conditionFin
+     * @param listeOption
+     * @param identifiant
+     * @return
+     * @throws SQLException
+     */
     public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption, String identifiant) throws SQLException {
         ArrayList liste = new ArrayList();
         int id = parseInt(identifiant);
@@ -899,42 +1060,6 @@ public class BDonn {
         }
 
         return bool;
-    }
-
-    public ArrayList selectionnerCoursHoraire(Date debut, Date fin, LinkedList listeOption) throws SQLException {
-        Connection con = connection();
-
-        String option = " (Option_id = " + listeOption.get(0);
-        if (listeOption.size() > 1) {
-            for (int i = 1; i < listeOption.size(); i++) {
-                option = option + " OR Option_id = " + listeOption.get(i);
-            }
-        }
-
-        DateJava dateDebut = new DateJava(debut);
-        String debutSQL = dateDebut.conversionSql();
-        DateJava dateFin = new DateJava(fin);
-        String finSQL = dateDebut.conversionSql();
-
-        String query = "SELECT * FROM " + "Cours" + "NATURAL JOIN Cours_Option WHERE (Cours_Date_Debut BETWEEN '" + debutSQL + "' AND '" + finSQL
-                + "') AND (Cours_Date_Fin BETWEEN '" + debutSQL + "' AND '" + finSQL + "') AND" + option + ");";
-        ArrayList liste = new ArrayList();
-
-        Statement stmt = con.createStatement();
-
-        ResultSet rs = stmt.executeQuery(query);
-
-        rs.next();
-        while (rs.getRow() != 0) {
-
-            liste.add(rs.getInt("Cours_id"));
-            rs.next();
-        }
-
-        stmt.close();
-        deconnection(con);
-
-        return liste;
     }
 
 }
