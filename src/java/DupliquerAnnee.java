@@ -9,7 +9,6 @@ import com.ocpappl.beans.DateSql;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
-import static java.lang.String.valueOf;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -82,7 +81,12 @@ public class DupliquerAnnee extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Les cours suivants doivent être supprimés pour pouvoir dupliquer l'année : </h1>");
             for (int i = 0; i < listeCours.size(); i++) {
-
+                out.println("<br><h3> le cours du : " + listeCours.get(i).get(3) + " des options : ");
+                LinkedList option = (LinkedList) listeCours.get(i).get(10);
+                for (int j = 0; j < option.size(); j++) {
+                    out.println(option.get(j) + " ");
+                }
+                out.println("</h3>");
             }
             out.println("<form method=\"post\" action=\"DupliquerAnnee?JourCopier=" + request.getParameter("JourCopier")
                     + "&MoisCopier=" + request.getParameter("MoisCopier")
@@ -174,7 +178,7 @@ public class DupliquerAnnee extends HttpServlet {
             if ((coursSupprimer.size() == 0) || (valider == 1)) {
                 if (valider == 1) {
                     for (int i = 0; i < coursSupprimer.size(); i++) {
-                        String id = valueOf((int) coursSupprimer.get(i).get(9));
+                        String id = "Cours_id = " + coursSupprimer.get(i).get(9);
                         try {
                             edt.supprimer("Cours", id);
                             j++;
@@ -182,56 +186,58 @@ public class DupliquerAnnee extends HttpServlet {
                             Logger.getLogger(DupliquerAnnee.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    if (j != coursSupprimer.size()) {
-                        request.setAttribute("erreur", "tout les cours n'ont pas pu être supprimés, seul " + j + " cours ont été supprimé");
-                        erreur(request, response);
-                    }
                 }
-                if (coursCopier.size() != 0) {
-                    j = 0;
-                    String debut = new String();
-                    String fin = new String();
-                    int moisCalendar = 0;
-                    int moisCorrect = 0;
-                    Calendar calendrier = Calendar.getInstance();
-                    Calendar calendrier2 = Calendar.getInstance();
-                    DateSql date = new DateSql();
-                    for (int i = 0; i < coursCopier.size(); i++) {
-                        date.setSequence((String) coursCopier.get(i).get(3));
-                        LinkedList<String> timeDebut = date.conversionAnneeMoisJourHoraire();
-                        moisCalendar = parseInt(timeDebut.get(1)) - 1;
-                        calendrier.set(parseInt(timeDebut.get(0)), moisCalendar, parseInt(timeDebut.get(2)));
-                        calendrier.add(Calendar.DATE, (int) diff);
-                        moisCorrect = calendrier.get(Calendar.MONTH) + 1;
-                        debut = calendrier.get(Calendar.YEAR) + "-" + moisCorrect + "-" + calendrier.get(Calendar.DATE) + " " + timeDebut.get(3);
+                if (j == coursSupprimer.size()) {
 
-                        date.setSequence((String) coursCopier.get(i).get(4));
-                        LinkedList<String> timeFin = date.conversionAnneeMoisJourHoraire();
-                        moisCalendar = parseInt(timeFin.get(1)) - 1;
-                        calendrier2.set(parseInt(timeFin.get(0)), moisCalendar, parseInt(timeFin.get(2)));
-                        calendrier2.add(Calendar.DATE, (int) diff);
-                        moisCorrect = calendrier2.get(Calendar.MONTH) + 1;
-                        fin = calendrier2.get(Calendar.YEAR) + "-" + moisCorrect + "-" + calendrier2.get(Calendar.DATE) + " " + timeFin.get(3);
+                    if (coursCopier.size() != 0) {
+                        j = 0;
+                        String debut = new String();
+                        String fin = new String();
+                        int moisCalendar = 0;
+                        int moisCorrect = 0;
+                        Calendar calendrier = Calendar.getInstance();
+                        Calendar calendrier2 = Calendar.getInstance();
+                        DateSql date = new DateSql();
+                        for (int i = 0; i < coursCopier.size(); i++) {
+                            date.setSequence((String) coursCopier.get(i).get(3));
+                            LinkedList<String> timeDebut = date.conversionAnneeMoisJourHoraire();
+                            moisCalendar = parseInt(timeDebut.get(1)) - 1;
+                            calendrier.set(parseInt(timeDebut.get(0)), moisCalendar, parseInt(timeDebut.get(2)));
+                            calendrier.add(Calendar.DATE, (int) diff);
+                            moisCorrect = calendrier.get(Calendar.MONTH) + 1;
+                            debut = calendrier.get(Calendar.YEAR) + "-" + moisCorrect + "-" + calendrier.get(Calendar.DATE) + " " + timeDebut.get(3);
 
-                        valeurs = "'" + coursCopier.get(i).get(0) + "'," + coursCopier.get(i).get(1) + "," + coursCopier.get(i).get(2)
-                                + ",'" + debut + "', '" + fin
-                                + "','" + coursCopier.get(i).get(5) + "','" + coursCopier.get(i).get(6) + "','" + coursCopier.get(i).get(7) + "'";
-                        try {
-                            edt.creerCours(valeurs, (LinkedList) coursCopier.get(i).get(8));
-                            j++;
-                        } catch (SQLException ex) {
-                            Logger.getLogger(DupliquerAnnee.class.getName()).log(Level.SEVERE, null, ex);
+                            date.setSequence((String) coursCopier.get(i).get(4));
+                            LinkedList<String> timeFin = date.conversionAnneeMoisJourHoraire();
+                            moisCalendar = parseInt(timeFin.get(1)) - 1;
+                            calendrier2.set(parseInt(timeFin.get(0)), moisCalendar, parseInt(timeFin.get(2)));
+                            calendrier2.add(Calendar.DATE, (int) diff);
+                            moisCorrect = calendrier2.get(Calendar.MONTH) + 1;
+                            fin = calendrier2.get(Calendar.YEAR) + "-" + moisCorrect + "-" + calendrier2.get(Calendar.DATE) + " " + timeFin.get(3);
+
+                            valeurs = "'" + coursCopier.get(i).get(0) + "'," + coursCopier.get(i).get(1) + "," + coursCopier.get(i).get(2)
+                                    + ",'" + debut + "', '" + fin
+                                    + "','" + coursCopier.get(i).get(5) + "','" + coursCopier.get(i).get(6) + "','" + coursCopier.get(i).get(7) + "'";
+                            try {
+                                edt.creerCours(valeurs, (LinkedList) coursCopier.get(i).get(8));
+                                j++;
+                            } catch (SQLException ex) {
+                                Logger.getLogger(DupliquerAnnee.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
-                    }
-                    if (j != coursCopier.size()) {
-                        request.setAttribute("erreur", "Tout les cours n'ont pas pu être copié, seul " + j + " cours ont été copié");
-                        erreur(request, response);
+                        if (j != coursCopier.size()) {
+                            request.setAttribute("erreur", "Tout les cours n'ont pas pu être copié, seul " + j + " cours ont été copié");
+                            erreur(request, response);
+                        } else {
+                            request.setAttribute("confirmation", "L'année a bien été dupliqué");
+                            confirmation(request, response);
+                        }
                     } else {
-                        request.setAttribute("confirmation", "L'année a bien été dupliqué" + " diff : " + diff + " debut : " + debut + " fin : " + fin);
-                        confirmation(request, response);
+                        request.setAttribute("erreur", "Il n'y a aucun cours à copier sur la période");
+                        erreur(request, response);
                     }
                 } else {
-                    request.setAttribute("erreur", "Il n'y a aucun cours à copier sur la période");
+                    request.setAttribute("erreur", "tout les cours n'ont pas pu être supprimés, seul " + j + " cours ont été supprimé");
                     erreur(request, response);
                 }
             } else {
