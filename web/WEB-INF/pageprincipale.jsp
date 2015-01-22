@@ -68,8 +68,8 @@
             <%  Date dateCourante = new java.util.Date();
                 GregorianCalendar calendar = new java.util.GregorianCalendar();
                 calendar.setTime(dateCourante);
-                GregorianCalendar calendar2 = new java.util.GregorianCalendar();
-                calendar2.setTime(dateCourante);
+               // GregorianCalendar calendar2 = new java.util.GregorianCalendar();
+                //calendar2.setTime(dateCourante);
                 int numSemActu = calendar.get(Calendar.WEEK_OF_YEAR);
                 int AnneeActu = calendar.get(Calendar.YEAR);
                 int numSem = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -139,7 +139,7 @@
                  }
 
                  */
-                calendar.set(calendar.DAY_OF_WEEK, 1);
+                calendar.set(calendar.DAY_OF_WEEK, 2);
                 numSem = calendar.get(Calendar.WEEK_OF_YEAR);
                 Annee = calendar.get(Calendar.YEAR);
 
@@ -243,7 +243,7 @@
                                 out.println("<form method=\"get\" action=\"PagePrincipale\">"
                             + "<label>Semaine : </label>"
                             + "<select name=\"week\" id=\"week\">"
-                            + "<option value=\"" + calendar2.get(Calendar.WEEK_OF_YEAR)   + "\">" + calendar2.get(Calendar.WEEK_OF_YEAR) + "</option>");
+                            + "<option value=\"" + calendar.get(Calendar.WEEK_OF_YEAR)   + "\">" + calendar.get(Calendar.WEEK_OF_YEAR) + "</option>");
                                 
                             }
                 
@@ -255,7 +255,7 @@
                 out.println("</select>");
                 out.println("<label>Année :</label>"
                         + "<select name=\"year\" id=\"year\">"
-                        + "<option value=\"" + calendar2.get(Calendar.YEAR) + "\">" + calendar2.get(Calendar.YEAR) + "</option>");
+                        + "<option value=\"" + calendar.get(Calendar.YEAR) + "\">" + calendar.get(Calendar.YEAR) + "</option>");
 
                 for (int i = 2014; i < 2020; i++) {
                     out.println("<option value=\"" + i + "\">" + i + "</option>");
