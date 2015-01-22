@@ -68,8 +68,8 @@
             <%  Date dateCourante = new java.util.Date();
                 GregorianCalendar calendar = new java.util.GregorianCalendar();
                 calendar.setTime(dateCourante);
-                GregorianCalendar calendar2 = new java.util.GregorianCalendar();
-                calendar2.setTime(dateCourante);
+               // GregorianCalendar calendar2 = new java.util.GregorianCalendar();
+                //calendar2.setTime(dateCourante);
                 int numSemActu = calendar.get(Calendar.WEEK_OF_YEAR);
                 int AnneeActu = calendar.get(Calendar.YEAR);
                 int numSem = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -139,7 +139,7 @@
                  }
 
                  */
-                calendar.set(calendar.DAY_OF_WEEK, 1);
+                calendar.set(calendar.DAY_OF_WEEK, 2);
                 numSem = calendar.get(Calendar.WEEK_OF_YEAR);
                 Annee = calendar.get(Calendar.YEAR);
 
@@ -214,11 +214,11 @@
         <table>
 
             <tr>
-                <th>Semaine : <%
-                    int semaineVisualisation = calendar.get(Calendar.WEEK_OF_YEAR) - 1;
+                <th>Semaine : <% BDonn edt = new BDonn();
+                    int semaineVisualisation = calendar.get(Calendar.WEEK_OF_YEAR);
                     out.println(semaineVisualisation);
                     if (request.getParameter("option") != null) {
-                        out.println("Option : " + request.getParameter("option"));
+                        out.println("<br> Option : " + (edt.selectionnerOption(request.getParameter("option"))).get(0));
                     } %>  </th>
                 <th>Lundi <% out.println(dateFormatJourMois.format(dateLundi)); %>  </th>
                 <th>Mardi <% out.println(dateFormatJourMois.format(dateMardi)); %></th>
@@ -232,11 +232,21 @@
 
             <tr><%
 
-                BDonn edt = new BDonn();
-                out.println("<form method=\"get\" action=\"PagePrincipale\">"
-                        + "<label>Semaine : </label>"
-                        + "<select name=\"week\" id=\"week\">"
-                        + "<option value=\"" + calendar2.get(Calendar.WEEK_OF_YEAR) + "\">" + calendar2.get(Calendar.WEEK_OF_YEAR) + "</option>");
+               
+                if (request.getParameter("week") != null) {
+                    out.println("<form method=\"get\" action=\"PagePrincipale\">"
+                            + "<label>Semaine : </label>"
+                            + "<select name=\"week\" id=\"week\">"
+                            + "<option value=\"" + request.getParameter("week") + "\">" + request.getParameter("week") + "</option>");
+                }
+                        else {
+                                out.println("<form method=\"get\" action=\"PagePrincipale\">"
+                            + "<label>Semaine : </label>"
+                            + "<select name=\"week\" id=\"week\">"
+                            + "<option value=\"" + calendar.get(Calendar.WEEK_OF_YEAR)   + "\">" + calendar.get(Calendar.WEEK_OF_YEAR) + "</option>");
+                                
+                            }
+                
 
                 for (int i = 1; i < 54; i++) {
                     out.println("<option value=\"" + i + "\">" + i + "</option>");
@@ -245,7 +255,7 @@
                 out.println("</select>");
                 out.println("<label>Année :</label>"
                         + "<select name=\"year\" id=\"year\">"
-                        + "<option value=\"" + calendar2.get(Calendar.YEAR) + "\">" + calendar2.get(Calendar.YEAR) + "</option>");
+                        + "<option value=\"" + calendar.get(Calendar.YEAR) + "\">" + calendar.get(Calendar.YEAR) + "</option>");
 
                 for (int i = 2014; i < 2020; i++) {
                     out.println("<option value=\"" + i + "\">" + i + "</option>");
