@@ -795,7 +795,7 @@ public class BDonn {
         ArrayList<LinkedList> liste = new ArrayList();
         int anneeSuivante = parseInt(annee) + 1;
         String query = "SELECT * FROM Cours NATURAL JOIN Cours_Option NATURAL JOIN Option WHERE Cours_Date_Debut BETWEEN '" + annee + "-" + mois + "-" + jour
-                + " 00:00:01 ' AND '" + anneeSuivante + "-" + mois + "-" + jour + " 00:00:01' ORDER BY Cours_Date_Debut;";
+                + " 00:00:01' AND '" + anneeSuivante + "-" + mois + "-" + jour + " 00:00:01' ORDER BY Cours_Date_Debut;";
         Statement stmt = con.createStatement();
 
         ResultSet rs = stmt.executeQuery(query);
@@ -830,6 +830,39 @@ public class BDonn {
             sousListe.add(coursId);//9
             sousListe.add(listeOption2);//10
             liste.add(sousListe);
+        }
+
+        stmt.close();
+        deconnection(con);
+        return liste;
+
+    }
+    
+    public ArrayList<LinkedList> selectionnerCoursEntre(String debut, String fin, String optionId) throws SQLException {
+        Connection con = connection();
+        ArrayList<LinkedList> liste = new ArrayList();
+        String query = "SELECT * FROM Cours NATURAL JOIN Cours_Option NATURAL JOIN Option NATURAL JOIN Matiere NATURAL JOIN Enseignant NATURAL JOIN Personne "
+                + "WHERE (Cours_Date_Debut BETWEEN '" + debut + "' AND '" + fin + "') AND (Option_id = " + optionId + ") ORDER BY Cours_Date_Debut;";
+        Statement stmt = con.createStatement();
+
+        ResultSet rs = stmt.executeQuery(query);
+
+        rs.next();
+        while (rs.getRow() != 0) {
+
+            LinkedList sousListe = new LinkedList();
+            sousListe.add(rs.getString("Type_De_Cours_Nom"));//0
+            sousListe.add(rs.getString("Matiere_Nom"));//1
+            sousListe.add(rs.getString("Prenom"));//2
+            sousListe.add(rs.getString("Nom"));//3
+            sousListe.add(rs.getString("Cours_Date_Debut"));//4
+            sousListe.add(rs.getString("Cours_Date_Fin"));//5
+            sousListe.add(rs.getString("Salle"));//6
+            sousListe.add(rs.getString("Intervenant"));//7
+            sousListe.add(rs.getString("Commentaire"));//8
+            sousListe.add(rs.getString("Option_Nom"));//9
+            liste.add(sousListe);
+            rs.next();
         }
 
         stmt.close();
