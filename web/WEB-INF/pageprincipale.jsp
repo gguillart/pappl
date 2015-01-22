@@ -39,10 +39,9 @@
         </table>--%>
 
         <%
-            Formulaire logs = (Formulaire) request.getAttribute("auth");
-            if (logs != null) {
-                out.println("Bonjour " + request.getAttribute("login") + ", " + logs.getResultat());
-            }
+                
+                out.println("Bonjour " +  request.getAttribute("login"));
+          
         %>
 
 

@@ -49,6 +49,7 @@ public class PagePrincipale extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        
         String week = request.getParameter("week");
         request.setAttribute("week", week);
         String year = request.getParameter("year");
@@ -60,17 +61,25 @@ public class PagePrincipale extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+          
+        
+      /* if (request.getParameter("log")=="j"){
+           String login = request.getParameter("login");
+           session.setAttribute("login",login);
+           request.setAttribute("session",session);
+           
+       }
+       else {
+        
+        String login = (String) session.getAttribute("login");
+        request.setAttribute("login", login);
+        request.setAttribute("session",session);
+       } */
 
-        String login = request.getParameter("login");
-        HttpSession session = request.getSession();
-        session.setAttribute("login", login);
-        Formulaire logs = new Formulaire();
-        logs.verification(request);
-        request.setAttribute("auth", logs);
         this.getServletContext().getRequestDispatcher("/WEB-INF/pageprincipale.jsp").forward(request, response);
     }
 
-    public static int getYearForWeek(GregorianCalendar cal) {
+   /* public static int getYearForWeek(GregorianCalendar cal) {
         int year = cal.get(Calendar.YEAR);
         int week = cal.get(Calendar.WEEK_OF_YEAR);
         int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
@@ -84,5 +93,6 @@ public class PagePrincipale extends HttpServlet {
         }
 
         return year;
-    }
+    } */
+    
 }

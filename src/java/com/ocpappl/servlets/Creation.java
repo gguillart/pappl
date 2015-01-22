@@ -71,8 +71,9 @@ public class Creation extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+      
 
-        switch (request.getParameter("type")) {
+       switch (request.getParameter("type")) {
             case "Cours":
                 this.getServletContext().getRequestDispatcher("/WEB-INF/creationCours.jsp").forward(request, response);
                 break;
@@ -94,13 +95,17 @@ public class Creation extends HttpServlet {
                 erreur(request, response);
                 break;
         }
-
+       
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+         
+
+    
+        
         switch (request.getParameter("type")) {
             case "Cours":
                 String Salle = "";

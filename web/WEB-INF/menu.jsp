@@ -1,5 +1,6 @@
 
 <p> Menu <br> </p>
+
 <ul>
     <li><a href="/Pappl/Authentification">S'authentifier</a></li>
     <li>Créer
@@ -22,5 +23,29 @@
 </ul>
 
 
+
+<%--<ul>
+    <form method="post" action="Authentification"> <input type="submit" value="S'authentifier" /> </form>
+
+    <li>Créer
+        <ul>
+            <form method="post" action="Creation?type=Option"> <input type="submit" value="Option" /> </form>
+            <form method="post" action="Creation?type=Matiere"> <input type="submit" value="Matière" /> </form>
+            <form method="post" action="Creation?type=Cours"> <input type="submit" value="Cours" /> </form>
+            <form method="post" action="Creation?type=Personne"> <input type="submit" value="Personne" /> </form>
+        </ul>
+    </li>
+    <li>Modifier ou Supprimer
+        <ul>
+            <form method="post" action="ModificationSuppression?type=Option"> <input type="submit" value="Option" /> </form>
+            <form method="post" action="ModificationSuppression?type=Matiere"> <input type="submit" value="Matière" /> </form>
+            <form method="post" action="ModificationSuppression?type=Cours"> <input type="submit" value="Cours" /> </form>
+            <form method="post" action="ModificationSuppression?type=Personne"> <input type="submit" value="Personne" /> </form>
+        </ul>
+    </li>
+     <form method="post" action="Exportation"> <input type="submit" value="Exporter" /> </form>
+</ul>
+
+--%>
 
 
