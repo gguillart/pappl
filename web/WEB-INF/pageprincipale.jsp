@@ -282,7 +282,7 @@
                 } else {
                     option.add(listeOption.get(0).get(0));
                 }
-                ArrayList<ArrayList> listeCours = new ArrayList();
+                ArrayList listeCours = new ArrayList();
                 int moisCorrect = calendar.get(calendar.MONTH) + 1;
 
                 String conditionJour = calendar.get(calendar.YEAR) + "-" + moisCorrect + "-" + calendar.get(calendar.DATE);
@@ -293,13 +293,15 @@
                 String conditionFin = conditionJour + " " + heureFin;
                 String d = "";
                 String f = "";
+                String coursLien = "";
                 for (int i = 0; i < 10; i++) {
                     moisCorrect = calendar.get(calendar.MONTH) + 1;
                     conditionJour = calendar.get(calendar.YEAR) + "-" + moisCorrect + "-" + calendar.get(calendar.DATE);
                     conditionDebut = conditionJour + " " + heureDebut;
                     conditionFin = conditionJour + " " + heureFin;
-                    ArrayList coursInfo = edt.selectionnerCours(conditionJour, conditionFin, conditionDebut, option);
+                    ArrayList<LinkedList> coursInfo = edt.selectionnerCours(conditionJour, conditionFin, conditionDebut, option);
                     ArrayList cours = new ArrayList();
+                    coursLien = "";
                     if (coursInfo.size() == 0) {
                         if (i % 2 == 0) {
                             d = "08:00:00";
@@ -308,13 +310,14 @@
                             d = "13:45:00";
                             f = "18:00:00";
                         }
-                        cours.add("<a href=\"/Pappl/Creation?type=Cours&Option=" + request.getParameter("option") + "&Debut=" + d + "&Fin=" + f
-                                + "&Jour=" + calendar.get(Calendar.DATE) + "&Mois=" + moisCorrect + "&Annee=" + calendar.get(Calendar.YEAR) + "\">Créer Cours</a>");
+                        coursLien = "<a href=\"/Pappl/Creation?type=Cours&Option=" + request.getParameter("option") + "&Debut=" + d + "&Fin=" + f
+                                + "&Jour=" + calendar.get(Calendar.DATE) + "&Mois=" + moisCorrect + "&Annee=" + calendar.get(Calendar.YEAR) + "\">Créer Cours</a>";
                     } else {
-                        String coursLien = "<a href=\"/Pappl/ModificationSuppression?type=Cours&id=" + coursInfo.get(0) + "\">" + coursInfo.get(1) + "</a>";
-                        cours.add(coursLien);
+                        for(int j=0;j<coursInfo.size();j++){
+                        coursLien = coursLien + "<a href=\"/Pappl/ModificationSuppression?type=Cours&id=" + coursInfo.get(j).get(0) + "\">" + coursInfo.get(j).get(1) + "</a><br>";
+                        }
                     }
-                    listeCours.add(cours);
+                    listeCours.add(coursLien);
                     if ((i % 2 == 1)) {
                         calendar.add(calendar.DATE, +1);
                         heureDebut = "13:45:00";
@@ -326,13 +329,13 @@
                 }
                 for (int i = 0; i < 5; i++) {
 
-                    out.println("<td>" + listeCours.get(2 * i).get(0) + "</td>");
+                    out.println("<td>" + listeCours.get(2 * i) + "</td>");
 
                 }
                 out.println("</tr><tr>");
                 out.println("<td>Après-midi</td>");
                 for (int i = 0; i < 5; i++) {
-                    out.println("<td>" + listeCours.get(2 * i + 1).get(0) + "</td>");
+                    out.println("<td>" + listeCours.get(2 * i + 1) + "</td>");
                 }
                 %>
 
