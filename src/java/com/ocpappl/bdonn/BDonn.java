@@ -702,7 +702,7 @@ public class BDonn {
         ResultSet rs = stmt.executeQuery(query);
 
         rs.next();
-        /*while (rs.getRow() != 0) {
+        while (rs.getRow() != 0) {
 
             
          liste.add(rs.getInt("Cours_id"));
@@ -721,8 +721,8 @@ public class BDonn {
          String info = debut + "-" + fin + " : " + matiere;
          liste.add(info);
          rs.next();
-         }*/
-        //TODO
+         }
+        /*
         while (rs.getRow() != 0) {
             liste.add(rs.getInt("Cours_id"));
             StringTokenizer debutT = new StringTokenizer(rs.getString("Cours_Date_Debut"));
@@ -736,7 +736,7 @@ public class BDonn {
             String info = debut + "-" + fin + " : " + matiere;
             liste.add(info);
             rs.next();
-        }
+        }*/
 
         stmt.close();
         deconnection(con);
