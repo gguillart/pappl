@@ -140,13 +140,13 @@ public class Creation extends HttpServlet {
                             }
 
                             if (listeOption.size() != 0) {
-                                if (request.getParameter("Jour") != null) {
+                                if (request.getParameter("Jour") != "") {
                                     int jour = parseInt(request.getParameter("Jour"));
 
-                                    if (request.getParameter("Annee") != null) {
+                                    if (request.getParameter("Annee") != "") {
                                         int annee = parseInt(request.getParameter("Annee"));
 
-                                        if (request.getParameter("Repeter") != null) {
+                                        if (request.getParameter("Repeter") != "") {
                                             int repeter = parseInt(request.getParameter("Repeter"));
                                             LinkedList listeDateCours = new LinkedList();
 
