@@ -46,7 +46,7 @@ public class DateSql {
         return sequenceJava;
     }
 
-    public LinkedList<String> conversionAnneeMoisJourHoraire() { // timestamp '2001-09-28 01:00:00' -> 2001 | 9 | 28 |  01:00:00
+    public LinkedList<String> conversionAnneeMoisJourHoraire() { // timestamp '2001-09-28 01:00:00' -> 2001 | 09 | 28 |  01:00:00
         LinkedList date = new LinkedList();
         StringTokenizer chaine = new StringTokenizer(sequence);
 
@@ -55,11 +55,14 @@ public class DateSql {
         StringTokenizer suite = new StringTokenizer(chaine.nextToken("-"));
         String jour = suite.nextToken();
         String horaire = suite.nextToken();
+        StringTokenizer suite2 = new StringTokenizer(horaire);  
+        String horaire2 = suite2.nextToken(":") + suite2.nextToken(":") + suite2.nextToken(":");
 
         date.add(annee);
         date.add(mois);
         date.add(jour);
         date.add(horaire);
+        date.add(horaire2);;
 
         return date;
     }
