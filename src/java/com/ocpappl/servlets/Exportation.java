@@ -22,6 +22,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -81,6 +82,8 @@ public class Exportation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+       
+             
         if ((request.getParameter("NombreSemaine") != "") && (request.getParameter("Semaine") != "") && (request.getParameter("Annee") != "")) {
             Calendar calendrier = Calendar.getInstance();
             calendrier.setWeekDate(parseInt(request.getParameter("Annee")), parseInt(request.getParameter("Semaine")), 2);

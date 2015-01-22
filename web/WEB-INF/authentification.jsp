@@ -20,7 +20,7 @@
     
       
         
-        <form method="post" action="PagePrincipale">
+        <form method="post" action="PagePrincipale?log=j">
             <label for="login">Login :  </label>
             <input type="text" name="login" id="login" /><br>
             <label for="mdp">Mot de passe : </label>
@@ -31,6 +31,6 @@
         
 
         <p> <a href="/Pappl/PagePrincipale">Retour à la page principale</a> </p>
-        <p> <a href="/Pappl/PagePrincipale">Mot de passe oublié</a> </p>
+        
     </body>
 </html>
