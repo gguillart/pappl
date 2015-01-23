@@ -276,9 +276,9 @@
 
                 out.println("<td>Matin</td>");
                 LinkedList option = new LinkedList();
-                if (request.getParameter("option") != null) {
+                if (request.getParameter("option") != null && listeOption.size()!=0) {
                     option.add(request.getParameter("option"));
-                } else {
+                } else if (listeOption.size()!=0) {
                     option.add(listeOption.get(0).get(0));
                 }
                 ArrayList listeCours = new ArrayList();
@@ -298,7 +298,9 @@
                     conditionJour = calendar.get(calendar.YEAR) + "-" + moisCorrect + "-" + calendar.get(calendar.DATE);
                     conditionDebut = conditionJour + " " + heureDebut;
                     conditionFin = conditionJour + " " + heureFin;
-                    ArrayList<LinkedList> coursInfo = edt.selectionnerCours(conditionJour, conditionFin, conditionDebut, option);
+                    ArrayList<LinkedList> coursInfo = new ArrayList();
+                 if (listeOption.size()!=0) {coursInfo = edt.selectionnerCours(conditionJour, conditionFin, conditionDebut, option);}
+                
                     ArrayList cours = new ArrayList();
                     coursLien = "";
                     if (coursInfo.size() == 0) {
