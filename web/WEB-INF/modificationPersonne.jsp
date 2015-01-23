@@ -54,8 +54,7 @@
 
                 out.println("</fieldset>"
                         + "<input type=\"submit\" value=\"Valider\"  />"
-                        + "<input type=\"reset\" value=\"Remettre à zéro\" />"
-                        + "<a href=\"/Pappl/Creation?type=Personne\">Creer un responsable d'option</a>");
+                        + "<input type=\"reset\" value=\"Remettre à zéro\" />");
 
             } else {
                 out.println("<h1> Erreur : objet incorrect, objet : " + objet + ".</h1>");

@@ -77,6 +77,7 @@
         %>
 
         <a href="/Pappl/PagePrincipale">Annuler</a>
+        <a href="/Pappl/Creation?type=Option">Creer une option</a>
     </form>
 </body>
 </html>
