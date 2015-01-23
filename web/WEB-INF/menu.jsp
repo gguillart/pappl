@@ -19,6 +19,7 @@
             <li><a href="/Pappl/ModificationSuppression?type=Personne">Personne</a></li>
         </ul>
     </li>
+    <li><a href="/Pappl/DupliquerAnnee">Copier les cours de l'année précédente</a></li>
     <li><a href="/Pappl/Exportation">Exporter</a></li>
 </ul>
 
