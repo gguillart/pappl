@@ -16,6 +16,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Date"%>
+<%@page import="com.ocpappl.formulaires.Utilisateur"%> 
 
 <%@page import="com.ocpappl.formulaires.Formulaire"%>
 <!DOCTYPE html>
@@ -38,14 +39,7 @@
             </tr>
         </table>--%>
 
-        <%
-                
-                out.println("Bonjour " +  request.getAttribute("login"));
-          
-        %>
-
-
-        <%@ include file="menu.jsp" %>
+       <%@ include file="menu.jsp" %>
 
 
 

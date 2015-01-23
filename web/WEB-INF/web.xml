@@ -24,9 +24,13 @@
         <servlet-name>ModificationSuppression</servlet-name>
         <servlet-class>com.ocpappl.servlets.ModificationSuppression</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Accueil</servlet-name>
+        <servlet-class>com.ocpappl.servlets.Accueil</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentification</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/Authentification</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Exportation</servlet-name>
@@ -48,5 +52,18 @@
         <servlet-name>ModificationSuppression</servlet-name>
         <url-pattern>/ModificationSuppression</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>Accueil</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
+        </jsp-property-group>
+    </jsp-config>
+    
+    <session-config>
+        <session-timeout>10</session-timeout>
+    </session-config>
 </web-app>
