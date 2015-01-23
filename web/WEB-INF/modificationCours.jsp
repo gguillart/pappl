@@ -18,7 +18,7 @@
         <%
             String objet = (String) request.getAttribute("objet");
             if ("supprimer".equals(objet)) {
-                out.println("<h1>Etes-vous sur de vouloir supprimer ce cours de " + request.getAttribute("prenom") + " du " + request.getAttribute("nom") + " ?<h1/><br/>");
+                out.println("<h1>Etes-vous sur de vouloir supprimer ce cours de " + request.getAttribute("matiere") + " du " + request.getAttribute("date") + " ?<h1/><br/>");
                 out.println("<form method=\"post\" action=\"ModificationSuppression?type=Cours&objet=supprimer&id=" + request.getAttribute("id") + "\">"
                         + "<input type=\"submit\" value=\"oui\"  />");
 
@@ -31,11 +31,11 @@
                         + "<legend>Informations sur le cours</legend>");
 
                 out.println("<label for=\"Salle\">Salle </label>"
-                        + "<input type=\"text\" id=\"Salle\" name=\"Salle\" value=\"" + liste.get(0) + "\" size=\"20\" maxlength=\"20\" /><br />"
+                        + "<input type=\"text\" id=\"Salle\" name=\"Salle\" value=\"" + liste.get(0) + "\" size=\"20\" maxlength=\"40\" /><br />"
                         + "<label for=\"Intervenant\">Intervenant </label>"
-                        + "<input type=\"text\" id=\"Intervenant\" name=\"Intervenant\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"20\" /><br />"
+                        + "<input type=\"text\" id=\"Intervenant\" name=\"Intervenant\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"40\" /><br />"
                         + "<label for=\"Commentaire\">Commentaire </label>"
-                        + "<input type=\"text\" id=\"Commentaire\" name=\"Commentaire\" value=\"" + liste.get(2) + "\" size=\"20\" maxlength=\"20\" /><br />");
+                        + "<input type=\"text\" id=\"Commentaire\" name=\"Commentaire\" value=\"" + liste.get(2) + "\" size=\"20\" maxlength=\"40\" /><br />");
 
                 out.println("<legend>Type de cours :</legend>");
 

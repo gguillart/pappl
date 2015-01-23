@@ -31,9 +31,9 @@
                         + "<legend>Informations sur la matière</legend>");
 
                 out.println("<label for=\"Matiere_Acronyme\">Acronyme <span class=\"requis\">*</span></label>"
-                        + "<input type=\"text\" id=\"Matiere_Acronyme\" name=\"Matiere_Acronyme\" value=\"" + liste.get(0) + "\" size=\"20\" maxlength=\"20\" /><br />"
+                        + "<input type=\"text\" id=\"Matiere_Acronyme\" name=\"Matiere_Acronyme\" value=\"" + liste.get(0) + "\" size=\"20\" maxlength=\"40\" /><br />"
                         + "<label for=\"Matiere_Nom\">Nom <span class=\"requis\">*</span></label>"
-                        + "<input type=\"text\" id=\"Matiere_Nom\" name=\"Matiere_Nom\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"20\" /><br />");
+                        + "<input type=\"text\" id=\"Matiere_Nom\" name=\"Matiere_Nom\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"40\" /><br />");
 
                 out.println("<legend>Quelles options sont concernées par la matière ?*</legend>");
 
@@ -67,7 +67,8 @@
 
                 out.println("</fieldset>"
                         + "<input type=\"submit\" value=\"Valider\"  />"
-                        + "<input type=\"reset\" value=\"Remettre à zéro\" />");
+                        + "<input type=\"reset\" value=\"Remettre à zéro\" />"
+                        + "<a href=\"/Pappl/Creation?type=Option\">Creer une option</a>");
 
             } else {
                 out.println("<h1> Erreur : objet incorrect, objet : " + objet + ".</h1>");
@@ -77,7 +78,6 @@
         %>
 
         <a href="/Pappl/PagePrincipale">Annuler</a>
-        <a href="/Pappl/Creation?type=Option">Creer une option</a>
     </form>
 </body>
 </html>

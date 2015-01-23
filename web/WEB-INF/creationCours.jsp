@@ -25,15 +25,15 @@
                     <legend>Informations sur le cours</legend>
 
                     <label for="Salle">Salle </label>
-                    <input type="text" id="Salle" name="Salle" value="" size="20" maxlength="20" />
+                    <input type="text" id="Salle" name="Salle" value="" size="20" maxlength="40" />
                     <br />
 
                     <label for="Intervenant">Intervenant </label>
-                    <input type="text" id="Intervenant" name="Intervenant" value="" size="20" maxlength="20" />
+                    <input type="text" id="Intervenant" name="Intervenant" value="" size="20" maxlength="40" />
                     <br />
 
                     <label for="Commentaire">Commentaire </label>
-                    <input type="text" id="Commentaire" name="Commentaire" value="" size="20" maxlength="20" />
+                    <input type="text" id="Commentaire" name="Commentaire" value="" size="20" maxlength="40" />
                     <br />
 
                     <legend>Type de cours :*</legend>

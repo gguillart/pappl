@@ -18,11 +18,11 @@
                     <legend>Informations sur la personne</legend>
 
                     <label for="Nom">Nom <span class="requis">*</span></label>
-                    <input type="text" id="Nom" name="Nom" value="" size="20" maxlength="20" />
+                    <input type="text" id="Nom" name="Nom" value="" size="20" maxlength="40" />
                     <br />
 
                     <label for="Prenom">Prénom <span class="requis">*</span></label>
-                    <input type="text" id="Prenom" name="Prenom" value="" size="20" maxlength="20" />
+                    <input type="text" id="Prenom" name="Prenom" value="" size="20" maxlength="40" />
                     <br />
 
 

@@ -22,11 +22,11 @@
                     <legend>Informations sur la matière</legend>
 
                     <label for="Matiere_Acronyme">Acronyme <span class="requis">*</span></label>
-                    <input type="text" id="Matiere_Acronyme" name="Matiere_Acronyme" value="" size="20" maxlength="20" />
+                    <input type="text" id="Matiere_Acronyme" name="Matiere_Acronyme" value="" size="20" maxlength="40" />
                     <br />
 
                     <label for="Matiere_Nom">Nom <span class="requis">*</span></label>
-                    <input type="text" id="Matiere_Nom" name="Matiere_Nom" value="" size="20" maxlength="20" />
+                    <input type="text" id="Matiere_Nom" name="Matiere_Nom" value="" size="20" maxlength="40" />
                     <br />
 
 

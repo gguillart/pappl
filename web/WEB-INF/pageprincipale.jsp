@@ -308,7 +308,7 @@
                                 + "&Jour=" + calendar.get(Calendar.DATE) + "&Mois=" + moisCorrect + "&Annee=" + calendar.get(Calendar.YEAR) + "\">Créer Cours</a>";
                     } else {
                         for(int j=0;j<coursInfo.size();j++){
-                        coursLien = coursLien + "<a href=\"/Pappl/ModificationSuppression?type=Cours&id=" + coursInfo.get(j).get(0) + "\">" + coursInfo.get(j).get(1) + "</a><br>";
+                        coursLien = coursLien + "<a href=\"/Pappl/ModificationSuppression?type=Cours&id=" + coursInfo.get(j).get(0) + "&nom=" + coursInfo.get(j).get(1) + "\">" + coursInfo.get(j).get(1) + "</a><br>";
                         }
                     }
                     listeCours.add(coursLien);
