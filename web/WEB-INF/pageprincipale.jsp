@@ -39,7 +39,7 @@
             </tr>
         </table>--%>
 
-       <%@ include file="menu.jsp" %>
+        <%@ include file="menu.jsp" %>
 
 
 
@@ -61,7 +61,7 @@
             <%  Date dateCourante = new java.util.Date();
                 GregorianCalendar calendar = new java.util.GregorianCalendar();
                 calendar.setTime(dateCourante);
-               // GregorianCalendar calendar2 = new java.util.GregorianCalendar();
+                // GregorianCalendar calendar2 = new java.util.GregorianCalendar();
                 //calendar2.setTime(dateCourante);
                 int numSemActu = calendar.get(Calendar.WEEK_OF_YEAR);
                 int AnneeActu = calendar.get(Calendar.YEAR);
@@ -225,21 +225,18 @@
 
             <tr><%
 
-               
                 if (request.getParameter("week") != null) {
                     out.println("<form method=\"get\" action=\"PagePrincipale\">"
                             + "<label>Semaine : </label>"
                             + "<select name=\"week\" id=\"week\">"
                             + "<option value=\"" + request.getParameter("week") + "\">" + request.getParameter("week") + "</option>");
-                }
-                        else {
-                                out.println("<form method=\"get\" action=\"PagePrincipale\">"
+                } else {
+                    out.println("<form method=\"get\" action=\"PagePrincipale\">"
                             + "<label>Semaine : </label>"
                             + "<select name=\"week\" id=\"week\">"
-                            + "<option value=\"" + calendar.get(Calendar.WEEK_OF_YEAR)   + "\">" + calendar.get(Calendar.WEEK_OF_YEAR) + "</option>");
-                                
-                            }
-                
+                            + "<option value=\"" + calendar.get(Calendar.WEEK_OF_YEAR) + "\">" + calendar.get(Calendar.WEEK_OF_YEAR) + "</option>");
+
+                }
 
                 for (int i = 1; i < 54; i++) {
                     out.println("<option value=\"" + i + "\">" + i + "</option>");
@@ -247,11 +244,14 @@
 
                 out.println("</select>");
                 out.println("<label>Année :</label>"
-                        + "<select name=\"year\" id=\"year\">"
-                        + "<option value=\"" + calendar.get(Calendar.YEAR) + "\">" + calendar.get(Calendar.YEAR) + "</option>");
+                        + "<select name=\"year\" id=\"year\">");
 
-                for (int i = 2014; i < 2020; i++) {
-                    out.println("<option value=\"" + i + "\">" + i + "</option>");
+                for (int i = 2014; i < 2030; i++) {
+                    if (calendar.get(Calendar.YEAR) == i) {
+                        out.println("<option value=\"" + i + "\" selected=\"\">" + i + "</option>");
+                    } else {
+                        out.println("<option value=\"" + i + "\">" + i + "</option>");
+                    }
                 }
 
                 out.println("</select>");
@@ -259,11 +259,16 @@
                 ArrayList<LinkedList> listeOption = edt.selectionner("Option");
                 out.println("<label>Option :</label>"
                         + "<select name=\"option\" id=\"option\">");
+                String optionSelectionnee = "0";
                 if (request.getParameter("option") != null) {
-                    out.println("<option value=\"" + request.getParameter("option") + "\">" + edt.selectionnerOption(request.getParameter("option")).get(0) + "</option>");
+                    optionSelectionnee = request.getParameter("option");
                 }
                 for (int i = 0; i < listeOption.size(); i++) {
-                    out.println("<option value=\"" + listeOption.get(i).get(0) + "\">" + listeOption.get(i).get(1) + "</option>");
+                    if (Integer.parseInt(optionSelectionnee) == (int) listeOption.get(i).get(0)) {
+                        out.println("<option value=\"" + listeOption.get(i).get(0) + "\" selected=\"\">" + listeOption.get(i).get(1) + "</option>");
+                    } else {
+                        out.println("<option value=\"" + listeOption.get(i).get(0) + "\">" + listeOption.get(i).get(1) + "</option>");
+                    }
                 }
                 out.println("</select>"
                         + "<input type=\"submit\" value=\"Valider\"  />"
@@ -307,8 +312,8 @@
                         coursLien = "<a href=\"/Pappl/Creation?type=Cours&Option=" + request.getParameter("option") + "&Debut=" + d + "&Fin=" + f
                                 + "&Jour=" + calendar.get(Calendar.DATE) + "&Mois=" + moisCorrect + "&Annee=" + calendar.get(Calendar.YEAR) + "\">Créer Cours</a>";
                     } else {
-                        for(int j=0;j<coursInfo.size();j++){
-                        coursLien = coursLien + "<a href=\"/Pappl/ModificationSuppression?type=Cours&id=" + coursInfo.get(j).get(0) + "&nom=" + coursInfo.get(j).get(1) + "\">" + coursInfo.get(j).get(1) + "</a><br>";
+                        for (int j = 0; j < coursInfo.size(); j++) {
+                            coursLien = coursLien + "<a href=\"/Pappl/ModificationSuppression?type=Cours&id=" + coursInfo.get(j).get(0) + "&nom=" + coursInfo.get(j).get(1) + "\">" + coursInfo.get(j).get(1) + "</a><br>";
                         }
                     }
                     listeCours.add(coursLien);
