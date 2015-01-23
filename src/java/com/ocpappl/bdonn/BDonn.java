@@ -804,7 +804,9 @@ public class BDonn {
      * @return listeDesCours(listeDesInformationsDUnCours)
      * @throws SQLException
      */
-    public ArrayList selectionnerCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
+    
+    //TODO
+    public ArrayList<LinkedList> selectionnerCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption) throws SQLException {
         Connection con = connection();
 
         String option = " (Option_id = " + listeOption.get(0);
@@ -827,9 +829,9 @@ public class BDonn {
 
         rs.next();
         while (rs.getRow() != 0) {
-
+        LinkedList sousListe = new LinkedList();
             
-         liste.add(rs.getInt("Cours_id"));
+         sousListe.add(rs.getInt("Cours_id"));
 
          DateSql debutSQL = new DateSql();
          debutSQL.setSequence(rs.getString("Cours_Date_Debut"));
@@ -843,7 +845,8 @@ public class BDonn {
             
          String matiere = rs.getString("Matiere_Acronyme");
          String info = debut + "-" + fin + " : " + matiere;
-         liste.add(info);
+         sousListe.add(info);
+         liste.add(sousListe);
          rs.next();
          }
 
@@ -1045,7 +1048,7 @@ public class BDonn {
      * @throws SQLException
      */
     public boolean testCours(String conditionJour, String conditionDebut, String conditionFin, LinkedList listeOption, String identifiant) throws SQLException {
-        ArrayList liste = new ArrayList();
+        ArrayList<LinkedList> liste = new ArrayList();
         int id = parseInt(identifiant);
         liste = selectionnerCours(conditionJour, conditionDebut, conditionFin, listeOption);
         boolean bool = true;
@@ -1053,7 +1056,7 @@ public class BDonn {
 
         if (liste.size() != 0) {
             for (int i = 0; i < liste.size(); i++) {
-                if ((int) liste.get(i) != id) {
+                if ((int) liste.get(i).get(0) != id) {
                     bool = false;
                 }
             }
