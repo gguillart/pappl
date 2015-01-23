@@ -41,6 +41,7 @@
                     <input type="radio" name="Type_De_Cours" value="TD">TD<br>
                     <input type="radio" name="Type_De_Cours" value="TP">TP<br>
                     <input type="radio" name="Type_De_Cours" value="Conf">Conf<br>
+                    <input type="radio" name="Type_De_Cours" value="DS">DS<br>
                     <br />
 
                     <label for="Enseignant">Qui est l'enseignant responsable de ce cours ?*</label><br>
