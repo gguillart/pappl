@@ -197,7 +197,7 @@ public class Creation extends HttpServlet {
                                                         if (count > repeter) {
                                                             i = repeter;
                                                             request.setAttribute("erreur", "arret forcé, " + count
-                                                                    + " cours ont été enregistré alors qu'il n'en fallait que " + repeter);
+                                                                    + " cours ont été enregistrés alors qu'il n'en fallait que " + repeter);
                                                             erreur(request, response);
                                                         }
 
@@ -212,11 +212,11 @@ public class Creation extends HttpServlet {
                                                 for (int i = 0; i < listeDateCours.size(); i++) {
                                                     dateCours = dateCours + "<br>" + listeDateCours.get(i);
                                                 }
-                                                request.setAttribute("confirmation", "Les cours ont bien été enregistré aux dates suivantes : " + dateCours);
+                                                request.setAttribute("confirmation", "Les cours ont bien été enregistrés aux dates suivantes : " + dateCours);
                                                 confirmation(request, response);
 
                                             } else {
-                                                request.setAttribute("erreur", "Tous les cours n'ont pas été enregistré, " + count + " cour(s) enregistrés");
+                                                request.setAttribute("erreur", "Tous les cours n'ont pas été enregistrés, " + count + " cour(s) enregistrés");
                                                 erreur(request, response);
                                             }
 
@@ -281,13 +281,13 @@ public class Creation extends HttpServlet {
                         String valeurs = "'" + Matiere_Acronyme + "','" + Matiere_Nom + "'";
                         try {
                             edt.creerMatiere(valeurs, listeOption);
-                            request.setAttribute("confirmation", "La matière a été enregistré");
+                            request.setAttribute("confirmation", "La matière a été enregistrée");
                             confirmation(request, response);
 
                         } catch (SQLException ex) {
                             Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        request.setAttribute("erreur", "La matière n'a pas pu être enregistré");
+                        request.setAttribute("erreur", "La matière n'a pas pu être enregistrée");
                         erreur(request, response);
 
                     } else {
@@ -311,12 +311,12 @@ public class Creation extends HttpServlet {
                         String valeurs = "'" + Option_Acronyme + "','" + Option_Nom + "'," + respo;
                         try {
                             edt.creerOption(valeurs);
-                            request.setAttribute("confirmation", "L'option a bien été enregistré");
+                            request.setAttribute("confirmation", "L'option a bien été enregistrée");
                             confirmation(request, response);
                         } catch (SQLException ex) {
                             Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        request.setAttribute("erreur", "L'option n'a pas pu être enregistré");
+                        request.setAttribute("erreur", "L'option n'a pas pu être enregistrée");
                         erreur(request, response);
 
                     } else {
@@ -344,12 +344,12 @@ public class Creation extends HttpServlet {
                     String valeurs = "'" + Nom + "','" + Prenom + "'";
                     try {
                         edt.creerPersonne(valeurs, liste);
-                        request.setAttribute("confirmation", "La personne a bien été enregistré");
+                        request.setAttribute("confirmation", "La personne a bien été enregistrée");
                         confirmation(request, response);
                     } catch (SQLException ex) {
                         Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    request.setAttribute("erreur", "La personne n'a pas pu être enregistré");
+                    request.setAttribute("erreur", "La personne n'a pas pu être enregistrée");
                     erreur(request, response);
 
                 } else {

@@ -81,7 +81,7 @@ public class ModificationSuppression extends HttpServlet {
                 out.println("<title>Que Modifier ?</title>");
                 out.println("</head>");
                 out.println("<body>");
-                out.println("<h1>Que voulez-vous modifier ?</h1>");
+                out.println("<h1>Que voulez-vous faire ?</h1>");
 
                 switch (request.getParameter("type")) {
                     case "Option":
@@ -113,8 +113,8 @@ public class ModificationSuppression extends HttpServlet {
 
                     case "Cours":
                         if (request.getParameter("id") != null) {
-                            out.println("<a href=\"/Pappl/ModificationSuppression?type=Cours&objet=modifier&id=" + request.getParameter("id") + "\"> Modifier </a>");
-                            out.println("<a href=\"/Pappl/ModificationSuppression?type=Cours&objet=supprimer&id=" + request.getParameter("id") + "\"> Supprimer </a><br/><br/>");
+                            out.println("<a href=\"/Pappl/ModificationSuppression?type=Cours&objet=modifier&id=" + request.getParameter("id") + "&nom=" + request.getParameter("nom") + "\"> Modifier </a>");
+                            out.println("<a href=\"/Pappl/ModificationSuppression?type=Cours&objet=supprimer&id=" + request.getParameter("id") + "&nom=" + request.getParameter("nom") + "\"> Supprimer </a><br/><br/>");
                         } else {
                             request.setAttribute("erreur", "id erroné");
                             erreur(request, response);
@@ -267,11 +267,11 @@ public class ModificationSuppression extends HttpServlet {
                                                     Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
                                                 }
                                                 if (count == 0) {
-                                                    request.setAttribute("erreur", "Les modifications n'ont pas été enregistré, le test de disponibilité du créneau horaire a échoué");
+                                                    request.setAttribute("erreur", "Les modifications n'ont pas été enregistrées, le test de disponibilité du créneau horaire a échoué");
                                                     erreur(request, response);
 
                                                 } else if (count == 1) {
-                                                    request.setAttribute("erreur", "Les modifications n'ont pas été enregistré, la modification a échoué");
+                                                    request.setAttribute("erreur", "Les modifications n'ont pas été enregistrées, la modification a échouée");
                                                     erreur(request, response);
 
                                                 }
@@ -311,12 +311,12 @@ public class ModificationSuppression extends HttpServlet {
 
                     try {
                         edt.supprimer(request.getParameter("type"), condition);
-                        request.setAttribute("confirmation", "La suppression du cours a bien été enregistré");
+                        request.setAttribute("confirmation", "La suppression du cours a bien été enregistrée");
                         confirmation(request, response);
                     } catch (SQLException ex) {
                         Logger.getLogger(ModificationSuppression.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    request.setAttribute("erreur", "La suppression du cours n'a pas été enregistré");
+                    request.setAttribute("erreur", "La suppression du cours n'a pas été enregistrée");
                     erreur(request, response);
 
                 } else {
@@ -337,12 +337,12 @@ public class ModificationSuppression extends HttpServlet {
                             String valeurs = "Option_Acronyme='" + Option_Acronyme + "', Option_Nom='" + Option_Nom + "', Responsable_id=" + respo;
                             try {
                                 edt.modifierOption(request.getParameter("id"), valeurs);
-                                request.setAttribute("confirmation", "L'option a bien été modifié");
+                                request.setAttribute("confirmation", "L'option a bien été modifiée");
                                 confirmation(request, response);
                             } catch (SQLException ex) {
                                 Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                            request.setAttribute("erreur", "L'option n'a pas pu être modifié");
+                            request.setAttribute("erreur", "L'option n'a pas pu être modifiée");
                             erreur(request, response);
 
                         } else {
@@ -360,12 +360,12 @@ public class ModificationSuppression extends HttpServlet {
 
                     try {
                         edt.supprimer(request.getParameter("type"), condition);
-                        request.setAttribute("confirmation", "La suppression de l'option a bien été enregistré");
+                        request.setAttribute("confirmation", "La suppression de l'option a bien été enregistrée");
                         confirmation(request, response);
                     } catch (SQLException ex) {
                         Logger.getLogger(ModificationSuppression.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    request.setAttribute("erreur", "La suppression de l'option n'a pas été enregistré");
+                    request.setAttribute("erreur", "La suppression de l'option n'a pas été enregistrée");
                     erreur(request, response);
 
                 } else {
@@ -398,13 +398,13 @@ public class ModificationSuppression extends HttpServlet {
                             String valeurs = "Matiere_Acronyme='" + Matiere_Acronyme + "', Matiere_Nom='" + Matiere_Nom + "'";
                             try {
                                 edt.modifierMatiere(request.getParameter("id"), valeurs, listeOption);
-                                request.setAttribute("confirmation", "La matière a été enregistré");
+                                request.setAttribute("confirmation", "La matière a été enregistrée");
                                 confirmation(request, response);
 
                             } catch (SQLException ex) {
                                 Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                            request.setAttribute("erreur", "La matière n'a pas pu être enregistré");
+                            request.setAttribute("erreur", "La matière n'a pas pu être enregistrée");
                             erreur(request, response);
 
                         } else {
@@ -422,12 +422,12 @@ public class ModificationSuppression extends HttpServlet {
 
                     try {
                         edt.supprimer(request.getParameter("type"), condition);
-                        request.setAttribute("confirmation", "La suppression de la matière a bien été enregistré");
+                        request.setAttribute("confirmation", "La suppression de la matière a bien été enregistrée");
                         confirmation(request, response);
                     } catch (SQLException ex) {
                         Logger.getLogger(ModificationSuppression.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    request.setAttribute("erreur", "La suppression de la matiere n'a pas été enregistré");
+                    request.setAttribute("erreur", "La suppression de la matiere n'a pas été enregistrée");
                     erreur(request, response);
 
                 } else {
@@ -451,12 +451,12 @@ public class ModificationSuppression extends HttpServlet {
                         String valeurs = "Nom='" + Nom + "', Prenom='" + Prenom + "'";
                         try {
                             edt.modifierPersonne(request.getParameter("id"), valeurs, liste);
-                            request.setAttribute("confirmation", "La modification de la personne a bien été enregistré");
+                            request.setAttribute("confirmation", "La modification de la personne a bien été enregistrée");
                             confirmation(request, response);
                         } catch (SQLException ex) {
                             Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        request.setAttribute("erreur", "La modification de la personne n'a pas pu être enregistré");
+                        request.setAttribute("erreur", "La modification de la personne n'a pas pu être enregistrée");
                         erreur(request, response);
 
                     } else {
@@ -468,12 +468,12 @@ public class ModificationSuppression extends HttpServlet {
 
                     try {
                         edt.supprimer(request.getParameter("type"), condition);
-                        request.setAttribute("confirmation", "La suppression de la personne a bien été enregistré");
+                        request.setAttribute("confirmation", "La suppression de la personne a bien été enregistrée");
                         confirmation(request, response);
                     } catch (SQLException ex) {
                         Logger.getLogger(ModificationSuppression.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    request.setAttribute("erreur", "La suppression de la personne n'a pas été enregistré");
+                    request.setAttribute("erreur", "La suppression de la personne n'a pas été enregistrée");
                     erreur(request, response);
 
                 } else {
