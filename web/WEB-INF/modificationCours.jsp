@@ -18,7 +18,7 @@
         <%
             String objet = (String) request.getAttribute("objet");
             if ("supprimer".equals(objet)) {
-                out.println("<h1>Etes-vous sur de vouloir supprimer ce cours de " + request.getAttribute("matiere") + " du " + request.getAttribute("date") + " ?<h1/><br/>");
+                out.println("<h1>Etes-vous sur de vouloir supprimer ce cours : " + request.getAttribute("nom") + " ?<h1/><br/>");
                 out.println("<form method=\"post\" action=\"ModificationSuppression?type=Cours&objet=supprimer&id=" + request.getAttribute("id") + "\">"
                         + "<input type=\"submit\" value=\"oui\"  />");
 

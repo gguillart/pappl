@@ -281,7 +281,7 @@
 
                 String conditionJour = calendar.get(calendar.YEAR) + "-" + moisCorrect + "-" + calendar.get(calendar.DATE);
 
-                String heureDebut = "13:45:00";
+                String heureDebut = "13:15:00";
                 String heureFin = "00:00:00";
                 String conditionDebut = conditionJour + " " + heureDebut;
                 String conditionFin = conditionJour + " " + heureFin;
