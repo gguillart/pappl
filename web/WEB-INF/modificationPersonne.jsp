@@ -30,9 +30,9 @@
                         + "<legend>Informations sur la personne</legend>");
 
                 out.println("<label for=\"Nom\">Nom <span class=\"requis\">*</span></label>"
-                        + "<input type=\"text\" id=\"Nom\" name=\"Nom\" value=\"" + liste.get(0) + "\" size=\"20\" maxlength=\"40\" /><br />"
+                        + "<input type=\"text\" id=\"Nom\" name=\"Nom\" value=\"" + liste.get(0) + "\" size=\"20\" maxlength=\"100\" /><br />"
                         + "<label for=\"Prenom\">Prénom <span class=\"requis\">*</span></label>"
-                        + "<input type=\"text\" id=\"Prenom\" name=\"Prenom\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"40\" /><br />");
+                        + "<input type=\"text\" id=\"Prenom\" name=\"Prenom\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"100\" /><br />");
 
                 out.println("<legend>Est-ce un...</legend>");
 

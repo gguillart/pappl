@@ -31,11 +31,11 @@
                         + "<legend>Informations sur le cours</legend>");
 
                 out.println("<label for=\"Salle\">Salle </label>"
-                        + "<input type=\"text\" id=\"Salle\" name=\"Salle\" value=\"" + liste.get(0) + "\" size=\"20\" maxlength=\"40\" /><br />"
+                        + "<input type=\"text\" id=\"Salle\" name=\"Salle\" value=\"" + liste.get(0) + "\" size=\"20\" maxlength=\"100\" /><br />"
                         + "<label for=\"Intervenant\">Intervenant </label>"
-                        + "<input type=\"text\" id=\"Intervenant\" name=\"Intervenant\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"40\" /><br />"
+                        + "<input type=\"text\" id=\"Intervenant\" name=\"Intervenant\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"100\" /><br />"
                         + "<label for=\"Commentaire\">Commentaire </label>"
-                        + "<input type=\"text\" id=\"Commentaire\" name=\"Commentaire\" value=\"" + liste.get(2) + "\" size=\"20\" maxlength=\"40\" /><br />");
+                        + "<input type=\"text\" id=\"Commentaire\" name=\"Commentaire\" value=\"" + liste.get(2) + "\" size=\"20\" maxlength=\"100\" /><br />");
 
                 out.println("<legend>Type de cours :</legend>");
 

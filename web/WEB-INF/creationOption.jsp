@@ -22,11 +22,11 @@
                     <legend>Informations sur l'option</legend>
 
                     <label for="Option_Acronyme">Acronyme <span class="requis">*</span></label>
-                    <input type="text" id="Option_Acronyme" name="Option_Acronyme" value="" size="20" maxlength="40" />
+                    <input type="text" id="Option_Acronyme" name="Option_Acronyme" value="" size="20" maxlength="100" />
                     <br />
 
                     <label for="Option_Nom">Nom <span class="requis">*</span></label>
-                    <input type="text" id="Option_Nom" name="Option_Nom" value="" size="20" maxlength="40" />
+                    <input type="text" id="Option_Nom" name="Option_Nom" value="" size="20" maxlength="100" />
                     <br />
 
 

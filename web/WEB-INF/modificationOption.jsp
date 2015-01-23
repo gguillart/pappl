@@ -32,9 +32,9 @@
                         + "<legend>Informations sur l'option</legend>");
 
                 out.println("<label for=\"Option_Acronyme\">Acronyme <span class=\"requis\">*</span></label>"
-                        + "<input type=\"text\" id=\"Option_Acronyme\" name=\"Option_Acronyme\" value=\"" + liste.get(0) + "\" size=\"20\" maxlength=\"40\" /><br />"
+                        + "<input type=\"text\" id=\"Option_Acronyme\" name=\"Option_Acronyme\" value=\"" + liste.get(0) + "\" size=\"20\" maxlength=\"100\" /><br />"
                         + "<label for=\"Option_Nom\">Nom <span class=\"requis\">*</span></label>"
-                        + "<input type=\"text\" id=\"Option_Nom\" name=\"Option_Nom\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"40\" /><br />");
+                        + "<input type=\"text\" id=\"Option_Nom\" name=\"Option_Nom\" value=\"" + liste.get(1) + "\" size=\"20\" maxlength=\"100\" /><br />");
 
                 out.println("<label for=\"Responsable_Option\">Qui est le responsable de cette option ?*</label><br>"
                         + "<select name=\"Responsable_Option\" id=\"Responsable_Option\">");
