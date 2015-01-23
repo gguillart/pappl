@@ -151,8 +151,8 @@
                                 }
                             }
                         %>
-                        
-                       
+
+
                         <option value="08:30:00">8h30</option>
                         <option value="09:00:00">9h00</option>
                         <option value="09:30:00">9h30</option>
@@ -180,7 +180,7 @@
                         <option value="19:00:00">19h00</option>
                         <option value="19:30:00">19h30</option>
                         <option value="20:00:00">20h00</option>
-                        
+
                     </select><br />
 
                     <label for="Jour">Le </label>
@@ -278,6 +278,10 @@
                 <input type="submit" value="Valider"  />
                 <input type="reset" value="Remettre à zéro" />
                 <a href="/Pappl/PagePrincipale">Annuler</a>
+                <a href="/Pappl/Creation?type=Personne">Creer un Enseignant</a>
+                <a href="/Pappl/Creation?type=Matiere">Creer une matière</a>
+                <a href="/Pappl/Creation?type=Option">Creer une option</a>
+
             </form>
         </div>
     </body>
