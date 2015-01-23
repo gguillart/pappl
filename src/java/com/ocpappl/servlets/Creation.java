@@ -204,8 +204,6 @@ public class Creation extends HttpServlet {
                                                     }
                                                 } catch (SQLException ex) {
                                                     Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
-                                                } catch (ParseException ex) {
-                                                    Logger.getLogger(Creation.class.getName()).log(Level.SEVERE, null, ex);
                                                 }
                                             }
 
