@@ -5,18 +5,20 @@
     <%--<li><a href="/Pappl/Authentification">S'authentifier</a></li>--%>
     <li>Créer
         <ul>
+            <li><a href="/Pappl/Creation?type=Personne">Personne</a></li>
             <li><a href="/Pappl/Creation?type=Option">Option</a></li>
             <li><a href="/Pappl/Creation?type=Matiere">Matière</a></li>
             <li><a href="/Pappl/Creation?type=Cours">Cours</a></li>
-            <li><a href="/Pappl/Creation?type=Personne">Personne</a></li>
+            
         </ul>
     </li>
     <li>Modifier ou Supprimer
         <ul>
+            <li><a href="/Pappl/ModificationSuppression?type=Personne">Personne</a></li>
             <li><a href="/Pappl/ModificationSuppression?type=Option">Option</a></li>
             <li><a href="/Pappl/ModificationSuppression?type=Matiere">Matière</a></li>
                 <%--<li><a href="/Pappl/ModificationSuppression?type=Cours">Cours</a></li>--%>
-            <li><a href="/Pappl/ModificationSuppression?type=Personne">Personne</a></li>
+            
         </ul>
     </li>
     <li><a href="/Pappl/DupliquerAnnee">Copier les cours d'une année</a></li>
