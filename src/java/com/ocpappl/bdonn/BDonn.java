@@ -844,7 +844,8 @@ public class BDonn {
 
             
          String matiere = rs.getString("Matiere_Acronyme");
-         String info = debut + "-" + fin + " : " + matiere;
+         String typeDeCours = rs.getString("Type_De_Cours_Nom");
+         String info = debut + "-" + fin + " : " + typeDeCours + " " + matiere;
          sousListe.add(info);
          liste.add(sousListe);
          rs.next();
