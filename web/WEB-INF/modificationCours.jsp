@@ -46,6 +46,7 @@
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TD\">TD<br>");
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TP\">TP<br>");
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"Conf\">Conf<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"DS\">DS<br>");
                         break;
 
                     case "TD":
@@ -53,6 +54,7 @@
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TD\" checked=\"\">TD<br>");
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TP\">TP<br>");
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"Conf\">Conf<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"DS\">DS<br>");
                         break;
 
                     case "TP":
@@ -60,6 +62,7 @@
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TD\">TD<br>");
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TP\" checked=\"\">TP<br>");
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"Conf\">Conf<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"DS\">DS<br>");
 
                         break;
 
@@ -68,6 +71,15 @@
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TD\">TD<br>");
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TP\">TP<br>");
                         out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"Conf\" checked=\"\">Conf<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"DS\">DS<br>");
+                        break;
+
+                    case "DS":
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"CM\">CM<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TD\">TD<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"TP\">TP<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"Conf\">Conf<br>");
+                        out.println("<input type=\"radio\" name=\"Type_De_Cours\" value=\"DS\" checked=\"\">DS<br>");
                         break;
                 }
 
@@ -77,7 +89,7 @@
                 ArrayList<LinkedList> respo = new ArrayList();
                 out.println("<option value=\"" + liste.get(4) + "\">"
                         + liste.get(5) + " " + liste.get(6) + "</option>");
-                
+
                 respo = edt.selectionner("Enseignant");
                 for (int i = 0; i < respo.size(); i++) {
                     if (respo.get(i).get(0) != liste.get(4)) {
@@ -85,11 +97,11 @@
                                 + respo.get(i).get(2) + " " + respo.get(i).get(1) + "</option>");
                     }
                 }
-                
+
                 out.println("</select><br>");
 
                 out.println("<br /><label for=\"Matiere\">Quelle est la matiere de ce cours ?*</label><br>"
-                + "<select name=\"Matiere\" id=\"Matiere\">");
+                        + "<select name=\"Matiere\" id=\"Matiere\">");
 
                 ArrayList<LinkedList> matiere = new ArrayList();
                 out.println("<option value=\"" + liste.get(7) + "\">"
@@ -102,7 +114,7 @@
                                 + matiere.get(i).get(1) + "</option>");
                     }
                 }
-                
+
                 out.println("</select><br>");
 
                 out.println("<br /><legend>Quelles options sont concernées ?</legend>");
@@ -166,12 +178,8 @@
                         + "<option value=\"18:30:00\">18h30</option>"
                         + "<option value=\"19:00:00\">19h00</option>"
                         + "<option value=\"19:30:00\">19h30</option>"
-                
                         + "</select><br />");
-                
-                
-                
-                
+
                 out.println("<label for=\"Fin\">à :</label>"
                         + "<select name=\"Fin\" id=\"Fin\">"
                         + "<option value=\"" + liste.get(14) + "\">" + liste.get(17) + "</option>"
@@ -202,31 +210,7 @@
                         + "<option value=\"19:00:00\">19h00</option>"
                         + "<option value=\"19:30:00\">19h30</option>"
                         + "<option value=\"20:00:00\">19h30</option>"
-                
                         + "</select><br />");
-                
-                
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
 
                 out.println("<label for=\"Jour\">Le </label>"
                         + "<input type=\"number\" name=\"Jour\" id=\"Jour\" min=\"1\" max=\"31\" value=\"" + liste.get(12) + "\">");
