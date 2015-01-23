@@ -321,7 +321,7 @@
                     listeCours.add(coursLien);
                     if ((i % 2 == 1)) {
                         calendar.add(calendar.DATE, +1);
-                        heureDebut = "13:45:00";
+                        heureDebut = "13:15:00";
                         heureFin = "00:00:00";
                     } else {
                         heureDebut = "23:59:59";
