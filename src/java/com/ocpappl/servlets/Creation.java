@@ -197,7 +197,7 @@ public class Creation extends HttpServlet {
                                                         if (count > repeter) {
                                                             i = repeter;
                                                             request.setAttribute("erreur", "arret forcé, " + count
-                                                                    + " cours ont été enregistrés alors qu'il n'en fallait que " + repeter);
+                                                                    + " cours ont été enregistrée alors qu'il n'en fallait que " + repeter);
                                                             erreur(request, response);
                                                         }
 

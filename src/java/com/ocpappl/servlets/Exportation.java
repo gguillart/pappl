@@ -36,7 +36,6 @@ public class Exportation extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -55,7 +54,6 @@ public class Exportation extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -82,8 +80,6 @@ public class Exportation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-       
-             
         if ((request.getParameter("NombreSemaine") != "") && (request.getParameter("Semaine") != "") && (request.getParameter("Annee") != "")) {
             Calendar calendrier = Calendar.getInstance();
             calendrier.setWeekDate(parseInt(request.getParameter("Annee")), parseInt(request.getParameter("Semaine")), 2);
@@ -196,78 +192,54 @@ public class Exportation extends HttpServlet {
 
                             break;
                         case "ICS":
-                            /*String fileNameIcs = path + pathSuite + "EDT_de_l'option_" + listeCours.get(0).get(9) + "_semaine_"
+                            String fileNameIcs = path + pathSuite + "EDT_de_l'option_" + listeCours.get(0).get(9) + "_semaine_"
                                     + request.getParameter("Semaine") + "_annee_" + request.getParameter("Annee") + ".ics";
-                            BufferedWriter bufferIcs = new BufferedWriter(new FileWriter(fileNameIcs));*/
-                            /*bufferIcs.write("BEGIN:VCALENDAR");
-                             bufferIcs.newLine();
-                             bufferIcs.write("X-WR-CALNAME:" + "Emploi du temps de l'option " + listeCours.get(0).get(9)
-                             + " de la semaine " + request.getParameter("Semaine") + " de l'année " + request.getParameter("Annee")
-                             + " à la semaine " + calendrier.get(Calendar.WEEK_OF_YEAR) + " de l'année " + calendrier.get(Calendar.YEAR));
-                             bufferIcs.newLine();
-                             bufferIcs.write("X-WR-CALID:65718637aae7");
-                             bufferIcs.write("PRODID:EDT");
-                             bufferIcs.newLine();
-                             bufferIcs.write("VERSION:2.0");
-                             bufferIcs.newLine();
-                             bufferIcs.write("METHODE:PUBLISH");
-                             bufferIcs.newLine();
-                             bufferIcs.write("CALSCALE:GREGORIAN");
-                             bufferIcs.newLine();
-                             bufferIcs.write("X-WR-TIMEZONE:Europe/Paris");
-                             bufferIcs.newLine();*/
+                            BufferedWriter bufferIcs = new BufferedWriter(new FileWriter(fileNameIcs));
 
-                            /*bufferIcs.write("BEGIN:VCALENDAR\n"
-                                    + "CALSCALE:GREGORIAN\n"
-                                    + "PRODID:-//PAPPL\n"
-                                    + "VERSION:2.0\n"
-                                    + "X-WR-CALNAME:EDT\n"
-                                    + "BEGIN:VTIMEZONE\n"
-                                    + "TZID:Europe/Paris\n"
-                                    + "BEGIN:DAYLIGHT\n"
-                                    + "DTSTART:20000404T020000\n"
-                                    + "RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=3\n"
-                                    + "TZNAME:CET\n"
-                                    + "TZOFFSETFROM:+0100\n"
-                                    + "TZOFFSETTO:+0200\n"
-                                    + "END:DAYLIGHT\n"
-                                    + "BEGIN:STANDARD\n"
-                                    + "DTSTART:20001026T020000\n"
-                                    + "RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10\n"
-                                    + "TZNAME:CET\n"
-                                    + "TZOFFSETFROM:+0200\n"
-                                    + "TZOFFSETTO:+0100\n"
-                                    + "END:STANDARD\n"
-                                    + "END:VTIMEZONE\n");*/
+                            bufferIcs.write("BEGIN:VCALENDAR");
+                            bufferIcs.newLine();
+                            bufferIcs.write("VERSION:2.0");
+                            bufferIcs.newLine();
+                            bufferIcs.write("PRODID:-//PAPPL//EN");
+                            bufferIcs.newLine();
+                            bufferIcs.write("CALSCALE:GREGORIAN");
+                            bufferIcs.newLine();
+                            bufferIcs.write("METHOD:PUBLISH");
+                            bufferIcs.newLine();
+                            bufferIcs.write("BEGIN:VTIMEZONE");
+                            bufferIcs.newLine();
+                            bufferIcs.write("TZID:Bruxelles\\, Copenhague\\, Madrid\\, Paris");
+                            bufferIcs.newLine();
+                            bufferIcs.write("BEGIN:STANDARD");
+                            bufferIcs.newLine();
+                            bufferIcs.write("DTSTART:20001029T030000");
+                            bufferIcs.newLine();
+                            bufferIcs.write("RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10");
+                            bufferIcs.newLine();
+                            bufferIcs.write("TZNAME:Paris\\, Madrid");
+                            bufferIcs.newLine();
+                            bufferIcs.write("TZOFFSETFROM:+0200");
+                            bufferIcs.newLine();
+                            bufferIcs.write("TZOFFSETTO:+0100");
+                            bufferIcs.newLine();
+                            bufferIcs.write("END:STANDARD");
+                            bufferIcs.newLine();
+                            bufferIcs.write("BEGIN:DAYLIGHT");
+                            bufferIcs.newLine();
+                            bufferIcs.write("DTSTART:20000326T020000");
+                            bufferIcs.newLine();
+                            bufferIcs.write("RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=3");
+                            bufferIcs.newLine();
+                            bufferIcs.write("TZNAME:Paris\\, Madrid (heure d’été)");
+                            bufferIcs.newLine();
+                            bufferIcs.write("TZOFFSETTO:+0200");
+                            bufferIcs.newLine();
+                            bufferIcs.write("END:DAYLIGHT");
+                            bufferIcs.newLine();
+                            bufferIcs.write("END:VTIMEZONE");
+                            bufferIcs.newLine();
 
-                            /*
-                             bufferIcs.write("BEGIN:STANDARD");
-                             bufferIcs.newLine();
-                             bufferIcs.write("DTSTART:16010101T030000");
-                             bufferIcs.newLine();
-                             bufferIcs.write("TZOFFSETTO:+0200");
-                             bufferIcs.newLine();
-                             bufferIcs.write("TZOFFSETFROM:+0100");
-                             bufferIcs.newLine();
-                             bufferIcs.write("BEGIN:VTIMEZONE");
-                             bufferIcs.newLine();
-                             bufferIcs.write("TZID:Europe/Paris");
-                             bufferIcs.newLine();
-                             bufferIcs.write("BEGIN:STANDARD");
-                             bufferIcs.newLine();
-                             bufferIcs.write("DTSTART:16010101T030000");
-                             bufferIcs.newLine();
-                             bufferIcs.write("TZOFFSETTO:+0200");
-                             bufferIcs.newLine();
-                             bufferIcs.write("TZOFFSETFROM:+0100");
-                             bufferIcs.newLine();
-                             bufferIcs.write("RRULE:FREQ=YEARLY;WKST=MO;INTERVAL=1;BYMONTH=10;BYDAY=-1SU");
-                             bufferIcs.newLine();
-                             bufferIcs.write("TZNAME:CET");
-                             bufferIcs.newLine();
-                             bufferIcs.write("END:STANDARD");
-                             bufferIcs.newLine();*/
-                            /*String start = "";
+                            String start = "";
                             String end = "";
                             DateSql date = new DateSql();
                             LinkedList<String> detail = new LinkedList();
@@ -278,39 +250,36 @@ public class Exportation extends HttpServlet {
                                 date.setSequence((String) listeCours.get(i).get(5));
                                 detail = date.conversionAnneeMoisJourHoraire();
                                 end = detail.get(0) + detail.get(1) + detail.get(2) + "T" + detail.get(4);
-                                bufferIcs.write("BEGIN:VEVENT);
+                                bufferIcs.write("BEGIN:VEVENT");
                                 bufferIcs.newLine();
+                                bufferIcs.write("DTSTART;TZID=\"Bruxelles, Copenhague, Madrid, Paris\":" + start);//début
                                 bufferIcs.newLine();
-                                bufferIcs.write("DTSTART;TZID=\"Europe/Paris\":" + start);//début
-                                bufferIcs.newLine();
-                                bufferIcs.write("DTEND;TZID=\"Europe/Paris\":" + end);//fin
+                                bufferIcs.write("DTEND;TZID=\"Bruxelles, Copenhague, Madrid, Paris\":" + end);//fin
                                 bufferIcs.newLine();
                                 bufferIcs.write("SUMMARY:" + listeCours.get(i).get(1));//matiere
-                                bufferIcs.newLine();*/
-                                /*bufferIcs.write("CATEGORIES:" + listeCours.get(i).get(0));//type de cours
                                 bufferIcs.newLine();
-                                bufferIcs.write("DESCRIPTION:" + listeCours.get(i).get(2) + listeCours.get(i).get(3));//enseignant
-                                bufferIcs.newLine();*/
-                                /*if (!("".equals(listeCours.get(i).get(6)))) {
+                                bufferIcs.write("CATEGORIES:" + listeCours.get(i).get(0));//type de cours
+                                bufferIcs.newLine();
+                                bufferIcs.write("DESCRIPTION: enseignant : " + listeCours.get(i).get(2) + listeCours.get(i).get(3));//enseignant
+                                if (!("".equals(listeCours.get(i).get(7)))) {
+                                    bufferIcs.write(", intervenant : " + listeCours.get(i).get(7));//intervenant
+                                }
+                                if (!("".equals(listeCours.get(i).get(8)))) {
+                                    bufferIcs.write(", " + listeCours.get(i).get(8));//commentaire
+                                }
+                                bufferIcs.newLine();
+                                if (!("".equals(listeCours.get(i).get(6)))) {
                                     bufferIcs.write("LOCATION:" + listeCours.get(i).get(6));//salle
                                     bufferIcs.newLine();
                                 }
-                                if (!("".equals(listeCours.get(i).get(7)))) {
-                                    bufferIcs.write("DESCRIPTION:" + listeCours.get(i).get(7));//intervenant
-                                    bufferIcs.newLine();
-                                }
-                                if (!("".equals(listeCours.get(i).get(8)))) {
-                                    bufferIcs.write("DESCRIPTION:" + listeCours.get(i).get(8));//commentaire
-                                    bufferIcs.newLine();
-                                }*/
-                                /*bufferIcs.write("END:VENVENT");
+                                bufferIcs.write("END:VEVENT");
                                 bufferIcs.newLine();
                             }
-                            
+
                             bufferIcs.write("END:VCALENDAR");
-                            bufferIcs.close();*/
-                            request.setAttribute("erreur", "Format Ics non-implémenté");
-                            erreur(request, response);
+                            bufferIcs.close();
+                            request.setAttribute("confirmation", "Les cours ont bien été enregistré dans : " + fileNameIcs);
+                            confirmation(request, response);
                             break;
                         default:
                             request.setAttribute("erreur", "Format Incorrect");

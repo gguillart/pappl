@@ -49,7 +49,7 @@
                     
                     
                     <label for="Path"><%out.println(System.getProperty("user.home"));%> : </label>
-                    <input type="Path" id="Path" name="Path" value="\Desktop" size="20" maxlength="200" />
+                    <input type="text" id="Path" name="Path" value="\Desktop" size="20" maxlength="200" />
                     <br />
 
                 </fieldset>
